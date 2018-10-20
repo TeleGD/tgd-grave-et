@@ -24,7 +24,7 @@ public class Player {
 	private boolean leftPress, rightPress, downPress, qPress, dPress, sPress, zPress, spacePress ;
 	private Image image;
 	private Ellipse shape;
-	private float width = 1000;
+	private float width = 50;
 	private float height = 50;
 	private float widthRelation;
 	private float heightRelation;
