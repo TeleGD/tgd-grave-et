@@ -35,17 +35,12 @@ public class Player {
 		return m_posY;
 	}
 	
-	public int getHeight() {
-		return m_height;
-	}
-	
-	public int getWidth() {
-		return m_width;
+	public int getRadius() {
+		return m_radius;
 	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
-		context.setColor(color);
-		context.fillOval(posX, posY, radius, radius);
+		context.setColor(m_color);
+		context.fillOval(m_posX, m_posY, m_radius, m_radius);
 	}
-
 }
