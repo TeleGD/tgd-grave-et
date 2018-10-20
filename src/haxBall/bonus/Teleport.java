@@ -36,7 +36,6 @@ public class Teleport extends Bonus {
 		
 		int posX = (int)(Math.random()*field.getWidth()/6);
 		int posY = (int)(Math.random()*field.getHeight()/2) + field.getPosY() + field.getHeight()/4;
-		System.out.println("test");
 		if(p.getID() == 1) {
 			posX += field.getPosX() + field.getWidth()/6;
 			
