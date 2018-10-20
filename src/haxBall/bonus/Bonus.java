@@ -17,7 +17,7 @@ public abstract class Bonus {
 		this.posX = posX;
 		this.posY = posY;
 		this.color = color;
-		this.diam = (int) (0.02*fieldWidth); //magic numbers j'emmerde tout le monde
+		this.diam = (int) (0.02*fieldWidth);
 	}
 	
 	public void setColor(Color c) {
