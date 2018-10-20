@@ -1,7 +1,9 @@
 package haxBall.bonus;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import haxBall.Field;
@@ -12,12 +14,22 @@ public class Flash extends Bonus {
 	private Color fieldColor;
 	private Field field;
 	private int timer;
+	private Sound sound;
+
+	
 	
 	public Flash(int posX, int posY, double fieldWidth, Field field) {
 		super(posX, posY, new Color(255,255,255), fieldWidth);
 		this.field = field;
 		this.fieldColor = field.getColor();
-		this.timer = 6*1000;
+		this.timer = 7*1000;
+ 
+		try {
+			this.sound = new Sound("res/sound/flash.ogg");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+ 
 		
 		activated = false;
 		deleted = false;
@@ -45,6 +57,7 @@ public class Flash extends Bonus {
 
 	public void activate() {
 		activated = true;
+		sound.play(1, (float) 0.4);
 	}
 
 	public boolean isDeleted() {

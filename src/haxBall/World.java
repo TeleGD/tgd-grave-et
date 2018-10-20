@@ -65,8 +65,19 @@ public class World extends BasicGameState {
 			this.setState (1);
 			game.enterState (2, new FadeOutTransition (), new FadeInTransition ());
 		}
+		field.update(container, game, delta);
 	}
 
+	@Override 
+	public void keyPressed(int key, char c) {
+		field.keyPressed(key,c);
+	}
+	
+	@Override
+	public void keyReleased(int key, char c) {
+		field.keyReleased(key,c);
+	}
+	
 	@Override
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */

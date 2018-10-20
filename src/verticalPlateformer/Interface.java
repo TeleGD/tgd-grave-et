@@ -14,10 +14,9 @@ public class Interface {
 	}
 	public void render(GameContainer container, StateBasedGame game, Graphics g) {
 		// Affichage du score
-		g.setColor(Color.red);
+		g.setColor(Color.white);
 		for ( Player p : this.player) {
 			g.drawString(""+p.getScore(), 399, 10);
 		}
 	}
-	
 }
