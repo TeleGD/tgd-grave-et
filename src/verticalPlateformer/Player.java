@@ -11,6 +11,7 @@ public class Player {
 	private double posY;
 	
 	public Player() {
+		this.score = 0;
 		
 	}
 
