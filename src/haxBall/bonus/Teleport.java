@@ -2,6 +2,7 @@ package haxBall.bonus;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -13,6 +14,7 @@ public class Teleport extends Bonus {
 	private boolean activated, deleted;
 	private Ball ball;
 	private Field field;
+	private Sound sound;
 
 	public Teleport(int posX, int posY, double fieldWidth, Ball ball, Field field) {
 		super(posX, posY, new Color(200,100,100), fieldWidth);
@@ -21,6 +23,11 @@ public class Teleport extends Bonus {
 		this.ball = ball;		
 		activated = false;
 		deleted = false;
+		try {
+			this.sound = new Sound("res/sound/teleportation.ogg");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void update(GameContainer container, StateBasedGame game, int delta) {
@@ -47,6 +54,7 @@ public class Teleport extends Bonus {
 		ball.setPosY(posY);
 		
 		deleted = true;
+		sound.play(1, (float) 0.4);
 	}
 
 	public boolean isDeleted() {
