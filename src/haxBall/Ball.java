@@ -15,11 +15,12 @@ public class Ball {
 	private int vity;
 	private int rad;
 	private Color color;
+	private boolean contact;
 	
 	public Ball(int haut,int larg,int origx,int origy){
 		
-		posx=origx+larg/2;
-		posy=origy+haut/2;
+		posx=origx+larg/2-rad/2;
+		posy=origy+haut/2-rad/2;
 		vitx=0;
 		vity=0;
 		rad=haut/30;
@@ -35,5 +36,6 @@ public class Ball {
 		context.setColor(color);
 		context.fillOval(posx,posy,rad,rad);
 	}
+	
 }
 

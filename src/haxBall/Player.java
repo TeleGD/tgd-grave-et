@@ -19,7 +19,7 @@ public class Player {
 	public Player(int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id) {
 		m_id = id;
 		m_radius = fieldHeight/15;
-		m_posY = (fieldHeight/2) + fieldOriginY;
+		m_posY = (fieldHeight/2) + fieldOriginY - (m_radius/2);
 		
 		if(m_id == 0) {
 			m_posX = ((fieldWidth)/4) + fieldOriginX;
@@ -47,16 +47,6 @@ public class Player {
 		context.setColor(m_color);
 		context.fillOval(m_posX, m_posY, m_radius, m_radius);
 	}
-	
-	public void update(GameContainer container, StateBasedGame game, int delta) {
-		//horizontalMove();
-		//verticalMove();
-		m_posX += m_speedX * delta;
-		m_posX += m_speedY * delta;
-		m_newX = m_posX + m_speedX;
-		m_newY = m_posY + m_speedY;
-	}
-	
 	
 	
 }
