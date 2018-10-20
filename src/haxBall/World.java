@@ -91,5 +91,13 @@ public class World extends BasicGameState {
 	public int getState () {
 		return this.state;
 	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
 
 }
