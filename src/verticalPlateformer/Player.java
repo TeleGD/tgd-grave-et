@@ -25,10 +25,11 @@ public class Player {
 	private int dirX, dirY;
 	private Image image;
 	private Ellipse shape;
-	private float width = 1000;
+	private float width = 50;
 	private float height = 50;
 	private float widthRelation;
 	private float heightRelation;
+	private String name;
 	
 	public Player() {
 		try {
@@ -38,10 +39,29 @@ public class Player {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		this.name = "Amos";
 		this.score = 0;
 		this.shape = new Ellipse(gravityPoint, gravityPoint, gravityPoint, gravityPoint);
 		posX=0;
 		posY=0;
+	}
+	public Player(String n) {
+		try {
+			image = new Image("images/verticalPlateformer/monstre.png");
+			widthRelation = width/image.getWidth();
+			heightRelation = height/image.getHeight();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		this.name = n;
+		this.score = 0;
+		this.shape = new Ellipse(gravityPoint, gravityPoint, gravityPoint, gravityPoint);
+		posX=0;
+		posY=0;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public void update(GameContainer container, StateBasedGame game, int delta) {
