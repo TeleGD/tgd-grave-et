@@ -1,5 +1,7 @@
 package app.ui;
 
+import java.awt.FontFormatException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
@@ -8,7 +10,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
 
 import app.AppLoader;
 
@@ -74,12 +78,28 @@ public class TextField extends TGDComponent{
 		setPlaceHolder("Entrez votre texte...");
 		setPlaceHolderTextSize(15);
 		setPlaceHolderColor(new Color(140, 140, 140));
-		setPlaceHolderFont(AppLoader.loadFont("/fonts/vt323.ttf", java.awt.Font.PLAIN, placeHolderTextSize));
+		try {
+			setPlaceHolderFont(new TrueTypeFont (java.awt.Font.createFont (java.awt.Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("fonts/vt323.ttf")).deriveFont (java.awt.Font.BOLD, textSize), true));
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		setText("");
 		setTextSize(15);
 		setTextColor(new Color(255, 255, 255));
-		setTextFont(AppLoader.loadFont("/fonts/vt323.ttf", java.awt.Font.BOLD, textSize));
+		try {
+			setTextFont(new TrueTypeFont (java.awt.Font.createFont (java.awt.Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("fonts/vt323.ttf")).deriveFont (java.awt.Font.BOLD, textSize), true));
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		setPaddingLeft(10);
 		setPaddingRight(10);
