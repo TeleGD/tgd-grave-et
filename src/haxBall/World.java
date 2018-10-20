@@ -1,4 +1,4 @@
-package haxBall;
+﻿package haxBall;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -95,6 +95,4 @@ public class World extends BasicGameState {
 	public int getState () {
 		return this.state;
 	}
-	
-
 }
