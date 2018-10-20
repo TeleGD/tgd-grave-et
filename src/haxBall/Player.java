@@ -30,7 +30,6 @@ public class Player {
 		m_radius = fieldHeight/15;
 		m_posY = (fieldHeight/2) + fieldOriginY - (m_radius/2);
 		m_speed = (float) 0.3;
-		System.out.println("vitesse : "+m_speed);
 		
 		if(m_id == 0) {
 			m_posX = ((fieldWidth)/4) + fieldOriginX;
@@ -61,7 +60,6 @@ public class Player {
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		move(delta);
-		System.out.println(up);
 	}
 	
 	public void keyPressed(int key, char c) {
