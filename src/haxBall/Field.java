@@ -40,8 +40,11 @@ public class Field {
 		return color;
 	}
 	
-	public void update (GameContainer container, StateBasedGame game, int delta, boolean b) {
+	public void update (GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
+		player0.update(container, game, delta);
+		player1.update(container, game, delta);
+		ball.update(container, game, delta);
 	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
@@ -51,5 +54,15 @@ public class Field {
 		player0.render(container, game, context);
 		player1.render(container, game, context);
 		ball.render(container, game, context);
+	}
+	
+	public void keyPressed(int key, char c) {
+		player0.keyPressed(key,c);
+		player1.keyPressed(key,c);
+	}
+	
+	public void keyReleased(int key, char c) {
+		player0.keyReleased(key,c);
+		player1.keyReleased(key,c);
 	}
 }
