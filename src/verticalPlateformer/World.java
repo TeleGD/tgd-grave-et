@@ -1,8 +1,11 @@
 package verticalPlateformer;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -15,7 +18,8 @@ public class World extends BasicGameState {
 
 	private int width;
 	private int height;
-
+	private Player player = new Player();
+	
 	public World (int ID) {
 		this.ID = ID;
 		this.state = -1;
@@ -66,6 +70,7 @@ public class World extends BasicGameState {
 	@Override
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
+		player.render(container, game, context);
 	}
 
 	public void play (GameContainer container, StateBasedGame game) {
