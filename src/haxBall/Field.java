@@ -25,6 +25,8 @@ public class Field {
 		this.pos_y = (int)(0.15 * world_height);
 		this.color = new Color(102, 148, 68);
 		
+		
+		
 		// creation des joueurs ...
 		player0 = new Player(this.height,this.width,this.pos_x , this.pos_y, 0);
 		player1 = new Player(this.height,this.width,this.pos_x , this.pos_y, 1);
@@ -38,6 +40,22 @@ public class Field {
 	
 	public Color getColor() {
 		return color;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public int getPosX() {
+		return pos_x;
+	}
+	
+	public int getPosY() {
+		return pos_y;
 	}
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
