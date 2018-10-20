@@ -1,5 +1,7 @@
 package verticalPlateformer;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,16 +15,23 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class World extends BasicGameState {
 
+	private ArrayList<Player> p;
+	private Interface I;
+	private Player amos;
+	
 	private int ID;
 	private int state;
 
 	private int width;
 	private int height;
-	private Player player = new Player();
 	
 	public World (int ID) {
 		this.ID = ID;
 		this.state = -1;
+		this.amos = new Player();
+		this.p = new ArrayList<Player>();
+		this.p.add(amos);
+		this.I = new Interface(p);
 	}
 
 	@Override
@@ -69,8 +78,9 @@ public class World extends BasicGameState {
 
 	@Override
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
+		I.render(container,game,context);
 		/* Méthode exécutée environ 60 fois par seconde */
-		player.render(container, game, context);
+		amos.render(container, game, context);
 	}
 
 	public void play (GameContainer container, StateBasedGame game) {

@@ -24,6 +24,7 @@ public class Player {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		this.score = 0;
 		
 	}
 	
