@@ -16,10 +16,10 @@ public class Ball {
 	private int rad;
 	private Color color;
 	
-	public Ball(int haut,int larg){
+	public Ball(int haut,int larg,int origx,int origy){
 		
-		posx=larg/2;
-		posy=haut/2;
+		posx=origx+larg/2;
+		posy=origy+haut/2;
 		vitx=0;
 		vity=0;
 		rad=haut/30;
