@@ -15,25 +15,26 @@ public class Player {
 
 	private int gravityPoint;
 	private int score;
-	private int horizontalSpeed;
-	private int vertivalSpeed;
-	private int horizontalAcceleration;
-	private int vertivalAcceleration;
-	private double posX;
-	private double posY;
+	private float horizontalSpeed;
+	private float vertivalSpeed;
+	private float horizontalAcceleration;
+	private float vertivalAcceleration;
+	private float posX;
+	private float posY;
 	private boolean leftPress, rightPress, downPress, qPress, dPress, sPress, zPress, spacePress ;
+	private int dirX, dirY;
 	private Image image;
 	private Ellipse shape;
-	private int width = 50;
-	private int height = 50;
-	private double widthRelation;
-	private double heightRelation;
+	private float width = 1000;
+	private float height = 50;
+	private float widthRelation;
+	private float heightRelation;
 	
 	public Player() {
 		try {
 			image = new Image("images/verticalPlateformer/monstre.png");
-			widthRelation = width/((double) image.getWidth());
-			heightRelation = height/((double) image.getHeight());
+			widthRelation = width/image.getWidth();
+			heightRelation = height/image.getHeight();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -46,25 +47,10 @@ public class Player {
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		// Gestion des input du clavier :
 		Input input = container.getInput ();
-		boolean KEY_D = input.isKeyDown (Input.KEY_D);
-		boolean KEY_Q = input.isKeyDown (Input.KEY_Q);
-		boolean BUTTON_D = KEY_D && !KEY_D;
-		boolean BUTTON_Q = KEY_Q && !KEY_Q;
-		boolean KEY_Z = input.isKeyDown (Input.KEY_UP);
-		boolean KEY_S= input.isKeyDown (Input.KEY_DOWN);
-		boolean BUTTON_Z= KEY_Z && !KEY_S;
-		boolean BUTTON_S= KEY_S && !KEY_Z;
-		
-		boolean KEY_LEFT = input.isKeyDown (Input.KEY_LEFT);
-		boolean KEY_DOWN = input.isKeyDown (Input.KEY_DOWN);
-		boolean KEY_RIGHT = input.isKeyDown (Input.KEY_RIGHT);
-		boolean BUTTON_LEFT = KEY_LEFT && ! (KEY_DOWN || KEY_RIGHT);
-		boolean BUTTON_DOWN = KEY_DOWN && ! (KEY_LEFT || KEY_RIGHT);
-		boolean BUTTON_RIGHT = KEY_RIGHT && ! (KEY_LEFT || KEY_DOWN);
-		
 		boolean BUTTON_SPACE = input.isKeyDown(Input.KEY_SPACE);
 		
-		changeGravity(BUTTON_LEFT, BUTTON_DOWN, BUTTON_RIGHT);
+		changeGravity(input);
+		changeDirection(input);
 		
 		
 	}
@@ -88,7 +74,14 @@ public class Player {
 	}
 	
 
-	public void changeGravity(boolean BUTTON_LEFT, boolean BUTTON_DOWN, boolean BUTTON_RIGHT) {
+	public void changeGravity(Input input) {
+		boolean KEY_LEFT = input.isKeyDown (Input.KEY_LEFT);
+		boolean KEY_DOWN = input.isKeyDown (Input.KEY_DOWN);
+		boolean KEY_RIGHT = input.isKeyDown (Input.KEY_RIGHT);
+		boolean BUTTON_LEFT = KEY_LEFT && ! (KEY_DOWN || KEY_RIGHT);
+		boolean BUTTON_DOWN = KEY_DOWN && ! (KEY_LEFT || KEY_RIGHT);
+		boolean BUTTON_RIGHT = KEY_RIGHT && ! (KEY_LEFT || KEY_DOWN);
+		
 		if (gravityPoint > 0 ) {
 			if (BUTTON_LEFT) {
 //				super.changeGravity(-1);
@@ -100,6 +93,38 @@ public class Player {
 //				super.changeGravity(1);
 			}
 		}
+	}
+	
+	public void changeDirection(Input input) {
+		boolean KEY_D = input.isKeyDown (Input.KEY_D);
+		boolean KEY_Q = input.isKeyDown (Input.KEY_Q);
+		boolean BUTTON_D = KEY_D && !KEY_D;
+		boolean BUTTON_Q = KEY_Q && !KEY_Q;
+		boolean KEY_Z = input.isKeyDown (Input.KEY_UP);
+		boolean KEY_S= input.isKeyDown (Input.KEY_DOWN);
+		boolean BUTTON_Z= KEY_Z && !KEY_S;
+		boolean BUTTON_S= KEY_S && !KEY_Z;
+		
+		//TODO : Décommenter quand Tristan aura terminé ses méthodes
+//		super.setDirX (0);
+//		super.setDirY(0);
+//		
+//		if (BUTTON_Q && !super.getGravity()) {
+//			super.setDirX(-1);
+//		}
+//		else if (BUTTON_D && !getGravity()){
+//			super.setDirX( 1);
+//		}
+//		else if (getGravity()) {
+//			if (BUTTON_S) {
+//				super.setDirY( 1);
+//			}
+//			else if (BUTTON_Z) {
+//				super.setDirY(-1);
+//			}
+//		}
+		
+		
 	}
 
 }

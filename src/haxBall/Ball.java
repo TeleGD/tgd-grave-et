@@ -42,14 +42,12 @@ public class Ball {
 	}
 	
 
-	
 	public void keyPressed(int key,char c) {
 		if(key==Input.KEY_SPACE) {
 			vitx=1;
-			System.out.println(salut);
+			System.out.println("salut");
 		}
 	}
 	
-
 }
 
