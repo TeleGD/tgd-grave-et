@@ -31,7 +31,7 @@ public class Choice extends AppMenu {
 			new MenuItem ("Vertical Plateformer") {
 				public void itemSelected () {
 					((verticalPlateformer.World) game.getState (4)).setState (0);
-					game.enterState (3, new FadeOutTransition (), new FadeInTransition ());
+					game.enterState (4, new FadeOutTransition (), new FadeInTransition ());
 				}
 			},
 			new MenuItem ("Retour") {

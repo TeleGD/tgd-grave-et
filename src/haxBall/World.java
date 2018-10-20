@@ -1,4 +1,4 @@
-package haxBall;
+﻿package haxBall;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,13 +12,16 @@ public class World extends BasicGameState {
 
 	private int ID;
 	private int state;
-
+	
+	private Field field;
 	private int width;
 	private int height;
 
 	public World (int ID) {
 		this.ID = ID;
 		this.state = -1;
+		
+		
 	}
 
 	@Override
@@ -31,6 +34,7 @@ public class World extends BasicGameState {
 		/* Méthode exécutée une unique fois au chargement du programme */
 		this.width = container.getWidth ();
 		this.height = container.getHeight ();
+		field = new Field(this.height , this.width);
 	}
 
 	@Override
@@ -66,6 +70,7 @@ public class World extends BasicGameState {
 	@Override
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
+		field.render(container, game, context);
 	}
 
 	public void play (GameContainer container, StateBasedGame game) {
@@ -91,5 +96,4 @@ public class World extends BasicGameState {
 	public int getState () {
 		return this.state;
 	}
-
 }
