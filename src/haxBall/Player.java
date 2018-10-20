@@ -31,7 +31,6 @@ public class Player {
 		m_radius = fieldHeight/15;
 		m_posY = (fieldHeight/2) + fieldOriginY - (m_radius/2);
 		m_speed = (float) 0.3;
-		System.out.println("vitesse : "+m_speed);
 		
 		if(m_id == 0) {
 			m_posX = ((fieldWidth)/4) + fieldOriginX;
@@ -53,6 +52,10 @@ public class Player {
 	
 	public int getRadius() {
 		return m_radius;
+	}
+	
+	public int getID() {
+		return m_id;
 	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {

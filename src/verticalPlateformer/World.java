@@ -18,6 +18,7 @@ public class World extends BasicGameState {
 	private ArrayList<Player> p;
 	private Interface I;
 	private Player amos;
+	private DeathLine line;
 	
 	private int ID;
 	private int state;
@@ -29,6 +30,7 @@ public class World extends BasicGameState {
 		this.ID = ID;
 		this.state = -1;
 		this.amos = new Player();
+		this.line = new DeathLine();
 		this.p = new ArrayList<Player>();
 		this.p.add(amos);
 		this.I = new Interface(p);
@@ -81,6 +83,8 @@ public class World extends BasicGameState {
 		I.render(container,game,context);
 		/* Méthode exécutée environ 60 fois par seconde */
 		amos.render(container, game, context);
+		line.render(container, game, context);
+		line.update(container, game);
 	}
 
 	public void play (GameContainer container, StateBasedGame game) {

@@ -7,6 +7,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+import org.newdawn.slick.Input;
 
 public class Ball {
 	private int posx;
@@ -16,6 +17,7 @@ public class Ball {
 	private int rad;
 	private Color color;
 	private boolean contact;
+	private boolean space;
 	
 	public Ball(int haut,int larg,int origx,int origy){
 		
@@ -27,14 +29,24 @@ public class Ball {
 		color=Color.white;
 		
 		}
+		
 	
 	public void update(GameContainer container, StateBasedGame game, int delta) {
+		posx+=vitx*delta;
 		
 	}
 	
 	public void render(GameContainer container, StateBasedGame game, Graphics context){
 		context.setColor(color);
 		context.fillOval(posx,posy,rad,rad);
+	}
+	
+
+	public void keyPressed(int key,char c) {
+		if(key==Input.KEY_SPACE) {
+			vitx=1;
+			System.out.println("salut");
+		}
 	}
 	
 }
