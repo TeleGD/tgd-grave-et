@@ -25,7 +25,7 @@ public class Field {
 		// creation des joueurs ...
 		player0 = new Player(this.height,this.width, 0);
 		player1 = new Player(this.height,this.width, 1);
-		ball = new Ball(world_height,world_width);
+		ball = new Ball(this.height,this.width,this.pos_x,this.pos_y);
 	}
 	
 	public void setColor(Color c) {
