@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Player {
@@ -22,15 +23,24 @@ public class Player {
 	private double posY;
 	private boolean leftPress, rightPress, downPress, qPress, dPress, sPress, zPress, spacePress ;
 	private Image image;
-
+	private Ellipse shape;
+	private int width = 50;
+	private int height = 50;
+	private double widthRelation;
+	private double heightRelation;
 	
 	public Player() {
 		try {
 			image = new Image("images/verticalPlateformer/monstre.png");
+			widthRelation = width/((double) image.getWidth());
+			heightRelation = height/((double) image.getHeight());
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 		this.score = 0;
+		this.shape = new Ellipse(gravityPoint, gravityPoint, gravityPoint, gravityPoint);
+		posX=0;
+		posY=0;
 	}
 	
 	public void update(GameContainer container, StateBasedGame game, int delta) {
@@ -61,16 +71,16 @@ public class Player {
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde
-		 *  1920-1080
-		 *  1681-1727
+		 *  Ecran 1920-1080
+		 *  Image :1681-1727
 		 *  
-		 *  0-161
-		 *  1681-1567
+		 *  Début de la hitbox 0-161
+		 *  Taille de la hitbox 1681-1567
 		 */
 		context.setColor(Color.green);
 		context.setLineWidth(2);
-		context.drawImage(image, 0, 0, image.getWidth()*(container.getHeight()/((float) image.getHeight())), container.getHeight(), 0, 0, image.getWidth(), image.getHeight());
-		context.drawOval(0, 161*container.getHeight()/((float) image.getHeight()), 1681*container.getHeight()/((float) image.getHeight()), 1567*container.getHeight()/((float) image.getHeight()));
+		context.drawImage(image, (float) posX, (float) posY, (float) posX+width, (float) posY+height, 0, 0, image.getWidth(), image.getHeight());
+		context.drawOval(0, (float) (161*heightRelation), (float) (1681*widthRelation), (float) (1567*heightRelation));
 	}
 	
 	public int getScore() {
