@@ -5,6 +5,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
 
+import haxBall.bonus.*;
+
 public class Field {
 	private int height;
 	private int width;
@@ -21,6 +23,7 @@ public class Field {
 		this.width = (int)(0.7 * world_width);
 		this.pos_x = (int)(0.15 * world_width);
 		this.pos_y = (int)(0.15 * world_height);
+		this.color = new Color(102, 148, 68);
 		
 		// creation des joueurs ...
 		player0 = new Player(this.height,this.width,this.pos_x , this.pos_y, 0);
@@ -37,13 +40,13 @@ public class Field {
 		return color;
 	}
 	
-	public void update (GameContainer container, StateBasedGame game, int delta) {
+	public void update (GameContainer container, StateBasedGame game, int delta, boolean b) {
 		/* Méthode exécutée environ 60 fois par seconde */
 	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde on espère !  */
-		context.setColor(new Color(102, 148, 68));
+		context.setColor(color);
 		context.fillRect(this.pos_x,this.pos_y,this.width,this.height);
 		player0.render(container, game, context);
 		player1.render(container, game, context);

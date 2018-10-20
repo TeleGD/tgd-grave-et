@@ -8,13 +8,13 @@ import org.newdawn.slick.state.StateBasedGame;
 public abstract class Bonus {
 	private int posX, posY;
 	private Color color;
-	private int radius;
+	private int diam;
 	
 	public Bonus(int posX, int posY, Color color, double fieldWidth) {
 		this.posX = posX;
 		this.posY = posY;
 		this.color = color;
-		this.radius = (int) (10*fieldWidth); //magic numbers j'emmerde tout le monde
+		this.diam = (int) (0.02*fieldWidth); //magic numbers j'emmerde tout le monde
 	}
 	
 	public void setColor(Color c) {
@@ -27,7 +27,7 @@ public abstract class Bonus {
 		Color oldColor = context.getColor();
 		context.setColor(color);
 		
-		context.fillOval(posX, posY, radius, radius);
+		context.fillOval(posX, posY, diam, diam);
 		
 		context.setColor(oldColor);
 	}

@@ -19,5 +19,4 @@ public class Interface {
 			g.drawString(""+p.getScore(), 399, 10);
 		}
 	}
-	
 }

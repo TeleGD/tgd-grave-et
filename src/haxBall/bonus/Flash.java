@@ -23,11 +23,13 @@ public class Flash extends Bonus {
 		this.field = field;
 		this.fieldColor = field.getColor();
 		this.timer = 7*1000;
+ 
 		try {
 			this.sound = new Sound("res/sound/flash.ogg");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+ 
 		
 		activated = false;
 		deleted = false;
