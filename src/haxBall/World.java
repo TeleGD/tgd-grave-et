@@ -20,7 +20,7 @@ public class World extends BasicGameState {
 	public World (int ID) {
 		this.ID = ID;
 		this.state = -1;
-		field = new Field(this.height , this.width);
+		
 		
 	}
 
@@ -34,6 +34,7 @@ public class World extends BasicGameState {
 		/* Méthode exécutée une unique fois au chargement du programme */
 		this.width = container.getWidth ();
 		this.height = container.getHeight ();
+		field = new Field(this.height , this.width);
 	}
 
 	@Override
