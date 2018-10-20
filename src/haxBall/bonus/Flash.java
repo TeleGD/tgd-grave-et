@@ -17,7 +17,7 @@ public class Flash extends Bonus {
 		super(posX, posY, new Color(255,255,255), fieldWidth);
 		this.field = field;
 		this.fieldColor = field.getColor();
-		this.timer = 6*1000;
+		this.timer = 7*1000;
 		
 		activated = false;
 		deleted = false;
