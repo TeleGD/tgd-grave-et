@@ -35,7 +35,6 @@ public final class Main {
 				this.addState (new pages.Pause (2));
 				this.addState (new haxBall.World (3));
 				this.addState (new verticalPlateformer.World (4));
-				this.addState (new multigame.World (5));
 			}
 
 		};

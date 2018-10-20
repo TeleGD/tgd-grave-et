@@ -34,12 +34,6 @@ public class Choice extends AppMenu {
 					game.enterState (3, new FadeOutTransition (), new FadeInTransition ());
 				}
 			},
-			new MenuItem ("Multigame") {
-				public void itemSelected () {
-					((multigame.World) game.getState (5)).setState (0);
-					game.enterState (3, new FadeOutTransition (), new FadeInTransition ());
-				}
-			},
 			new MenuItem ("Retour") {
 				public void itemSelected () {
 					game.enterState (0, new FadeOutTransition (), new FadeInTransition ());
