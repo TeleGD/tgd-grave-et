@@ -30,7 +30,7 @@ public class Choice extends AppMenu {
 			},
 			new MenuItem ("Vertical Plateformer") {
 				public void itemSelected () {
-					((verticalPlateformer.World) game.getState (3)).setState (0);
+					((verticalPlateformer.World) game.getState (4)).setState (0);
 					game.enterState (4, new FadeOutTransition (), new FadeInTransition ());
 				}
 			},
