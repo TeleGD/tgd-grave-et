@@ -4,7 +4,9 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
 
+import haxBall.Ball;
 import haxBall.Field;
+import haxBall.Player;
 
 public class Pillars extends Bonus {
 	
@@ -27,7 +29,7 @@ public class Pillars extends Bonus {
 		return activated;
 	}
 
-	public void activate() {
+	public void activate(Player p, Ball b) {
 		activated = true;		
 	}
 

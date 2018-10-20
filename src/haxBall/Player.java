@@ -43,6 +43,10 @@ public class Player {
 		return m_radius;
 	}
 	
+	public int getID() {
+		return m_id;
+	}
+	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		context.setColor(m_color);
 		context.fillOval(m_posX, m_posY, m_radius, m_radius);
