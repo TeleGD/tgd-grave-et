@@ -69,8 +69,8 @@ public class Player {
 		 */
 		context.setColor(Color.green);
 		context.setLineWidth(2);
-		context.drawImage(image, 0, 0, image.getWidth()*(container.getHeight()/image.getHeight()), container.getHeight(), 0, 0, image.getWidth()-1, image.getHeight()-1);
-		context.drawOval(0, 161*container.getHeight()/image.getHeight(), 1681*container.getHeight()/image.getHeight(), 1567*container.getHeight()/image.getHeight());
+		context.drawImage(image, 0, 0, image.getWidth()*(container.getHeight()/((float) image.getHeight())), container.getHeight(), 0, 0, image.getWidth(), image.getHeight());
+		context.drawOval(0, 161*container.getHeight()/((float) image.getHeight()), 1681*container.getHeight()/((float) image.getHeight()), 1567*container.getHeight()/((float) image.getHeight()));
 	}
 	
 	public int getScore() {
