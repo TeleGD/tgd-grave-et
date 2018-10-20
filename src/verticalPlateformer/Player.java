@@ -2,6 +2,7 @@ package verticalPlateformer;
 
 public class Player {
 	
+	private int score;
 	private int horizontalSpeed;
 	private int vertivalSpeed;
 	private int horizontalAcceleration;
@@ -11,6 +12,10 @@ public class Player {
 	
 	public Player() {
 		
+	}
+
+	public int getScore() {
+		return this.score;
 	}
 	
 	
