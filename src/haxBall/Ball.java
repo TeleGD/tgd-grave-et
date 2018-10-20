@@ -18,8 +18,8 @@ public class Ball {
 	
 	public Ball(int haut,int larg,int origx,int origy){
 		
-		posx=origx+larg/2;
-		posy=origy+haut/2;
+		posx=origx+larg/2-rad;
+		posy=origy+haut/2-rad;
 		vitx=0;
 		vity=0;
 		rad=haut/30;
