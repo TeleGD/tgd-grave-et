@@ -25,6 +25,8 @@ public class Field {
 		this.pos_y = (int)(0.15 * world_height);
 		this.color = new Color(102, 148, 68);
 		
+		
+		
 		// creation des joueurs ...
 		player0 = new Player(this.height,this.width,this.pos_x , this.pos_y, 0);
 		player1 = new Player(this.height,this.width,this.pos_x , this.pos_y, 1);
@@ -40,8 +42,27 @@ public class Field {
 		return color;
 	}
 	
-	public void update (GameContainer container, StateBasedGame game, int delta, boolean b) {
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public int getPosX() {
+		return pos_x;
+	}
+	
+	public int getPosY() {
+		return pos_y;
+	}
+	
+	public void update (GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
+		player0.update(container, game, delta);
+		player1.update(container, game, delta);
+		ball.update(container, game, delta);
 	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
@@ -51,5 +72,17 @@ public class Field {
 		player0.render(container, game, context);
 		player1.render(container, game, context);
 		ball.render(container, game, context);
+	}
+	
+	public void keyPressed(int key, char c) {
+		player0.keyPressed(key,c);
+		player1.keyPressed(key,c);
+		ball.keyPressed(key,c);
+	}
+	
+	public void keyReleased(int key, char c) {
+		player0.keyReleased(key,c);
+		player1.keyReleased(key,c);
+		ball.keyReleased(key,c);
 	}
 }

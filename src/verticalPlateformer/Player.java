@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Player {
@@ -14,18 +15,33 @@ public class Player {
 
 	private int gravityPoint;
 	private int score;
+	private float horizontalSpeed;
+	private float vertivalSpeed;
+	private float horizontalAcceleration;
+	private float vertivalAcceleration;
+	private float posX;
+	private float posY;
 	private boolean leftPress, rightPress, downPress, qPress, dPress, sPress, zPress, spacePress ;
 	private int dirX, dirY;
 	private Image image;
-
+	private Ellipse shape;
+	private float width = 1000;
+	private float height = 50;
+	private float widthRelation;
+	private float heightRelation;
 	
 	public Player() {
 		try {
 			image = new Image("images/verticalPlateformer/monstre.png");
+			widthRelation = width/image.getWidth();
+			heightRelation = height/image.getHeight();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 		this.score = 0;
+		this.shape = new Ellipse(gravityPoint, gravityPoint, gravityPoint, gravityPoint);
+		posX=0;
+		posY=0;
 	}
 	
 	public void update(GameContainer container, StateBasedGame game, int delta) {
@@ -41,16 +57,16 @@ public class Player {
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde
-		 *  1920-1080
-		 *  1681-1727
+		 *  Ecran 1920-1080
+		 *  Image :1681-1727
 		 *  
-		 *  0-161
-		 *  1681-1567
+		 *  Début de la hitbox 0-161
+		 *  Taille de la hitbox 1681-1567
 		 */
 		context.setColor(Color.green);
 		context.setLineWidth(2);
-		context.drawImage(image, 0, 0, image.getWidth()*(container.getHeight()/image.getHeight()), container.getHeight(), 0, 0, image.getWidth()-1, image.getHeight()-1);
-		context.drawOval(0, 161*container.getHeight()/image.getHeight(), 1681*container.getHeight()/image.getHeight(), 1567*container.getHeight()/image.getHeight());
+		context.drawImage(image, (float) posX, (float) posY, (float) posX+width, (float) posY+height, 0, 0, image.getWidth(), image.getHeight());
+		context.drawOval(0, (float) (161*heightRelation), (float) (1681*widthRelation), (float) (1567*heightRelation));
 	}
 	
 	public int getScore() {

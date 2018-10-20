@@ -37,5 +37,12 @@ public class Ball {
 		context.fillOval(posx,posy,rad,rad);
 	}
 	
+	public void setPosX(int posx) {
+		this.posx = posx;
+	}
+	
+	public void setPosY(int posy) {
+		this.posy = posy;
+	}
 }
 
