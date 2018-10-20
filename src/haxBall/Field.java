@@ -101,6 +101,6 @@ public class Field {
 	public void keyReleased(int key, char c) {
 		player0.keyReleased(key,c);
 		player1.keyReleased(key,c);
-		ball.keyReleased(key,c);
+		//ball.keyReleased(key,c);
 	}
 }
