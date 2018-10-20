@@ -15,25 +15,25 @@ public class Player {
 
 	private int gravityPoint;
 	private int score;
-	private int horizontalSpeed;
-	private int vertivalSpeed;
-	private int horizontalAcceleration;
-	private int vertivalAcceleration;
-	private double posX;
-	private double posY;
+	private float horizontalSpeed;
+	private float vertivalSpeed;
+	private float horizontalAcceleration;
+	private float vertivalAcceleration;
+	private float posX;
+	private float posY;
 	private boolean leftPress, rightPress, downPress, qPress, dPress, sPress, zPress, spacePress ;
 	private Image image;
 	private Ellipse shape;
-	private int width = 50;
-	private int height = 50;
-	private double widthRelation;
-	private double heightRelation;
+	private float width = 1000;
+	private float height = 50;
+	private float widthRelation;
+	private float heightRelation;
 	
 	public Player() {
 		try {
 			image = new Image("images/verticalPlateformer/monstre.png");
-			widthRelation = width/((double) image.getWidth());
-			heightRelation = height/((double) image.getHeight());
+			widthRelation = width/image.getWidth();
+			heightRelation = height/image.getHeight();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
