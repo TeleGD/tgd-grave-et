@@ -25,7 +25,7 @@ public class Player {
 	private int dirX, dirY;
 	private Image image;
 	private Ellipse shape;
-	private float width = 1000;
+	private float width = 50;
 	private float height = 50;
 	private float widthRelation;
 	private float heightRelation;
