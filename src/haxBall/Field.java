@@ -59,10 +59,12 @@ public class Field {
 	public void keyPressed(int key, char c) {
 		player0.keyPressed(key,c);
 		player1.keyPressed(key,c);
+		ball.keyPressed(key,c);
 	}
 	
 	public void keyReleased(int key, char c) {
 		player0.keyReleased(key,c);
 		player1.keyReleased(key,c);
+		ball.keyReleased(key,c);
 	}
 }
