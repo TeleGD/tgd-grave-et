@@ -3,19 +3,16 @@ package verticalPlateformer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class DeathLine {
 	
 	private float posY;
 	private float speed;
-	//private int accel;
 	
 	public DeathLine() {
 		this.posY = 0;
 		this.speed = 2;
-		//this.accel = 1;
 	}
 	
 	// Getters et setters des attributs de la death line
@@ -28,10 +25,6 @@ public class DeathLine {
 		return this.speed;
 	}
 	
-	/*public int getAccel() {
-		return this.accel;
-	}*/
-	
 	public void setPosY(float y) {
 		this.posY = y;
 	}
@@ -39,10 +32,6 @@ public class DeathLine {
 	public void setSpeed(float s) {
 		this.speed = s;
 	}
-	
-	/*public void setAccel(int a) {
-		this.accel = a;
-	}*/
 	
 	public void render(GameContainer container, StateBasedGame game, Graphics g) {
 		// Initialisation d'une ligne rouge apres le bas de l'ecran
