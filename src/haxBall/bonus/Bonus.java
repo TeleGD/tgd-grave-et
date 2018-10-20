@@ -20,7 +20,7 @@ public abstract class Bonus {
 	public void setColor(Color c) {
 		this.color = c;
 	}
-	
+
 	public abstract void update (GameContainer container, StateBasedGame game, int delta);
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
