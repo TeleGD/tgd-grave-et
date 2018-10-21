@@ -25,6 +25,7 @@ public class Bip extends Bonus {
 		this.field = field;
 		this.fieldColor = field.getColor();
 		this.timer = 10*1000;
+		
 		try {
 			this.sound = new Sound("res/sound/bip.ogg");
 		} catch (SlickException e) {
@@ -41,7 +42,7 @@ public class Bip extends Bonus {
 		} else if(!deleted) {
 			timer -= delta;
 			
-			if (timer%1000==0 && timer!=0 ){
+			if (timer%500<=16 && timer!=0 ){
 				p.setColor(meme);
 				sound.play(1, (float) 0.4);
 				
