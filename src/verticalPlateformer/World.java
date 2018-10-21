@@ -94,7 +94,7 @@ public class World extends BasicGameState {
 		}
 		line.update(container, game, delta);
 		for(Plateforme p:plateformes) {
-			p.update(container, game,delta);
+			p.update(container, game, delta);
 		}
 		for(int i=plateformes.size()-1;i>=0;i--) {
 			if(plateformes.get(i).getPosY()>=this.line.getPosY()) {
