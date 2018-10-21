@@ -14,7 +14,7 @@ public class Deflate extends Bonus {
 	private int timer;
 	
 	public Deflate(int posX, int posY, Field field, Ball ball) {
-		super(posX, posY, new Color(100,200,100), field);
+		super(posX, posY, new Color(255,128,0), field);
 		
 		this.ball = ball;		
 		this.rad = ball.getRad();

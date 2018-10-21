@@ -34,7 +34,7 @@ public class Field {
 		this.color = new Color(102, 148, 68);
 		this.world_width = world_width;
 		this.world_height = world_height;
-		this.bonusTimer = 10*1000;
+		this.bonusTimer = 1*1000;
 		
 		this.rnd = (float) Math.random();
 		//System.out.println(this.rnd);
@@ -80,7 +80,7 @@ public class Field {
 		
 		if(bonusTimer <= 0) {
 			generateBonus();
-			bonusTimer = 10*1000;
+			bonusTimer = 1*1000;
 		}
 		
 		for(int i=0 ; i<bonus.size() ; i++) {
@@ -93,10 +93,8 @@ public class Field {
 		}
 	}
 	
-	private void generateBonus() {
-		int r = (int)Math.random()*5;
-		
-		int k= (int)(Math.random()*4);
+	private void generateBonus() {		
+		int k= (int)(Math.random()*5);
 		int posX = (int)(Math.random()*5*width/6+pos_x+width/12);
 		int posY = (int)(Math.random()*5*height/6+pos_y+height/12);
 		
@@ -115,6 +113,9 @@ public class Field {
 			break;
 		case 4:
 			bonus.add(new Bip(posX, posY, this));
+			break;
+		default:
+			bonus.add(new Inflate(posX, posY, this, ball));
 			break;
 		}
 		

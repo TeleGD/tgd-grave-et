@@ -14,7 +14,7 @@ public class Inflate extends Bonus {
 	private int timer;
 	
 	public Inflate(int posX, int posY, Field field, Ball ball) {
-		super(posX, posY, new Color(100,200,100), field);
+		super(posX, posY, new Color(255,0,255), field);
 		
 		this.ball = ball;		
 		this.rad = ball.getRad();
