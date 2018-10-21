@@ -7,8 +7,8 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 public abstract class Plateforme extends Rectangle {
-	private float posx;
-	private float posy;
+	protected float posx;
+	protected float posy;
 	private boolean sens; /* sens de la plateforme */
 	private float longueur;
 	private float epaisseur;
