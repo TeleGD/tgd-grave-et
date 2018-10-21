@@ -101,14 +101,14 @@ public class Field {
 		context.drawRect(this.pos_x, this.pos_y, this.width, this.height); // touche
 		context.drawOval(this.pos_x + this.width/2 - this.height/8 , this.pos_y + this.height/2 - this.height/8, height/4, height/4); // cercle
 
-		player0.render(container, game, context);
-		player1.render(container, game, context);
-		ball.render(container, game, context);
-		
 		for(Bonus b : bonus) {
 			if(!b.isActivated())
 				b.render(container, game, context);
 		}
+		
+		player0.render(container, game, context);
+		player1.render(container, game, context);
+		ball.render(container, game, context);
 	}
 	
 	public void addBonus(Bonus b) {
