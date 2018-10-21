@@ -36,7 +36,6 @@ public class World extends BasicGameState {
 		this.ID = ID;
 		this.state = -1;
 		this.amos = new Player();
-		this.line = new DeathLine();
 		this.p = new ArrayList<Player>();
 		this.p.add(amos);
 		this.I = new Interface(p);
@@ -52,6 +51,8 @@ public class World extends BasicGameState {
 		/* Méthode exécutée une unique fois au chargement du programme */
 		this.width = container.getWidth ();
 		this.height = container.getHeight ();
+		
+		this.line = new DeathLine(container);
 		
 		plateformes=new ArrayList<PlateformeClassique>();
 		plateformes.add(new PlateformeClassique(500,500,10,200,true));
@@ -86,14 +87,16 @@ public class World extends BasicGameState {
 			this.setState (1);
 			game.enterState (2, new FadeOutTransition (), new FadeInTransition ());
 		}
+		line.update(container, game, delta);
+		for(PlateformeClassique p:plateformes) {
+			p.update(container, game,delta);
+		}
 		for(int i=plateformes.size()-1;i>=0;i--) {
 			if(plateformes.get(i).getPosY()>=this.line.getPosY()) {
 				plateformes.remove(i);
 			}
 		}
-		for(PlateformeClassique p:plateformes) {
-			p.update(container, game,delta);
-		}
+		
 	}
 
 	@Override
@@ -102,7 +105,6 @@ public class World extends BasicGameState {
 		/* Méthode exécutée environ 60 fois par seconde */
 		amos.render(container, game, context);
 		line.render(container, game, context);
-		line.update(container, game);
 		for(PlateformeClassique p:plateformes) {
 			p.render(container, game, context,true);
 		}
