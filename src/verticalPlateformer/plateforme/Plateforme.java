@@ -6,13 +6,14 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
+import verticalPlateformer.Player;
+
 public abstract class Plateforme extends Rectangle {
 	private float posx;
 	private float posy;
 	private boolean sens; /* sens de la plateforme */
 	private float longueur;
 	private float epaisseur;
-	private float speed;
 
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics g) {
@@ -39,5 +40,16 @@ public abstract class Plateforme extends Rectangle {
 	public float getPosY() {
 		return this.posy;
 	}
+
+	public boolean getSens() {
+		return sens;
+	}
+	
+	public abstract void collideWithPlayer(Player player);
+	
+	public abstract float getSpeedX();
+	
+	public abstract float getSpeedY();
+
 	 
 }

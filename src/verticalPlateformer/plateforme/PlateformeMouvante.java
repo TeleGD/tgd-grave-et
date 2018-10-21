@@ -3,13 +3,15 @@ package verticalPlateformer.plateforme;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
 
+import verticalPlateformer.Player;
+
 public class PlateformeMouvante extends Plateforme {
 	private float speedX;
 	private float speedY;
 	private float temps;
 	private boolean sens;
 	
-	private PlateformeMouvante(float posx,float posy,float longueur,float epaisseur,boolean sens, float speed) {
+	public PlateformeMouvante(float posx,float posy,float longueur,float epaisseur,boolean sens, float speed) {
 		super(posx,posy,longueur,epaisseur,sens);
 		this.temps=2000;
 		this.speedX=(float) 0.5;
@@ -41,7 +43,19 @@ public class PlateformeMouvante extends Plateforme {
 					this.temps=2000;
 				}
 			}
+		}
+	
+	public void collideWithPlayer(Player player) {
+				
 	}
 
+	public float getSpeedX() {
+		return speedX;
+		
+	}
+	
+	public float getSpeedY() {
+		return speedY;
+	}
 
 }	

@@ -10,6 +10,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.state.StateBasedGame;
 
+import verticalPlateformer.plateforme.Plateforme;
+
 public class Player extends Entity {
 	
 
@@ -21,12 +23,14 @@ public class Player extends Entity {
 	private Ellipse shape;
 	private float width = 70;
 	private float height = 70;
+	private float baseSpeed = .24f;
 	private float widthRelation;
 	private float heightRelation;
 	private float shapeWidth;
 	private float shapeHeight;
 	private float shapeStartHeight;
 	private String name;
+	private Plateforme plateforme;
 	
 	public Player(String n,float posX, float posY) {
 		super(posX, posY);
@@ -55,7 +59,8 @@ public class Player extends Entity {
 		Input input = container.getInput ();
 		boolean BUTTON_SPACE = input.isKeyDown(Input.KEY_SPACE);
 		
-		if (BUTTON_SPACE) {
+		if (BUTTON_SPACE && (plateforme != null)) {
+			plateforme = null;
 			super.unFreeze();
 		}
 		
@@ -128,24 +133,35 @@ public class Player extends Entity {
 		super.setDirX(0);
 		super.setDirY(0);
 		
-		
 		if (BUTTON_Q &&  (getGravity() == 0)) {
-			super.setDirX(-1);
+			super.setDirX(-1 * baseSpeed );
 		}
 		else if (BUTTON_D &&  (getGravity()==0)){
-			super.setDirX( 1);
+			super.setDirX( 1* baseSpeed);
 
 		}
 		else if ( (getGravity() != 0)) {
 			if (BUTTON_S) {
-				super.setDirY( 1);
+				super.setDirY( 1* baseSpeed);
 
 			}
 			else if (BUTTON_Z) {
-				super.setDirY(-1);
+				super.setDirY(-1* baseSpeed);
 
 			}
 		}
+		if (plateforme != null) {
+			super.setDirX(super.getDirX() + plateforme.getSpeedX());
+			super.setDirY(super.getDirY() + plateforme.getSpeedY());
+		}
+	}
+
+	public Ellipse getShape() {
+		return shape;
+	}
+	
+	public void setPlateforme(Plateforme plat) {
+		this.plateforme= plat;
 	}
 
 }

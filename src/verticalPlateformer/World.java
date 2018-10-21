@@ -107,8 +107,18 @@ public class World extends BasicGameState {
 
 		for(Player player : p) {
 			player.update(container, game, delta);
+			for (Plateforme plat : plateformes) {
+				if ( (player.getGravity() == 0) == plat.getSens()) {
+					if(player.getShape().intersects(plat)) {
+						player.freeze();
+						player.setPlateforme(plat);
+						System.out.println("COLLISION");
+					}
+				}
+			}
 		}
 
+		
 		
 	}
 
