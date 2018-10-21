@@ -10,44 +10,60 @@ import haxBall.Ball;
 import haxBall.Field;
 import haxBall.Player;
 
-public class Flash extends Bonus {
+public class Bip extends Bonus {
+
 
 	private Color fieldColor;
+	private Field field;
 	private int timer;
 	private Sound sound;
+	private Player p;
+	private Color meme;
 	
-	public Flash(int posX, int posY, Field field) {
+	public Bip(int posX, int posY,  Field field) {
 		super(posX, posY, new Color(255,255,255), field);
+		this.field = field;
 		this.fieldColor = field.getColor();
-		this.timer = 7*1000;
- 
+		this.timer = 10*1000;
 		try {
-			this.sound = new Sound("res/sound/flash.ogg");
+			this.sound = new Sound("res/sound/bip.ogg");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		if(!activated) {
-			super.setColor(new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255)));
+			
+		
 			
 		} else if(!deleted) {
 			timer -= delta;
-			field.setColor(new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255)));
+			
+			if (timer%1000==0 && timer!=0 ){
+				p.setColor(meme);
+				sound.play(1, (float) 0.4);
+				
+			} else {
+				p.setColor(field.getColor());
+			}
 		}
-		
 		if (timer <= 0) {
-			field.setColor(fieldColor);
+			p.setColor(meme);
 			deleted = true;
 		}
-		
 		super.update(container, game, delta);
-	}
-	
-	public void activate(Player p, Ball b) {
-		activated = true;
-		sound.play(1, (float) 0.4);
+		
 	}
 
+
+	public void activate(Player p, Ball b) {
+		activated = true;
+		meme = p.getColor();
+		this.p=p;
+		sound.play(1, (float) 0.4);
+	}
 }
+
+

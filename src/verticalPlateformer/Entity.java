@@ -8,12 +8,14 @@ public abstract class Entity {
 
 	private static float GRAVITY;
 	private static float MOVE;
+	private static float JUMP;
 
 	static {
 		Entity.GRAVITY = .00144f;
 		Entity.MOVE = .12f;
 	}
 
+	private boolean frozen;
 	private int gravity;
 	private int dirX;
 	private int dirY;
@@ -25,6 +27,7 @@ public abstract class Entity {
 	private float accY;
 
 	public Entity (float posX, float posY) {
+		this.frozen = false;
 		this.gravity = 0;
 		this.dirX = 0;
 		this.dirY = 0;
@@ -37,13 +40,41 @@ public abstract class Entity {
 	}
 
 	public void update (GameContainer container, StateBasedGame game, int delta) {
-		this.speedX += this.accX * delta / 2;
-		this.speedY += this.accY * delta / 2;
+		if (!this.frozen) {
+			this.speedX += this.accX * delta / 2;
+			this.speedY += this.accY * delta / 2;
+		}
 		this.posX += (this.speedX + this.dirX * Entity.MOVE) * delta;
 		this.posY += (this.speedY + this.dirY * Entity.MOVE) * delta;
 	}
 
 	public abstract void render (GameContainer container, StateBasedGame game, Graphics context);
+
+	public boolean isFrozen () {
+		return this.frozen;
+	}
+
+	public void freeze () {
+		if (!this.frozen) {
+			this.frozen = true;
+			this.speedX = 0f;
+			this.speedY = 0f;
+		}
+	}
+
+	public void unFreeze () {
+		if (this.frozen) {
+			this.frozen = false;
+			switch (this.gravity) {
+				case -1:
+					this.speedX += Entity.JUMP;
+				case 0:
+					this.speedY -= Entity.JUMP;
+				case 1:
+					this.speedX -= Entity.JUMP;
+			}
+		}
+	}
 
 	public void setGravity (int gravity) {
 		this.gravity = gravity;

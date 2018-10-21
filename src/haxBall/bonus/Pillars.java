@@ -18,6 +18,7 @@ public class Pillars extends Bonus {
 		if(activated) {
 			//on fait spawn des balles fixes trololo
 		}
+		super.update(container, game, delta);
 	}
 
 	public void activate(Player p, Ball b) {
