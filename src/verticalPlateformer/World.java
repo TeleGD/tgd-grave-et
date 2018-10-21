@@ -13,12 +13,18 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+
+import verticalPlateformer.plateforme.PlateformeClassique;
+import verticalPlateformer.plateforme.PlateformeGen;
+
 public class World extends BasicGameState {
 
 	private ArrayList<Player> p;
 	private Interface I;
 	private Player amos;
 	private DeathLine line;
+	private ArrayList<PlateformeClassique> plateformes;
+	private PlateformeGen PlateformeGen;
 	
 	private int ID;
 	private int state;
@@ -29,8 +35,8 @@ public class World extends BasicGameState {
 	public World (int ID) {
 		this.ID = ID;
 		this.state = -1;
+
 		this.amos = new Player("Amos",100,100);
-		this.line = new DeathLine();
 		this.p = new ArrayList<Player>();
 		this.p.add(amos);
 		this.I = new Interface(p);
@@ -46,6 +52,12 @@ public class World extends BasicGameState {
 		/* Méthode exécutée une unique fois au chargement du programme */
 		this.width = container.getWidth ();
 		this.height = container.getHeight ();
+		
+		this.line = new DeathLine(container);
+		
+		plateformes=new ArrayList<PlateformeClassique>();
+		plateformes.add(new PlateformeClassique(500,500,10,200,true));
+		PlateformeGen = new PlateformeGen(plateformes);
 	}
 
 	@Override
@@ -76,6 +88,16 @@ public class World extends BasicGameState {
 			this.setState (1);
 			game.enterState (3, new FadeOutTransition (), new FadeInTransition ());
 		}
+		line.update(container, game, delta);
+		for(PlateformeClassique p:plateformes) {
+			p.update(container, game,delta);
+		}
+		for(int i=plateformes.size()-1;i>=0;i--) {
+			if(plateformes.get(i).getPosY()>=this.line.getPosY()) {
+				plateformes.remove(i);
+			}
+		}
+		
 	}
 
 	@Override
@@ -84,7 +106,9 @@ public class World extends BasicGameState {
 		/* Méthode exécutée environ 60 fois par seconde */
 		amos.render(container, game, context);
 		line.render(container, game, context);
-		line.update(container, game);
+		for(PlateformeClassique p:plateformes) {
+			p.render(container, game, context,true);
+		}
 	}
 
 	public void play (GameContainer container, StateBasedGame game) {
