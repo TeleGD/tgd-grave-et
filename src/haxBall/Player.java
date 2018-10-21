@@ -191,10 +191,10 @@ public class Player {
 		if(m_posY <= m_fieldOriginY)
 			m_posY = m_fieldOriginY;
 		else if((m_posY + m_radius) > (m_fieldOriginY + m_fieldHeight))
-			m_posY = m_fieldOriginY + m_fieldHeight;
+			m_posY = m_fieldOriginY + m_fieldHeight - m_radius;
 		else if (m_posX <= m_fieldOriginX)
 			m_posX = m_fieldOriginX;
 		else if ((m_posX + m_radius) > (m_fieldOriginX + m_fieldWidth))
-			m_posX = m_fieldOriginX + m_fieldWidth;
+			m_posX = m_fieldOriginX + m_fieldWidth - m_radius;
 	}
 }
