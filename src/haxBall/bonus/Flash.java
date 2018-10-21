@@ -42,6 +42,7 @@ public class Flash extends Bonus {
 			deleted = true;
 		}
 		
+		super.update(container, game, delta);
 	}
 	
 	public void activate(Player p, Ball b) {

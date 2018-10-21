@@ -7,7 +7,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -32,14 +34,18 @@ public class World extends BasicGameState {
 	private int width;
 	private int height;
 	
+	private Sound trash;
+	private Music defouloir;
+	
 	public World (int ID) {
 		this.ID = ID;
 		this.state = -1;
-
-		this.amos = new Player("Amos",100,100);
-		this.p = new ArrayList<Player>();
-		this.p.add(amos);
-		this.I = new Interface(p);
+		try {
+			defouloir = new Music("res/musics/verticalPlateformer/Defouloir.ogg");
+			trash = new Sound("res/sound/verticalPlateformer/trash.ogg");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -52,12 +58,6 @@ public class World extends BasicGameState {
 		/* Méthode exécutée une unique fois au chargement du programme */
 		this.width = container.getWidth ();
 		this.height = container.getHeight ();
-		
-		this.line = new DeathLine(container);
-		
-		plateformes=new ArrayList<Plateforme>();
-		plateformes.add(new PlateformeClassique(500,500,10,200,true));
-		plateformeGen = new PlateformeGen(this);
 	}
 
 	@Override
@@ -65,8 +65,10 @@ public class World extends BasicGameState {
 		/* Méthode exécutée à l'apparition de la page */
 		if (this.state == 0) {
 			this.play (container, game);
+			defouloir.play(1, (float) 0.4);
 		} else if (this.state == 2) {
 			this.resume (container, game);
+			defouloir.resume();
 		}
 	}
 
@@ -75,8 +77,10 @@ public class World extends BasicGameState {
 		/* Méthode exécutée à la disparition de la page */
 		if (this.state == 1) {
 			this.pause (container, game);
+			defouloir.pause();
 		} else if (this.state == 3) {
 			this.stop (container, game);
+			defouloir.stop();
 		}
 	}
 
@@ -95,6 +99,7 @@ public class World extends BasicGameState {
 		for(int i=plateformes.size()-1;i>=0;i--) {
 			if(plateformes.get(i).getPosY()>=this.line.getPosY()) {
 				plateformes.remove(i);
+				trash.play(1, (float) 0.4);
 			}
 		}
 
@@ -120,6 +125,16 @@ public class World extends BasicGameState {
 
 	public void play (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au début du jeu */
+		this.amos = new Player("Amos",100,100);
+		this.p = new ArrayList<Player>();
+		this.p.add(amos);
+		this.I = new Interface(p);
+		
+		this.line = new DeathLine(container);
+		
+		plateformes=new ArrayList<Plateforme>();
+		plateformes.add(new PlateformeClassique(500,500,10,200,true));
+		plateformeGen = new PlateformeGen(this);
 	}
 
 	public void pause (GameContainer container, StateBasedGame game) {

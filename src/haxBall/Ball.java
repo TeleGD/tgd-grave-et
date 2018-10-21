@@ -12,12 +12,15 @@ import org.newdawn.slick.Input;
 public class Ball {
 	private int posx;
 	private int posy;
-	private int vitx;
-	private int vity;
+	private float vitx;
+	private float vity;
 	private int rad;
 	private Color color;
 	private boolean contact;
-	private boolean space;
+	private int r_origx;
+	private int r_origy;
+	private int r_larg;
+	private int r_haut;
 	
 	public Ball(int haut,int larg,int origx,int origy){
 		
@@ -27,13 +30,37 @@ public class Ball {
 		vity=0;
 		rad=haut/30;
 		color=Color.white;
+		r_origx=origx;
+		r_origy=origy;
+		r_larg=larg;
+		r_haut=haut;
+		
 		
 		}
 		
 	
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		posx+=vitx*delta;
-		
+		posy+=vity*delta;
+		vitx=vitx*99/100;
+		vity=vity*99/100;
+		if (posx+rad> r_origx+r_larg){
+			vitx=-vitx;
+			//posx=r_origx+r_larg;
+		}
+		if (posx<r_origx) {
+			vitx=-vitx;
+			posx=r_origx;
+		}
+		if (posy+rad>r_origy+r_haut){
+			vity=-vity;
+			//posy=r_origy+r_haut;
+		}
+		if (posy<r_origy) {
+			vity=-vity;
+			posy=r_origy;
+			
+		}
 	}
 	
 	public void render(GameContainer container, StateBasedGame game, Graphics context){
@@ -45,7 +72,7 @@ public class Ball {
 	public void keyPressed(int key,char c) {
 		if(key==Input.KEY_SPACE) {
 			vitx=1;
-			System.out.println("salut");
+			vity=1;
 		}
 	}
 	
