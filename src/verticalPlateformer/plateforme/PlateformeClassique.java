@@ -5,6 +5,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import verticalPlateformer.Player;
 
+@SuppressWarnings("serial")
 public class PlateformeClassique extends Plateforme {
 	
 	public PlateformeClassique(float posx,float posy,float longueur,float epaisseur,boolean sens) {

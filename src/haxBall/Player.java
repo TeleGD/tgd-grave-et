@@ -9,7 +9,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Player {
-	private int m_posX, m_posY, m_radius, m_id, m_fieldHeight, m_fieldWidth, m_fieldOriginX, m_fieldOriginY;
+	private int m_posX, m_posY, m_tempPosX, m_tempPosY, m_radius, m_id, m_fieldHeight, m_fieldWidth, m_fieldOriginX, m_fieldOriginY;
 	private Color m_color;
 	private float m_speedX, m_speedY, m_speed;
 	private boolean up, down, right, left, updown, rightLeft;
@@ -92,10 +92,9 @@ public class Player {
 	}
 	
 	public boolean collision(Player enemy) {
-		if(m_shape.intersects(enemy.getShape())) {
-			System.out.println("Collision");
-		}
+		m_shape.setLocation(m_posX+(m_radius/2), m_posY+(m_radius/2));
 		return m_shape.intersects(enemy.getShape());
+		
 	}
 	
 	public void keyPressed(int key, char c) {
@@ -187,32 +186,36 @@ public class Player {
 	public void move(int dt) {
 		m_speedX = 0;
 		m_speedY = 0;
-		if(!collision(m_enemy)) {
-			if(((up && !down) || (up && down && !updown)) && (m_posY > m_fieldOriginY)){
-				m_speedY=-m_speed;
-			}
-			
-			if(((down && !up) || (up && down && updown)) && ((m_posY + m_radius) < (m_fieldOriginY + m_fieldHeight))) {
-				m_speedY=m_speed;
-			}
-			
-			if(((left && !right)|| (left && right && rightLeft)) && (m_posX > m_fieldOriginX)) {
-				m_speedX = -m_speed;
-			}
-			
-			if(((!left && right)|| (left && right && !rightLeft)) && ((m_posX + m_radius) < (m_fieldOriginX + m_fieldWidth))) {
-				m_speedX = m_speed;
-			}
+	
+		if(((up && !down) || (up && down && !updown)) && (m_posY > m_fieldOriginY)){
+			m_speedY=-m_speed;
+		}
+	
+		if(((down && !up) || (up && down && updown)) && ((m_posY + m_radius) < (m_fieldOriginY + m_fieldHeight))) {
+			m_speedY=m_speed;
+		}
+	
+		if(((left && !right)|| (left && right && rightLeft)) && (m_posX > m_fieldOriginX)) {
+			m_speedX = -m_speed;
 		}
 		
+		if(((!left && right)|| (left && right && !rightLeft)) && ((m_posX + m_radius) < (m_fieldOriginX + m_fieldWidth))) {
+			m_speedX = m_speed;
+		}
 		
 		if (m_speedX!=0 && m_speedY!=0) {
 			m_speedX/=Math.sqrt(2);
 			m_speedY/=Math.sqrt(2);
 		}
 
-		m_posX+=dt*m_speedX;
-		m_posY+=dt*m_speedY;
+		m_tempPosX = m_posX;
+		m_posX += (int)(dt*m_speedX);
+		m_tempPosY = m_posY;
+		m_posY +=  + (int)(dt*m_speedY);
+		if(collision(m_enemy)) {
+			m_posX = m_tempPosX;
+			m_posY = m_tempPosY;
+		}
 		
 		if(m_posY <= m_fieldOriginY)
 			m_posY = m_fieldOriginY;

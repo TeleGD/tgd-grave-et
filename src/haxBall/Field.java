@@ -85,6 +85,8 @@ public class Field {
 		}
 		
 		for(int i=0 ; i<bonus.size() ; i++) {
+			if(bonus.get(i).getShape().intersects(player0.getShape()) && !bonus.get(i).isActivated()) bonus.get(i).activate(player0, ball);
+			if(bonus.get(i).getShape().intersects(player1.getShape()) && !bonus.get(i).isActivated()) bonus.get(i).activate(player1, ball);
 			bonus.get(i).update(container, game, delta);
 			
 			if(bonus.get(i).isDeleted()) {
@@ -126,7 +128,7 @@ public class Field {
 		/* Méthode exécutée environ 60 fois par seconde on espère !  */
 		context.setColor(new Color(102, 111, 69));
 		context.fillRect(0, 0, this.world_width, this.world_height);
-		context.setColor(new Color(102, 148, 68));
+		context.setColor(color);
 		context.fillRect(this.pos_x,this.pos_y,this.width,this.height);
 		context.setColor(new Color(243, 241, 255));
 		context.drawRect(this.pos_x, this.pos_y, this.width, this.height);

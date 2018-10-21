@@ -10,14 +10,12 @@ import haxBall.Player;
 
 public class Deflate extends Bonus {
 	private Ball ball;
-	private int rad;
 	private int timer;
 	
 	public Deflate(int posX, int posY, Field field, Ball ball) {
 		super(posX, posY, new Color(255,128,0), field);
 		
-		this.ball = ball;		
-		this.rad = ball.getRad();
+		this.ball = ball;
 		timer = 10*1000;
 	}
 	
@@ -27,7 +25,7 @@ public class Deflate extends Bonus {
 		}
 		
 		if (timer <= 0) {
-			ball.setRad(rad);
+			ball.setRad(ball.getRad()*2);
 			deleted = true;
 		}
 		super.update(container, game, delta);
@@ -36,9 +34,7 @@ public class Deflate extends Bonus {
 	public void activate(Player p, Ball b) {
 		activated = true;
 		
-		ball.setRad(rad/2);
-		
-		deleted = true;
+		ball.setRad(ball.getRad()/2);
 	}	
 
 }
