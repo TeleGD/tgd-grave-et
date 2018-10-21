@@ -208,15 +208,11 @@ public class Field {
 		for(Player p : players) {
 			p.keyPressed(key,c);
 		}
-		
-		ball.keyPressed(key,c);
 	}
 	
 	public void keyReleased(int key, char c) {
 		for(Player p : players) {
 			p.keyReleased(key,c);
 		}
-		
-		ball.keyReleased(key,c);
 	}
 }

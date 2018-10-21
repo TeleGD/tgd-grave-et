@@ -15,10 +15,11 @@ public class Player {
 	private boolean up, down, right, left, updown, rightLeft;
 	private Field field;
 	private Circle m_shape;
+	private boolean shooting;
 	
 	public Player(int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id, Field field) {
 		this.field = field;
-		
+		this.shooting = false;
 		m_id = id;
 		
 		m_fieldHeight = fieldHeight;
@@ -115,6 +116,8 @@ public class Player {
 	}
 	
 	public void keyPressed(int key, char c) {
+		if(key==Input.KEY_SPACE) shooting = true;
+		
 		if(m_id == 0) {
 			switch (key){
 			
@@ -166,6 +169,8 @@ public class Player {
 	}
 
 	public void keyReleased(int key, char c) {
+		if(key==Input.KEY_SPACE) shooting = false;
+		
 		if(m_id == 0) {
 			switch (key) {
 			case Input.KEY_Z:
@@ -256,5 +261,9 @@ public class Player {
 			m_posX = m_fieldOriginX + m_fieldWidth;
 			m_speedX = 0;			
 		}
+	}
+	
+	public boolean isShooting() {
+		return shooting;
 	}
 }

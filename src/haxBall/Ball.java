@@ -30,6 +30,7 @@ public class Ball {
 	private int pointsJ2;
 	private Field field;
 	private Player player;
+	private float  speed;
 	
 	public Ball(int haut,int larg,int origx,int origy, Field field){ 
 		r_origx=origx;
@@ -47,6 +48,7 @@ public class Ball {
 		this.field = field;
 		this.player = null;
 		this.colliding = false;
+		this.speed = 1.0f;
 		
 		hitbox=new Circle(posx+rad/2, posy+rad/2, rad/2);	
 	}
@@ -87,30 +89,91 @@ public class Ball {
 			posy+=vity*delta;
 			
 			bordersCollision(oldPosX, oldPosY);
-		}
-		
-		//on fait les collisions avec les joueurs
-		if(colliding) {
-			colliding = !(Math.sqrt(Math.pow(hitbox.getCenterX() - player.getShape().getCenterX(),2) + Math.pow(hitbox.getCenterY() - player.getShape().getCenterY(),2) ) > (hitbox.getRadius() + player.getShape().getRadius() + 5) );
+			
+			//on regarde si on est toujours en collision avec le joueur
+			updateShape();
+			colliding = !(Math.sqrt(Math.pow(hitbox.getCenterX() - player.getShape().getCenterX(),2) + Math.pow(hitbox.getCenterY() - player.getShape().getCenterY(),2) ) > (hitbox.getRadius() + player.getShape().getRadius()+5) );
 		}
 		
 		for (Player p : field.getPlayers()) {
-			if(hitbox.intersects(p.getShape()) && (!colliding || (colliding && !p.equals(player)))) {	//si on a une collision avec un nouveau joueur (le dernier joueur qui touche la balle la prend)
-				colliding = true;
-				player = p;
-				
-				vitx = player.getSpeedX();
-				vity = player.getSpeedY();
-				
-				posx+=vitx*delta;
-				posy+=vity*delta;
-				
+			updateShape();
+			if(hitbox.intersects(p.getShape())) { //si on a une collision avec un nouveau joueur
+				if(!(colliding && p.equals(player))) {
+					colliding = true;
+					player = p;
+					
+					vitx = player.getSpeedX();
+					vity = player.getSpeedY();
+					
+					posx+=vitx*delta;
+					posy+=vity*delta;
+					
+				} else {
+					collideWithPlayer();
+				}
+
 				bordersCollision(oldPosX, oldPosY);
+			}
+			
+			if(p.isShooting() && colliding && player.equals(p)) {
+				updateShape();
+				shoot();
 			}
 		}
 		
+		updateShape();
+	}
+	
+	private void updateShape() {
 		hitbox.setLocation(posx,posy);
-		hitbox.setRadius(rad/2);		
+		hitbox.setRadius(rad/2);
+	}
+	
+	private void collideWithPlayer() {
+		//on replace la balle au bord du joueur
+		//si on est en +-pi/2
+		if(hitbox.getCenterX() - player.getShape().getCenterX() == 0) {
+			int signe = 1;
+			if(hitbox.getCenterY()-player.getShape().getCenterY()<0) signe = -1;
+			posy = (int)(player.getShape().getCenterY() + (hitbox.getRadius() + player.getShape().getRadius() + 1)*signe);
+		
+		} else {
+			//signe pour les x
+			int signe = 1;
+			if(hitbox.getCenterX()-player.getShape().getCenterX()<0) signe = -1;
+			
+			double angle = (-signe)*Math.atan((hitbox.getCenterY() - player.getShape().getCenterY())/(hitbox.getCenterX() - player.getShape().getCenterX())); //angle en radians
+			double hyp = hitbox.getRadius() + player.getShape().getRadius() + 1;
+			
+			
+			
+			posx = (int)(player.getShape().getCenterX() + Math.cos(angle)*hyp*signe);
+			posy = (int)(player.getShape().getCenterY() - hyp*Math.sin(angle));
+		}
+	}
+	
+	private void shoot() {
+		double angle = 0;
+		double hyp = Math.sqrt(2)*speed;
+		
+		int signeX = 1;
+		if(hitbox.getCenterX()-player.getShape().getCenterX()<0) signeX = -1;
+		
+		//si on est en +-pi/2
+		if(hitbox.getCenterX() - player.getShape().getCenterX() == 0) {
+			int signe = 1;
+			if(hitbox.getCenterY()-player.getShape().getCenterY()>0) signe = -1;
+			angle = signe*Math.PI/2;
+				
+		} else {
+			
+			angle = (-signeX)*Math.atan((hitbox.getCenterY() - player.getShape().getCenterY())/(hitbox.getCenterX() - player.getShape().getCenterX())); //angle en radians
+		}
+		
+		vitx = (float)(Math.cos(angle)*hyp*signeX);
+		vity = (float)(-hyp*Math.sin(angle));
+		
+		colliding = false;
 	}
 	
 	private void bordersCollision(int oldX, int oldY) {
@@ -168,20 +231,7 @@ public class Ball {
 //		context.setColor(new Color(0,0,255));
 //		context.draw(hitbox);
 	}
-	
 
-	public void keyPressed(int key,char c) {
-		if((key==Input.KEY_SPACE) && colliding) {
-			//il faut recup l'angle pour calculer les nouvelle vitesses pour l'envoyer ...
-			vitx=0.7f;
-			vity=0.7f;
-		}
-	}
-	
-	public void keyReleased(int key, char c) {
-		
-	}
-	
 	public void setPosX(int posx) {
 		this.posx = posx;
 	}
