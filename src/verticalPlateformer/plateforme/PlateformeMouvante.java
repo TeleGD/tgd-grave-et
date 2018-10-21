@@ -1,4 +1,4 @@
-package verticalPlateformer;
+package verticalPlateformer.plateforme;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;

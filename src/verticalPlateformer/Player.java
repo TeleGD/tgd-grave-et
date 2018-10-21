@@ -10,42 +10,23 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Player {
+public class Player extends Entity {
 	
 
 	private int gravityPoint;
 	private int score;
-	private float horizontalSpeed;
-	private float vertivalSpeed;
-	private float horizontalAcceleration;
-	private float vertivalAcceleration;
-	private float posX;
-	private float posY;
 	private boolean leftPress, rightPress, downPress, qPress, dPress, sPress, zPress, spacePress ;
 	private int dirX, dirY;
 	private Image image;
 	private Ellipse shape;
-	private float width = 50;
-	private float height = 50;
+	private float width = 900;
+	private float height = 900;
 	private float widthRelation;
 	private float heightRelation;
 	private String name;
 	
-	public Player() {
-		try {
-			image = new Image("images/verticalPlateformer/monstre.png");
-			widthRelation = width/image.getWidth();
-			heightRelation = height/image.getHeight();
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-		this.name = "Amos";
-		this.score = 0;
-		this.shape = new Ellipse(gravityPoint, gravityPoint, gravityPoint, gravityPoint);
-		posX=0;
-		posY=0;
-	}
-	public Player(String n) {
+	public Player(String n,float posX, float posY) {
+		super(posX, posY);
 		try {
 			image = new Image("images/verticalPlateformer/monstre.png");
 			widthRelation = width/image.getWidth();
@@ -56,8 +37,6 @@ public class Player {
 		this.name = n;
 		this.score = 0;
 		this.shape = new Ellipse(gravityPoint, gravityPoint, gravityPoint, gravityPoint);
-		posX=0;
-		posY=0;
 	}
 	
 	public String getName() {
@@ -71,8 +50,6 @@ public class Player {
 		
 		changeGravity(input);
 		changeDirection(input);
-		
-		
 	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
@@ -85,8 +62,8 @@ public class Player {
 		 */
 		context.setColor(Color.green);
 		context.setLineWidth(2);
-		context.drawImage(image, (float) posX, (float) posY, (float) posX+width, (float) posY+height, 0, 0, image.getWidth(), image.getHeight());
-		context.drawOval(0, (float) (161*heightRelation), (float) (1681*widthRelation), (float) (1567*heightRelation));
+		context.drawImage(image, getPosX(), getPosY(), getPosX()+width, getPosY()+height, 0, 0, image.getWidth(), image.getHeight());
+		context.drawOval(getPosX(), getPosY()+(161*heightRelation), 1675*widthRelation, 1567*heightRelation);
 	}
 	
 	public int getScore() {
@@ -104,13 +81,13 @@ public class Player {
 		
 		if (gravityPoint > 0 ) {
 			if (BUTTON_LEFT) {
-//				super.changeGravity(-1);
+				super.setGravity(-1);
 			}
 			else if (BUTTON_DOWN) {
-//				super.changeGravity(0);
+				super.setGravity(0);
 			}
 			else if (BUTTON_RIGHT) {
-//				super.changeGravity(1);
+				super.setGravity(1);
 			}
 		}
 	}
@@ -125,26 +102,23 @@ public class Player {
 		boolean BUTTON_Z= KEY_Z && !KEY_S;
 		boolean BUTTON_S= KEY_S && !KEY_Z;
 		
-		//TODO : Décommenter quand Tristan aura terminé ses méthodes
-//		super.setDirX (0);
-//		super.setDirY(0);
-//		
-//		if (BUTTON_Q && !super.getGravity()) {
-//			super.setDirX(-1);
-//		}
-//		else if (BUTTON_D && !getGravity()){
-//			super.setDirX( 1);
-//		}
-//		else if (getGravity()) {
-//			if (BUTTON_S) {
-//				super.setDirY( 1);
-//			}
-//			else if (BUTTON_Z) {
-//				super.setDirY(-1);
-//			}
-//		}
+		super.setDirX (0);
+		super.setDirY(0);
 		
-		
+		if (BUTTON_Q && ! (getGravity() == 0)) {
+			super.setDirX(-1);
+		}
+		else if (BUTTON_D && ! (getGravity()==0)){
+			super.setDirX( 1);
+		}
+		else if ( (getGravity() != 0)) {
+			if (BUTTON_S) {
+				super.setDirY( 1);
+			}
+			else if (BUTTON_Z) {
+				super.setDirY(-1);
+			}
+		}
 	}
 
 }

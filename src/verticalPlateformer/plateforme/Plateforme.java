@@ -1,4 +1,4 @@
-package verticalPlateformer;
+package verticalPlateformer.plateforme;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -13,7 +13,7 @@ public abstract class Plateforme extends Rectangle {
 	private float longueur;
 	private float epaisseur;
 	private float speed;
-	
+
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics g,boolean gravite) {
 		/* Méthode exécutée environ 60 fois par seconde */
@@ -36,9 +36,13 @@ public abstract class Plateforme extends Rectangle {
 		this.longueur=longueur;
 		this.epaisseur=epaisseur;
 		this.sens=sens;
+		
 	}
-	public abstract void update(GameContainer container, StateBasedGame game, int delta);
-
 	
+	public abstract void update(GameContainer container, StateBasedGame game, int delta);
+	
+	public float getPosY() {
+		return this.posy;
+	}
 	 
 }
