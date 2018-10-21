@@ -5,13 +5,12 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import com.sun.javafx.geom.Ellipse2D;
-import com.sun.javafx.geom.Shape;
-
 import org.newdawn.slick.Input;
 
 public class Ball {
@@ -29,6 +28,8 @@ public class Ball {
 	private Shape hitbox;
 	private int pointsJ1;
 	private int pointsJ2;
+	private Player player1;
+	private Player player2;
 	
 	public Ball(int haut,int larg,int origx,int origy){ 
 		r_origx=origx;
@@ -44,7 +45,7 @@ public class Ball {
 		pointsJ1=0;
 		pointsJ2=0;
 		
-		Circle hitbox=new Circle(posx+rad/2, posy+rad/2, rad/2, rad/2);
+		hitbox=new Circle(posx+rad/2, posy+rad/2, rad/2);
 		
 		}
 		
@@ -89,7 +90,19 @@ public class Ball {
 			posy=r_origy;
 			
 		}
+		
+		hitbox.setLocation(posx+rad/2,posy+rad/2);
 	}
+	
+	public boolean contact(Player player) {
+		hitbox.setLocation(posx+rad/2,posy+rad/2);
+		return hitbox.intersects(player.getShape());
+	}
+	
+	public void collision() {
+		
+	}
+	
 	
 	public void render(GameContainer container, StateBasedGame game, Graphics context){
 		context.setColor(color);
@@ -98,7 +111,7 @@ public class Ball {
 	
 
 	public void keyPressed(int key,char c) {
-		if(key==Input.KEY_SPACE) {
+		if((key==Input.KEY_SPACE)&&(contact(player1)||contact(player2))) {
 			vitx=1;
 			vity=1;
 		}
@@ -119,5 +132,14 @@ public class Ball {
 	public int getRad() {
 		return rad;
 	}
+	
+	public void setPlayer1(Player player) {
+		player1=player;
+	}
+	
+	public void setPlayer2(Player player) {
+		player2=player;
+	}
+	
 }
 
