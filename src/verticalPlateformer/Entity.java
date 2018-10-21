@@ -68,8 +68,10 @@ public abstract class Entity {
 			switch (this.gravity) {
 				case -1:
 					this.speedX += Entity.JUMP;
+					break;
 				case 0:
 					this.speedY -= Entity.JUMP;
+					break;
 				case 1:
 					this.speedX -= Entity.JUMP;
 			}
@@ -82,9 +84,11 @@ public abstract class Entity {
 			case -1:
 				this.accX = -Entity.GRAVITY;
 				this.accY = 0;
+				break;
 			case 0:
 				this.accX = 0;
 				this.accY = Entity.GRAVITY;
+				break;
 			case 1:
 				this.accX = Entity.GRAVITY;
 				this.accY = 0;
