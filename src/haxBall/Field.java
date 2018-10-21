@@ -124,9 +124,6 @@ public class Field {
 	public void keyReleased(int key, char c) {
 		player0.keyReleased(key,c);
 		player1.keyReleased(key,c);
-<<<<<<< HEAD
-=======
 		//ball.keyReleased(key,c);
->>>>>>> 59ccecc6cbe723219e5d87e66ae8cc992104c09c
 	}
 }

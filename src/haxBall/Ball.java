@@ -54,7 +54,7 @@ public class Ball {
 		}
 		if (posy+rad>r_origy+r_haut){
 			vity=-vity;
-			posy=r_origy+r_haut;
+			//posy=r_origy+r_haut;
 		}
 		if (posy<r_origy) {
 			vity=-vity;
