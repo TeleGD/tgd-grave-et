@@ -39,8 +39,6 @@ public abstract class Bonus {
 	}
 
 	public void update (GameContainer container, StateBasedGame game, int delta) {
-		shape.setLocation(posX+diam/2, posY+diam/2);
-		
 		if(!activated)
 			timer -= delta;
 		
@@ -50,12 +48,11 @@ public abstract class Bonus {
 	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
-		Color oldColor = context.getColor();
 		context.setColor(color);
-		
 		context.fillOval(posX, posY, diam, diam);
 		
-		context.setColor(oldColor);
+//		context.setColor(new Color(255,0,0));
+//		context.draw(shape);
 	}
 	
 	public boolean isDeleted() {

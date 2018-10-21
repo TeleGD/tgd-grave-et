@@ -13,10 +13,12 @@ public class Player {
 	private Color m_color;
 	private float m_speedX, m_speedY, m_speed;
 	private boolean up, down, right, left, updown, rightLeft;
-	private Player m_enemy;
-	private Shape m_shape;
+	private Field field;
+	private Circle m_shape;
 	
-	public Player(int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id) {
+	public Player(int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id, Field field) {
+		this.field = field;
+		
 		m_id = id;
 		
 		m_fieldHeight = fieldHeight;
@@ -69,32 +71,39 @@ public class Player {
 		m_color = color;
 	}
 	
-	public Shape getShape() {
+	public Circle getShape() {
 		return m_shape;
 	}
 	
-	public void setShape(Shape shape) {
-		m_shape = shape;
-	}
+//	public void setShape(Circle shape) {
+//		m_shape = shape;
+//	}
 	
-	public void setEnemy(Player enemy) {
-		m_enemy = enemy;
-	}
+//	public void setEnemy(Player enemy) {
+//		m_enemy = enemy;
+//	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		context.setColor(m_color);
 		context.fillOval(m_posX, m_posY, m_radius, m_radius);
+		
+//		context.setColor(new Color(0,255,0));
+//		context.draw(m_shape);
 	}
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		move(delta);
-		m_shape.setLocation(m_posX+(m_radius/2), m_posY+(m_radius/2));
+		updateShape();
 	}
 	
 	public boolean collision(Player enemy) {
-		m_shape.setLocation(m_posX+(m_radius/2), m_posY+(m_radius/2));
+		updateShape();
 		return m_shape.intersects(enemy.getShape());
-		
+	}
+	
+	private void updateShape() {
+		m_shape.setLocation(m_posX, m_posY);
+		m_shape.setRadius(m_radius/2);
 	}
 	
 	public void keyPressed(int key, char c) {
@@ -212,9 +221,12 @@ public class Player {
 		m_posX += (int)(dt*m_speedX);
 		m_tempPosY = m_posY;
 		m_posY +=  + (int)(dt*m_speedY);
-		if(collision(m_enemy)) {
-			m_posX = m_tempPosX;
-			m_posY = m_tempPosY;
+		
+		for(Player p : field.getPlayers()) {
+			if(!p.equals(this) && collision(p)) {
+				m_posX = m_tempPosX;
+				m_posY = m_tempPosY;
+			}
 		}
 		
 		if(m_posY <= m_fieldOriginY)
