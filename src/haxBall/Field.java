@@ -23,8 +23,7 @@ public class Field {
 	private int bonusTimer;
 	private float rnd;
 	
-	private List<Bonus> bonus;
-	
+	private List<Bonus> bonus;	
 	public Field(int world_height , int world_width){
 		// normalement ca marche (pas)...
 		this.height = (int)(0.7 * world_height);
@@ -43,6 +42,8 @@ public class Field {
 		// creation des joueurs ...
 		player0 = new Player(this.height,this.width,this.pos_x , this.pos_y, 0);
 		player1 = new Player(this.height,this.width,this.pos_x , this.pos_y, 1);
+		player0.setEnemy(player1);
+		player1.setEnemy(player0);
 		ball = new Ball(this.height,this.width,this.pos_x,this.pos_y);
 	}
 	

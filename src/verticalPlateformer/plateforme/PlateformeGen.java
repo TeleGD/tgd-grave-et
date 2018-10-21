@@ -20,7 +20,7 @@ public class PlateformeGen {
 	
 	
 	public void createPlateforme(GameContainer container) {
-		world.addPlateforme(new PlateformeClassique(r.nextInt(container.getWidth()),r.nextInt(container.getHeight()),10,200,r.nextBoolean()));
+		world.addPlateforme(new PlateformeMouvante(r.nextInt(container.getWidth()),r.nextInt(container.getHeight()),10,200,r.nextBoolean()));
 	}
 
 	public void update(GameContainer container, StateBasedGame game, int delta) {
