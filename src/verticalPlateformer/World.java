@@ -36,6 +36,9 @@ public class World extends BasicGameState {
 
 	private Sound trash;
 	private Music defouloir;
+	
+	
+	/*   Ajout d'un commentaire important    */
 
 	public World (int ID) {
 		this.ID = ID;
