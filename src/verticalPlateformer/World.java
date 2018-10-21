@@ -13,12 +13,18 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+
+import verticalPlateformer.plateforme.PlateformeClassique;
+import verticalPlateformer.plateforme.PlateformeGen;
+
 public class World extends BasicGameState {
 
 	private ArrayList<Player> p;
 	private Interface I;
 	private Player amos;
 	private DeathLine line;
+	private ArrayList<PlateformeClassique> plateformes;
+	private PlateformeGen PlateformeGen;
 	
 	private int ID;
 	private int state;
@@ -46,6 +52,10 @@ public class World extends BasicGameState {
 		/* Méthode exécutée une unique fois au chargement du programme */
 		this.width = container.getWidth ();
 		this.height = container.getHeight ();
+		
+		plateformes=new ArrayList<PlateformeClassique>();
+		plateformes.add(new PlateformeClassique(500,500,10,200,true));
+		PlateformeGen = new PlateformeGen(plateformes);
 	}
 
 	@Override
@@ -76,6 +86,14 @@ public class World extends BasicGameState {
 			this.setState (1);
 			game.enterState (2, new FadeOutTransition (), new FadeInTransition ());
 		}
+		for(int i=plateformes.size()-1;i>=0;i--) {
+			if(plateformes.get(i).getPosY()>=this.line.getPosY()) {
+				plateformes.remove(i);
+			}
+		}
+		for(PlateformeClassique p:plateformes) {
+			p.update(container, game,delta);
+		}
 	}
 
 	@Override
@@ -85,6 +103,9 @@ public class World extends BasicGameState {
 		amos.render(container, game, context);
 		line.render(container, game, context);
 		line.update(container, game);
+		for(PlateformeClassique p:plateformes) {
+			p.render(container, game, context,true);
+		}
 	}
 
 	public void play (GameContainer container, StateBasedGame game) {
