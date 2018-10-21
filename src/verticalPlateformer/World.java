@@ -35,11 +35,6 @@ public class World extends BasicGameState {
 	public World (int ID) {
 		this.ID = ID;
 		this.state = -1;
-
-		this.amos = new Player("Amos",100,100);
-		this.p = new ArrayList<Player>();
-		this.p.add(amos);
-		this.I = new Interface(p);
 	}
 
 	@Override
@@ -52,12 +47,6 @@ public class World extends BasicGameState {
 		/* Méthode exécutée une unique fois au chargement du programme */
 		this.width = container.getWidth ();
 		this.height = container.getHeight ();
-		
-		this.line = new DeathLine(container);
-		
-		plateformes=new ArrayList<Plateforme>();
-		plateformes.add(new PlateformeClassique(500,500,10,200,true));
-		plateformeGen = new PlateformeGen(this);
 	}
 
 	@Override
@@ -120,6 +109,16 @@ public class World extends BasicGameState {
 
 	public void play (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au début du jeu */
+		this.amos = new Player("Amos",100,100);
+		this.p = new ArrayList<Player>();
+		this.p.add(amos);
+		this.I = new Interface(p);
+		
+		this.line = new DeathLine(container);
+		
+		plateformes=new ArrayList<Plateforme>();
+		plateformes.add(new PlateformeClassique(500,500,10,200,true));
+		plateformeGen = new PlateformeGen(this);
 	}
 
 	public void pause (GameContainer container, StateBasedGame game) {
