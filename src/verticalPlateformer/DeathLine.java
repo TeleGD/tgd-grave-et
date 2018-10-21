@@ -10,8 +10,8 @@ public class DeathLine {
 	private float posY;
 	private float speed;
 	
-	public DeathLine() {
-		this.posY = 0;
+	public DeathLine(GameContainer container) {
+		this.posY = container.getHeight();
 		this.speed = 2;
 	}
 	
@@ -36,10 +36,10 @@ public class DeathLine {
 	public void render(GameContainer container, StateBasedGame game, Graphics g) {
 		// Initialisation d'une ligne rouge apres le bas de l'ecran
 		g.setColor(new Color(240, 0, 0, 204));
-		g.drawLine((float) 0, (float) this.posY + container.getHeight(), (float) container.getWidth(), (float) this.posY + container.getHeight());
+		g.drawLine((float) 0, (float) this.posY, (float) container.getWidth(), (float) this.posY);
 	}
 	
-	public void update(GameContainer container, StateBasedGame game) {
+	public void update(GameContainer container, StateBasedGame game, int delta) {
 		this.posY -= this.speed;
 	}
 	
