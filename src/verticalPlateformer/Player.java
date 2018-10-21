@@ -19,14 +19,15 @@ public class Player extends Entity {
 	private int dirX, dirY;
 	private Image image;
 	private Ellipse shape;
-	private float width = 900;
-	private float height = 900;
+	private float width = 70;
+	private float height = 70;
 	private float widthRelation;
 	private float heightRelation;
 	private String name;
 	
 	public Player(String n,float posX, float posY) {
 		super(posX, posY);
+		gravityPoint = 10;
 		try {
 			image = new Image("images/verticalPlateformer/monstre.png");
 			widthRelation = width/image.getWidth();
@@ -50,6 +51,8 @@ public class Player extends Entity {
 		
 		changeGravity(input);
 		changeDirection(input);
+		
+		super.update(container, game, delta);
 	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
@@ -80,14 +83,23 @@ public class Player extends Entity {
 		boolean BUTTON_RIGHT = KEY_RIGHT && ! (KEY_LEFT || KEY_DOWN);
 		
 		if (gravityPoint > 0 ) {
-			if (BUTTON_LEFT) {
+			if (BUTTON_LEFT && (getGravity() != -1)) {
 				super.setGravity(-1);
+				gravityPoint --;
+				System.out.println("gravité  : -1");
+
 			}
-			else if (BUTTON_DOWN) {
+			else if (BUTTON_DOWN && (getGravity() != 0)) {
 				super.setGravity(0);
+				gravityPoint --;
+				System.out.println("gravité  : 0");
+
 			}
-			else if (BUTTON_RIGHT) {
+			else if (BUTTON_RIGHT && (getGravity() != 1)) {
 				super.setGravity(1);
+				gravityPoint --;
+				System.out.println("gravité  : 1");
+
 			}
 		}
 	}
@@ -95,28 +107,32 @@ public class Player extends Entity {
 	public void changeDirection(Input input) {
 		boolean KEY_D = input.isKeyDown (Input.KEY_D);
 		boolean KEY_Q = input.isKeyDown (Input.KEY_Q);
-		boolean BUTTON_D = KEY_D && !KEY_D;
-		boolean BUTTON_Q = KEY_Q && !KEY_Q;
-		boolean KEY_Z = input.isKeyDown (Input.KEY_UP);
-		boolean KEY_S= input.isKeyDown (Input.KEY_DOWN);
+		boolean BUTTON_D = KEY_D && !KEY_Q;
+		boolean BUTTON_Q = KEY_Q && !KEY_D;
+		boolean KEY_Z = input.isKeyDown (Input.KEY_Z);
+		boolean KEY_S= input.isKeyDown (Input.KEY_S);
 		boolean BUTTON_Z= KEY_Z && !KEY_S;
 		boolean BUTTON_S= KEY_S && !KEY_Z;
 		
-		super.setDirX (0);
+		super.setDirX(0);
 		super.setDirY(0);
 		
-		if (BUTTON_Q && ! (getGravity() == 0)) {
+		
+		if (BUTTON_Q &&  (getGravity() == 0)) {
 			super.setDirX(-1);
 		}
-		else if (BUTTON_D && ! (getGravity()==0)){
+		else if (BUTTON_D &&  (getGravity()==0)){
 			super.setDirX( 1);
+
 		}
 		else if ( (getGravity() != 0)) {
 			if (BUTTON_S) {
 				super.setDirY( 1);
+
 			}
 			else if (BUTTON_Z) {
 				super.setDirY(-1);
+
 			}
 		}
 	}
