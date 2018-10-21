@@ -32,9 +32,10 @@ public final class Main {
 			public void initStatesList (GameContainer container) {
 				this.addState (new pages.Welcome (0));
 				this.addState (new pages.Choice (1));
-				this.addState (new pages.Pause (2));
-				this.addState (new haxBall.World (3));
-				this.addState (new verticalPlateformer.World (4));
+				this.addState (new pages.Pause (2, 4));
+				this.addState (new pages.Pause (3, 5));
+				this.addState (new haxBall.World (4));
+				this.addState (new verticalPlateformer.World (5));
 			}
 
 		};
