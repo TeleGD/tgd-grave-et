@@ -93,10 +93,8 @@ public class Field {
 		}
 	}
 	
-	private void generateBonus() {
-		int r = (int)Math.random()*5;
-		
-		int k= (int)(Math.random()*4);
+	private void generateBonus() {		
+		int k= (int)(Math.random()*5);
 		int posX = (int)(Math.random()*5*width/6+pos_x+width/12);
 		int posY = (int)(Math.random()*5*height/6+pos_y+height/12);
 		
@@ -115,6 +113,9 @@ public class Field {
 			break;
 		case 4:
 			bonus.add(new Bip(posX, posY, this));
+			break;
+		default:
+			bonus.add(new Inflate(posX, posY, this, ball));
 			break;
 		}
 		
@@ -140,10 +141,6 @@ public class Field {
 			context.drawLine(this.pos_x + this.width/2, this.pos_y, this.pos_x + this.width/2, this.pos_y + this.height); // ligne milieu
 			context.drawRect(this.pos_x, this.pos_y, this.width, this.height); // touche
 			context.drawOval(this.pos_x + this.width/2 - this.height/8 , this.pos_y + this.height/2 - this.height/8, height/4, height/4); // cercle
-	
-			player0.render(container, game, context);
-			player1.render(container, game, context);
-			ball.render(container, game, context);
 		}
 		else {
 			context.setColor(new Color(231, 235, 221));
@@ -160,6 +157,7 @@ public class Field {
 			context.fillRect(this.pos_x - this.width/20, this.pos_y + 2*height/3 , width/20, width/20);
 			context.fillRect(this.pos_x + this.width, this.pos_y + height/3- width/20, width/20, width/20);
 			context.fillRect(this.pos_x + this.width, this.pos_y + 2*height/3 , width/20, width/20);
+		}
 
 		for(Bonus b : bonus) {
 			if(!b.isActivated())
@@ -169,8 +167,6 @@ public class Field {
 		player0.render(container, game, context);
 		player1.render(container, game, context);
 		ball.render(container, game, context);
-
-		}
 	}
 	
 	public void addBonus(Bonus b) {

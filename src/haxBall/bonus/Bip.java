@@ -21,7 +21,7 @@ public class Bip extends Bonus {
 	private Color meme;
 	
 	public Bip(int posX, int posY,  Field field) {
-		super(posX, posY, new Color(255,255,255), field);
+		super(posX, posY, new Color(254,222,1), field);
 		this.field = field;
 		this.fieldColor = field.getColor();
 		this.timer = 10*1000;

@@ -15,7 +15,7 @@ public class Teleport extends Bonus {
 	private Sound sound;
 
 	public Teleport(int posX, int posY, Field field, Ball ball) {
-		super(posX, posY, new Color(200,100,100), field);
+		super(posX, posY, new Color(0,255,255), field);
 
 		this.ball = ball;
 		try {
