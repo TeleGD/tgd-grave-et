@@ -41,8 +41,9 @@ public class Bip extends Bonus {
 		} else if(!deleted) {
 			timer -= delta;
 			
-			if (timer%1000==0){
+			if (timer%1000==0 && timer!=0 ){
 				p.setColor(meme);
+				sound.play(1, (float) 0.4);
 				
 			} else {
 				p.setColor(field.getColor());
