@@ -114,7 +114,7 @@ public class World extends BasicGameState {
 		amos.render(container, game, context);
 		line.render(container, game, context);
 		for(Plateforme p:plateformes) {
-			p.render(container, game, context,true);
+			p.render(container, game, context);
 		}
 	}
 
