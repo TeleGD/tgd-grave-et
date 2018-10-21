@@ -4,30 +4,26 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Player {
-	private int m_posX, m_posY, m_id, m_fieldHeight, m_fieldWidth, m_fieldOriginX, m_fieldOriginY;
+	private int m_posX, m_posY, m_radius, m_id, m_fieldHeight, m_fieldWidth, m_fieldOriginX, m_fieldOriginY;
 	private Color m_color;
-	private int m_radius;
-	private float m_speedX;
-	private float m_speedY;
-	private float m_speed;
-	private int m_newX;
-	private int m_newY;
-	private boolean up;
-	private boolean down;
-	private boolean right;
-	private boolean left;
-	private boolean updown;
-	private boolean rightLeft;
-
+	private float m_speedX, m_speedY, m_speed;
+	private boolean up, down, right, left, updown, rightLeft;
+	private Player m_enemy;
+	private Shape m_shape;
+	
 	public Player(int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id) {
 		m_id = id;
+		
 		m_fieldHeight = fieldHeight;
 		m_fieldWidth = fieldWidth;
 		m_fieldOriginX = fieldOriginX;
 		m_fieldOriginY = fieldOriginY;
+		
 		m_radius = fieldHeight/15;
 		m_posY = (fieldHeight/2) + fieldOriginY - (m_radius/2);
 		m_speed = (float) 0.3;
@@ -40,7 +36,14 @@ public class Player {
 			m_posX = ((3*fieldWidth)/4) + fieldOriginX;
 			m_color = new Color(255, 0, 0);
 		}
+		
+		m_shape = new Circle(m_posX+(m_radius/2), m_posY+(m_radius/2), m_radius/2);
 	}
+	
+	/*public Player(int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id, Player enemy) {
+		new Player(fieldHeight, fieldWidth, fieldOriginX, fieldOriginY, id);
+		m_enemy = enemy;
+	}*/
 	
 	public int getPosX() {
 		return m_posX;
@@ -66,6 +69,18 @@ public class Player {
 		m_color = color;
 	}
 	
+	public Shape getShape() {
+		return m_shape;
+	}
+	
+	public void setShape(Shape shape) {
+		m_shape = shape;
+	}
+	
+	public void setEnemy(Player enemy) {
+		m_enemy = enemy;
+	}
+	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		context.setColor(m_color);
 		context.fillOval(m_posX, m_posY, m_radius, m_radius);
@@ -73,6 +88,14 @@ public class Player {
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		move(delta);
+		m_shape.setLocation(m_posX+(m_radius/2), m_posY+(m_radius/2));
+	}
+	
+	public boolean collision(Player enemy) {
+		if(m_shape.intersects(enemy.getShape())) {
+			System.out.println("Collision");
+		}
+		return m_shape.intersects(enemy.getShape());
 	}
 	
 	public void keyPressed(int key, char c) {
@@ -164,21 +187,24 @@ public class Player {
 	public void move(int dt) {
 		m_speedX = 0;
 		m_speedY = 0;
-		if(((up && !down) || (up && down && !updown)) && (m_posY > m_fieldOriginY)){
-			m_speedY=-m_speed;
+		if(!collision(m_enemy)) {
+			if(((up && !down) || (up && down && !updown)) && (m_posY > m_fieldOriginY)){
+				m_speedY=-m_speed;
+			}
+			
+			if(((down && !up) || (up && down && updown)) && ((m_posY + m_radius) < (m_fieldOriginY + m_fieldHeight))) {
+				m_speedY=m_speed;
+			}
+			
+			if(((left && !right)|| (left && right && rightLeft)) && (m_posX > m_fieldOriginX)) {
+				m_speedX = -m_speed;
+			}
+			
+			if(((!left && right)|| (left && right && !rightLeft)) && ((m_posX + m_radius) < (m_fieldOriginX + m_fieldWidth))) {
+				m_speedX = m_speed;
+			}
 		}
 		
-		if(((down && !up) || (up && down && updown)) && ((m_posY + m_radius) < (m_fieldOriginY + m_fieldHeight))) {
-			m_speedY=m_speed;
-		}
-		
-		if(((left && !right)|| (left && right && rightLeft)) && (m_posX > m_fieldOriginX)) {
-			m_speedX = -m_speed;
-		}
-		
-		if(((!left && right)|| (left && right && !rightLeft)) && ((m_posX + m_radius) < (m_fieldOriginX + m_fieldWidth))) {
-			m_speedX = m_speed;
-		}
 		
 		if (m_speedX!=0 && m_speedY!=0) {
 			m_speedX/=Math.sqrt(2);
