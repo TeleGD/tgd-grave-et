@@ -1,8 +1,8 @@
 package verticalPlateformer;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.state.StateBasedGame;
 
 public abstract class Entity {
 
@@ -10,8 +10,8 @@ public abstract class Entity {
 	private static float MOVE;
 
 	static {
-		Entity.GRAVITY = 720f;
-		Entity.MOVE = 120f;
+		Entity.GRAVITY = .00144f;
+		Entity.MOVE = .12f;
 	}
 
 	private int gravity;
@@ -32,13 +32,13 @@ public abstract class Entity {
 		this.posY = posY;
 		this.speedX = 0f;
 		this.speedY = 0f;
-		this.accX = 0;
-		this.accY = -Entity.GRAVITY;
+		this.accX = 0f;
+		this.accY = Entity.GRAVITY;
 	}
 
 	public void update (GameContainer container, StateBasedGame game, int delta) {
-		this.speedX += this.accX * delta;
-		this.speedY += this.accY * delta;
+		this.speedX += this.accX * delta / 2;
+		this.speedY += this.accY * delta / 2;
 		this.posX += (this.speedX + this.dirX * Entity.MOVE) * delta;
 		this.posY += (this.speedY + this.dirY * Entity.MOVE) * delta;
 	}
@@ -53,7 +53,7 @@ public abstract class Entity {
 				this.accY = 0;
 			case 0:
 				this.accX = 0;
-				this.accY = -Entity.GRAVITY;
+				this.accY = Entity.GRAVITY;
 			case 1:
 				this.accX = Entity.GRAVITY;
 				this.accY = 0;
@@ -68,8 +68,16 @@ public abstract class Entity {
 		this.dirX = x;
 	}
 
+	public int getDirX () {
+		return this.dirX;
+	}
+
 	public void setDirY (int y) {
 		this.dirY = y;
+	}
+
+	public int getDirY () {
+		return this.dirY;
 	}
 
 	public float getPosX () {
