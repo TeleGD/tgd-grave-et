@@ -24,6 +24,7 @@ public class Player extends Entity {
 	private float width = 70;
 	private float height = 70;
 	private float baseSpeed = .24f;
+	private float jumpSpeed = .48f;
 	private float widthRelation;
 	private float heightRelation;
 	private float shapeWidth;
