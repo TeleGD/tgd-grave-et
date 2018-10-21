@@ -29,7 +29,7 @@ public class World extends BasicGameState {
 	public World (int ID) {
 		this.ID = ID;
 		this.state = -1;
-		this.amos = new Player();
+		this.amos = new Player("Amos",100,100);
 		this.line = new DeathLine();
 		this.p = new ArrayList<Player>();
 		this.p.add(amos);
