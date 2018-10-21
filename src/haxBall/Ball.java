@@ -42,8 +42,8 @@ public class Ball {
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		posx+=vitx*delta;
 		posy+=vity*delta;
-		vitx=vitx*399/400;
-		vity=vity*399/400;
+		vitx=vitx*99/100;
+		vity=vity*99/100;
 		if (posx+rad> r_origx+r_larg){
 			vitx=-vitx;
 			//posx=r_origx+r_larg;
