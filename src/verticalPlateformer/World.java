@@ -13,7 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-
+import verticalPlateformer.plateforme.Plateforme;
 import verticalPlateformer.plateforme.PlateformeClassique;
 import verticalPlateformer.plateforme.PlateformeGen;
 
@@ -23,8 +23,8 @@ public class World extends BasicGameState {
 	private Interface I;
 	private Player amos;
 	private DeathLine line;
-	private ArrayList<PlateformeClassique> plateformes;
-	private PlateformeGen PlateformeGen;
+	private ArrayList<Plateforme> plateformes;
+	private PlateformeGen plateformeGen;
 	
 	private int ID;
 	private int state;
@@ -55,9 +55,9 @@ public class World extends BasicGameState {
 		
 		this.line = new DeathLine(container);
 		
-		plateformes=new ArrayList<PlateformeClassique>();
+		plateformes=new ArrayList<Plateforme>();
 		plateformes.add(new PlateformeClassique(500,500,10,200,true));
-		PlateformeGen = new PlateformeGen(plateformes);
+		plateformeGen = new PlateformeGen(this);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class World extends BasicGameState {
 			game.enterState (3, new FadeOutTransition (), new FadeInTransition ());
 		}
 		line.update(container, game, delta);
-		for(PlateformeClassique p:plateformes) {
+		for(Plateforme p:plateformes) {
 			p.update(container, game,delta);
 		}
 		for(int i=plateformes.size()-1;i>=0;i--) {
@@ -97,6 +97,7 @@ public class World extends BasicGameState {
 				plateformes.remove(i);
 			}
 		}
+		plateformeGen.update(container, game, delta);
 		
 	}
 
@@ -106,7 +107,7 @@ public class World extends BasicGameState {
 		/* Méthode exécutée environ 60 fois par seconde */
 		amos.render(container, game, context);
 		line.render(container, game, context);
-		for(PlateformeClassique p:plateformes) {
+		for(Plateforme p:plateformes) {
 			p.render(container, game, context,true);
 		}
 	}
@@ -133,6 +134,10 @@ public class World extends BasicGameState {
 
 	public int getState () {
 		return this.state;
+	}
+	
+	public void addPlateforme(Plateforme plateforme ) {
+		plateformes.add(plateforme);
 	}
 
 }
