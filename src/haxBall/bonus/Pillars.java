@@ -9,14 +9,9 @@ import haxBall.Field;
 import haxBall.Player;
 
 public class Pillars extends Bonus {
-	
-	private boolean activated, deleted;
 
-	public Pillars(int posX, int posY, double fieldWidth) {
-		super(posX, posY, new Color(20,20,20), fieldWidth);
-		
-		this.activated = false;
-		this.deleted = false;		
+	public Pillars(int posX, int posY, Field field) {
+		super(posX, posY, new Color(20,20,20), field);	
 	}
 
 	public void update(GameContainer container, StateBasedGame game, int delta) {
@@ -25,16 +20,7 @@ public class Pillars extends Bonus {
 		}
 	}
 
-	public boolean isActivated() {
-		return activated;
-	}
-
 	public void activate(Player p, Ball b) {
 		activated = true;		
 	}
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
 }
