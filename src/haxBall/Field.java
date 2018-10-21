@@ -20,6 +20,7 @@ public class Field {
 	private Ball ball;
 	private int world_height;
 	private int world_width;
+	private int bonusTimer;
 	
 	private List<Bonus> bonus;
 	
@@ -32,6 +33,7 @@ public class Field {
 		this.color = new Color(102, 148, 68);
 		this.world_width = world_width;
 		this.world_height = world_height; 
+		this.bonusTimer = 10*1000;
 		
 		this.bonus = new ArrayList<Bonus>();
 		
@@ -71,14 +73,48 @@ public class Field {
 		player0.update(container, game, delta);
 		player1.update(container, game, delta);
 		ball.update(container, game, delta);
+		bonusTimer -= delta;
 		
-		for(Bonus b : bonus) {
-			b.update(container, game, delta);
+		if(bonusTimer <= 0) {
+			generateBonus();
+			bonusTimer = 10*1000;
+		}
+		
+		for(int i=0 ; i<bonus.size() ; i++) {
+			bonus.get(i).update(container, game, delta);
 			
-			if(b.isDeleted()) {
-				bonus.remove(b);
+			if(bonus.get(i).isDeleted()) {
+				System.out.println("test");
+				bonus.remove(i);
 			}
 		}
+	}
+	
+	private void generateBonus() {
+		int r = (int)Math.random()*5;
+		
+		int k= (int)(Math.random()*4);
+		int posX = (int)(Math.random()*5*width/6+pos_x+width/12);
+		int posY = (int)(Math.random()*5*height/6+pos_y+height/12);
+		
+		switch (k) {
+		case 0:
+			bonus.add(new Deflate(posX, posY, this, ball));
+			break;
+		case 1:
+			bonus.add(new Flash(posX, posY, this));
+			break;
+		case 2:
+			bonus.add(new Inflate(posX, posY, this, ball));
+			break;
+		case 3:
+			bonus.add(new Teleport(posX, posY, this, ball));
+			break;
+		case 4:
+			bonus.add(new Bip(posX, posY, this));
+			break;
+		}
+		
 	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {

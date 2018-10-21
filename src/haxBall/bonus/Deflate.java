@@ -30,6 +30,7 @@ public class Deflate extends Bonus {
 			ball.setRad(rad);
 			deleted = true;
 		}
+		super.update(container, game, delta);
 	}
 
 	public void activate(Player p, Ball b) {
