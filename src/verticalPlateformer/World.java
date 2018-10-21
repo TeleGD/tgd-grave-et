@@ -27,16 +27,16 @@ public class World extends BasicGameState {
 	private DeathLine line;
 	private ArrayList<Plateforme> plateformes;
 	private PlateformeGen plateformeGen;
-	
+
 	private int ID;
 	private int state;
 
 	private int width;
 	private int height;
-	
+
 	private Sound trash;
 	private Music defouloir;
-	
+
 	public World (int ID) {
 		this.ID = ID;
 		this.state = -1;
@@ -110,29 +110,30 @@ public class World extends BasicGameState {
 			for (Plateforme plat : plateformes) {
 				if(player.getShape().intersects(plat)) {
 					player.freeze();
-					System.out.println("COLLISION");
-					if ( (player.getGravity() == 0) == plat.getSens()) {
+					if ((player.getGravity() == 0) != plat.getSens()) {
 						player.setPlateforme(plat);
+						System.out.println("FREEZE");
 					}
 					else {
 						player.unFreeze();
+						System.out.println("FREEZE - UNFREEZE");
 					}
 				}
 			}
 		}
 
-		
-		
+
+
 	}
 
 	@Override
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
-		I.render(container,game,context);
 		/* Méthode exécutée environ 60 fois par seconde */
+		I.render(container,game,context);
 		amos.render(container, game, context);
-		line.render(container, game, context);
+		line.render (container, game, context, amos.getPosY ());
 		for(Plateforme p:plateformes) {
-			p.render(container, game, context);
+			p.render(container, game, context, amos.getPosY ());
 		}
 	}
 
@@ -142,9 +143,9 @@ public class World extends BasicGameState {
 		this.p = new ArrayList<Player>();
 		this.p.add(amos);
 		this.I = new Interface(p);
-		
+
 		this.line = new DeathLine(container);
-		
+
 		plateformes=new ArrayList<Plateforme>();
 		plateformes.add(new PlateformeClassique(500,500,10,200,true));
 		plateformeGen = new PlateformeGen(this);
@@ -169,7 +170,7 @@ public class World extends BasicGameState {
 	public int getState () {
 		return this.state;
 	}
-	
+
 	public void addPlateforme(Plateforme plateforme ) {
 		plateformes.add(plateforme);
 	}

@@ -6,41 +6,40 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class DeathLine {
-	
+
+	private Color color;
 	private float posY;
 	private float speed;
-	
-	public DeathLine(GameContainer container) {
-		this.posY = container.getHeight();
-		this.speed = 2;
+
+	public DeathLine (GameContainer container) {
+		this.color = new Color (240, 0, 0, 204);
+		this.posY = container.getHeight () * 4;
+		this.speed = -.12f;
 	}
-	
-	// Getters et setters des attributs de la death line
-	
-	public float getPosY() {
+
+	public float getPosY () {
 		return this.posY;
 	}
-	
-	public float getSpeed() {
+
+	public float getSpeed () {
 		return this.speed;
 	}
-	
-	public void setPosY(float y) {
-		this.posY = y;
+
+	public void setPosY (float posY) {
+		this.posY = posY;
 	}
-	
-	public void setSpeed(float s) {
-		this.speed = s;
+
+	public void setSpeed (float speed) {
+		this.speed = speed;
 	}
-	
-	public void render(GameContainer container, StateBasedGame game, Graphics g) {
-		// Initialisation d'une ligne rouge apres le bas de l'ecran
-		g.setColor(new Color(240, 0, 0, 204));
-		g.drawLine((float) 0, (float) this.posY, (float) container.getWidth(), (float) this.posY);
+
+	public void render (GameContainer container, StateBasedGame game, Graphics g, float dy) {
+		g.setColor (this.color);
+		g.drawLine (0f, container.getHeight() / 2 + this.posY - dy, (float) container.getWidth(), container.getHeight() / 2 + this.posY - dy);
 	}
-	
-	public void update(GameContainer container, StateBasedGame game, int delta) {
-		this.posY -= this.speed;
+
+	public void update (GameContainer container, StateBasedGame game, int delta) {
+		this.posY += this.speed * delta;
 	}
-	
+
 }

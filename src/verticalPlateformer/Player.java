@@ -13,7 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import verticalPlateformer.plateforme.Plateforme;
 
 public class Player extends Entity {
-	
+
 
 	private int gravityPoint;
 	private int score;
@@ -32,7 +32,7 @@ public class Player extends Entity {
 	private float shapeStartHeight;
 	private String name;
 	private Plateforme plateforme;
-	
+
 	public Player(String n,float posX, float posY) {
 		super(posX, posY);
 		gravityPoint = 10;
@@ -48,48 +48,48 @@ public class Player extends Entity {
 		}
 		this.name = n;
 		this.score = 0;
-		this.shape = new Ellipse(gravityPoint, gravityPoint, gravityPoint, gravityPoint);
+		this.shape = new Ellipse(getPosX(), getPosY()+shapeStartHeight, shapeWidth, shapeHeight);
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		// Gestion des input du clavier :
 		Input input = container.getInput ();
 		boolean BUTTON_SPACE = input.isKeyDown(Input.KEY_SPACE);
-		
+
 		if (BUTTON_SPACE && (plateforme != null)) {
 			plateforme = null;
-			super.unFreeze();
+			super.jump (jumpSpeed);
 		}
-		
+
 		changeGravity(input);
 		changeDirection(input);
-		
+
 		super.update(container, game, delta);
 		shape.setLocation(getPosX(), getPosY());
 	}
-	
+
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde
 		 *  Ecran 1920-1080
 		 *  Image :1681-1727
-		 *  
+		 *
 		 *  Début de la hitbox 0-161
 		 *  Taille de la hitbox 1681-1567
 		 */
 		context.setColor(Color.green);
 		context.setLineWidth(2);
-		context.drawImage(image, getPosX(), getPosY(), getPosX()+width, getPosY()+height, 0, 0, image.getWidth(), image.getHeight());
-		context.drawOval(getPosX(), getPosY()+shapeStartHeight, shapeWidth, shapeHeight);
+		context.drawImage(image, getPosX(), container.getHeight() / 2, getPosX()+width, container.getHeight() / 2 + height, 0, 0, image.getWidth(), image.getHeight());
+		context.drawOval(getPosX(), container.getHeight() / 2 + shapeStartHeight, shapeWidth, shapeHeight);
 	}
-	
+
 	public int getScore() {
 		return this.score;
 	}
-	
+
 
 	public void changeGravity(Input input) {
 		boolean KEY_LEFT = input.isKeyDown (Input.KEY_LEFT);
@@ -98,7 +98,7 @@ public class Player extends Entity {
 		boolean BUTTON_LEFT = KEY_LEFT && ! (KEY_DOWN || KEY_RIGHT);
 		boolean BUTTON_DOWN = KEY_DOWN && ! (KEY_LEFT || KEY_RIGHT);
 		boolean BUTTON_RIGHT = KEY_RIGHT && ! (KEY_LEFT || KEY_DOWN);
-		
+
 		if (gravityPoint > 0 ) {
 			if (BUTTON_LEFT && (getGravity() != -1)) {
 				super.setGravity(-1);
@@ -120,7 +120,7 @@ public class Player extends Entity {
 			}
 		}
 	}
-	
+
 	public void changeDirection(Input input) {
 		boolean KEY_D = input.isKeyDown (Input.KEY_D);
 		boolean KEY_Q = input.isKeyDown (Input.KEY_Q);
@@ -130,10 +130,10 @@ public class Player extends Entity {
 		boolean KEY_S= input.isKeyDown (Input.KEY_S);
 		boolean BUTTON_Z= KEY_Z && !KEY_S;
 		boolean BUTTON_S= KEY_S && !KEY_Z;
-		
+
 		super.setDirX(0);
 		super.setDirY(0);
-		
+
 		if (BUTTON_Q &&  (getGravity() == 0)) {
 			super.setDirX(-1 * baseSpeed );
 		}
@@ -160,7 +160,7 @@ public class Player extends Entity {
 	public Ellipse getShape() {
 		return shape;
 	}
-	
+
 	public void setPlateforme(Plateforme plat) {
 		this.plateforme= plat;
 	}
