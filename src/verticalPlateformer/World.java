@@ -120,6 +120,12 @@ public class World extends BasicGameState {
 				}
 			}
 		}
+		
+		for (Player player : p) {
+			if (player.getPosY() < line.getPosY()) {
+				// TODO : à changer si on met plusieurs joueurs
+			}
+		}
 
 		
 		

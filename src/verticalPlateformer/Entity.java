@@ -20,6 +20,7 @@ public abstract class Entity {
 	private float posY;
 	private float speedX;
 	private float speedY;
+	private float maxSpeed = .24f;
 	private float accX;
 	private float accY;
 
@@ -41,6 +42,14 @@ public abstract class Entity {
 			this.speedX += this.accX * delta / 2;
 			this.speedY += this.accY * delta / 2;
 		}
+		
+		double modSpeed = Math.hypot(speedX,speedY);
+		
+		if( modSpeed > maxSpeed) {
+			speedX *= maxSpeed/modSpeed;
+			speedY *= maxSpeed/modSpeed;
+		}
+		
 		this.posX += (this.speedX + this.dirX) * delta;
 		this.posY += (this.speedY + this.dirY) * delta;
 	}
