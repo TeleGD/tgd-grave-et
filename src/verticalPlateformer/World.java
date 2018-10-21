@@ -97,7 +97,13 @@ public class World extends BasicGameState {
 				plateformes.remove(i);
 			}
 		}
+
 		plateformeGen.update(container, game, delta);
+
+		for(Player player : p) {
+			player.update(container, game, delta);
+		}
+
 		
 	}
 
