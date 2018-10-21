@@ -7,12 +7,9 @@ import org.newdawn.slick.state.StateBasedGame;
 public abstract class Entity {
 
 	private static float GRAVITY;
-	private static float MOVE;
-	private static float JUMP;
 
 	static {
 		Entity.GRAVITY = .00144f;
-		Entity.MOVE = .12f;
 	}
 
 	private boolean frozen;
@@ -44,8 +41,8 @@ public abstract class Entity {
 			this.speedX += this.accX * delta / 2;
 			this.speedY += this.accY * delta / 2;
 		}
-		this.posX += (this.speedX + this.dirX * Entity.MOVE) * delta;
-		this.posY += (this.speedY + this.dirY * Entity.MOVE) * delta;
+		this.posX += (this.speedX + this.dirX) * delta;
+		this.posY += (this.speedY + this.dirY) * delta;
 	}
 
 	public abstract void render (GameContainer container, StateBasedGame game, Graphics context);
@@ -65,15 +62,21 @@ public abstract class Entity {
 	public void unFreeze () {
 		if (this.frozen) {
 			this.frozen = false;
+		}
+	}
+
+	public void jump (float dir) {
+		if (this.frozen) {
+			this.frozen = false;
 			switch (this.gravity) {
 				case -1:
-					this.speedX += Entity.JUMP;
+					this.speedX += dir;
 					break;
 				case 0:
-					this.speedY -= Entity.JUMP;
+					this.speedY -= dir;
 					break;
 				case 1:
-					this.speedX -= Entity.JUMP;
+					this.speedX -= dir;
 			}
 		}
 	}
@@ -99,16 +102,16 @@ public abstract class Entity {
 		return this.gravity;
 	}
 
-	public void setDirX (float f) {
-		this.dirX = f;
+	public void setDirX (float dirX) {
+		this.dirX = dirX;
 	}
 
 	public float getDirX () {
 		return this.dirX;
 	}
 
-	public void setDirY (float y) {
-		this.dirY = y;
+	public void setDirY (float dirY) {
+		this.dirY = dirY;
 	}
 
 	public float getDirY () {
