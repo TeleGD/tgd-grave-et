@@ -12,15 +12,12 @@ import haxBall.Player;
 
 public class Flash extends Bonus {
 
-	private boolean activated, deleted;
 	private Color fieldColor;
-	private Field field;
 	private int timer;
 	private Sound sound;
 	
-	public Flash(int posX, int posY, double fieldWidth, Field field) {
-		super(posX, posY, new Color(255,255,255), fieldWidth);
-		this.field = field;
+	public Flash(int posX, int posY, Field field) {
+		super(posX, posY, new Color(255,255,255), field);
 		this.fieldColor = field.getColor();
 		this.timer = 7*1000;
  
@@ -29,9 +26,6 @@ public class Flash extends Bonus {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		
-		activated = false;
-		deleted = false;
 	}
 
 	public void update(GameContainer container, StateBasedGame game, int delta) {
@@ -49,18 +43,10 @@ public class Flash extends Bonus {
 		}
 		
 	}
-
-	public boolean isActivated() {
-		return activated;
-	}
-
+	
 	public void activate(Player p, Ball b) {
 		activated = true;
 		sound.play(1, (float) 0.4);
-	}
-
-	public boolean isDeleted() {
-		return deleted;
 	}
 
 }

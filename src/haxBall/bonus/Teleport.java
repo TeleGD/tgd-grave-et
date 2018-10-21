@@ -11,18 +11,13 @@ import haxBall.Field;
 import haxBall.Player;
 
 public class Teleport extends Bonus {
-	private boolean activated, deleted;
 	private Ball ball;
-	private Field field;
 	private Sound sound;
 
-	public Teleport(int posX, int posY, double fieldWidth, Ball ball, Field field) {
-		super(posX, posY, new Color(200,100,100), fieldWidth);
-		
-		this.field = field;
-		this.ball = ball;		
-		activated = false;
-		deleted = false;
+	public Teleport(int posX, int posY, Field field, Ball ball) {
+		super(posX, posY, new Color(200,100,100), field);
+
+		this.ball = ball;
 		try {
 			this.sound = new Sound("res/sound/teleportation.ogg");
 		} catch (SlickException e) {
@@ -32,10 +27,6 @@ public class Teleport extends Bonus {
 	
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		
-	}
-
-	public boolean isActivated() {
-		return activated;
 	}
 
 	public void activate(Player p, Ball b) {
@@ -55,10 +46,6 @@ public class Teleport extends Bonus {
 		
 		deleted = true;
 		sound.play(1, (float) 0.4);
-	}
-
-	public boolean isDeleted() {
-		return deleted;
 	}
 	
 }
