@@ -23,6 +23,9 @@ public class Player extends Entity {
 	private float height = 70;
 	private float widthRelation;
 	private float heightRelation;
+	private float shapeWidth;
+	private float shapeHeight;
+	private float shapeStartHeight;
 	private String name;
 	
 	public Player(String n,float posX, float posY) {
@@ -32,6 +35,9 @@ public class Player extends Entity {
 			image = new Image("images/verticalPlateformer/monstre.png");
 			widthRelation = width/image.getWidth();
 			heightRelation = height/image.getHeight();
+			shapeWidth = 1675*widthRelation;
+			shapeHeight = 1567*heightRelation;
+			shapeStartHeight = 161*heightRelation;
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -53,6 +59,7 @@ public class Player extends Entity {
 		changeDirection(input);
 		
 		super.update(container, game, delta);
+		shape.setLocation(getPosX(), getPosY());
 	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
@@ -66,7 +73,7 @@ public class Player extends Entity {
 		context.setColor(Color.green);
 		context.setLineWidth(2);
 		context.drawImage(image, getPosX(), getPosY(), getPosX()+width, getPosY()+height, 0, 0, image.getWidth(), image.getHeight());
-		context.drawOval(getPosX(), getPosY()+(161*heightRelation), 1675*widthRelation, 1567*heightRelation);
+		context.drawOval(getPosX(), getPosY()+shapeStartHeight, shapeWidth, shapeHeight);
 	}
 	
 	public int getScore() {
