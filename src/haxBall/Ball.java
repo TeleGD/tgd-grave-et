@@ -66,5 +66,20 @@ public class Ball {
 		}
 	}
 	
+	public void setPosX(int posx) {
+		this.posx = posx;
+	}
+	
+	public void setPosY(int posy) {
+		this.posy = posy;
+	}
+	
+	public void setRad(int r) {
+		rad = r;
+	}
+	
+	public int getRad() {
+		return rad;
+	}
 }
 

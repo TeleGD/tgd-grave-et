@@ -24,14 +24,14 @@ public class Choice extends AppMenu {
 		this.setMenu (Arrays.asList (new MenuItem [] {
 			new MenuItem ("HaxBall") {
 				public void itemSelected () {
-					((haxBall.World) game.getState (3)).setState (0);
-					game.enterState (3, new FadeOutTransition (), new FadeInTransition ());
+					((haxBall.World) game.getState (4)).setState (0);
+					game.enterState (4, new FadeOutTransition (), new FadeInTransition ());
 				}
 			},
 			new MenuItem ("Vertical Plateformer") {
 				public void itemSelected () {
-					((verticalPlateformer.World) game.getState (4)).setState (0);
-					game.enterState (4, new FadeOutTransition (), new FadeInTransition ());
+					((verticalPlateformer.World) game.getState (5)).setState (0);
+					game.enterState (5, new FadeOutTransition (), new FadeInTransition ());
 				}
 			},
 			new MenuItem ("Retour") {
