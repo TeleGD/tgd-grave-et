@@ -2,6 +2,7 @@ package verticalPlateformer.plateforme;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
+import verticalPlateformer.Player;
 
 @SuppressWarnings("serial")
 public class PlateformeMouvante extends Plateforme {
@@ -40,7 +41,19 @@ public class PlateformeMouvante extends Plateforme {
 					this.temps=6000;
 				}
 			}
+		}
+	
+	public void collideWithPlayer(Player player) {
+				
 	}
 
+	public float getSpeedX() {
+		return speed;
+		
+	}
+	
+	public float getSpeedY() {
+		return speed;
+	}
 
 }	

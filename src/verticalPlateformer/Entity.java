@@ -17,8 +17,8 @@ public abstract class Entity {
 
 	private boolean frozen;
 	private int gravity;
-	private int dirX;
-	private int dirY;
+	private float dirX;
+	private float dirY;
 	private float posX;
 	private float posY;
 	private float speedX;
@@ -99,19 +99,19 @@ public abstract class Entity {
 		return this.gravity;
 	}
 
-	public void setDirX (int x) {
-		this.dirX = x;
+	public void setDirX (float f) {
+		this.dirX = f;
 	}
 
-	public int getDirX () {
+	public float getDirX () {
 		return this.dirX;
 	}
 
-	public void setDirY (int y) {
+	public void setDirY (float y) {
 		this.dirY = y;
 	}
 
-	public int getDirY () {
+	public float getDirY () {
 		return this.dirY;
 	}
 
