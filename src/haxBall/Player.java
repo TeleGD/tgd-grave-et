@@ -58,6 +58,14 @@ public class Player {
 		return m_id;
 	}
 	
+	public Color getColor() {
+		return m_color;
+	}
+	
+	public void setColor(Color color) {
+		m_color = color;
+	}
+	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		context.setColor(m_color);
 		context.fillOval(m_posX, m_posY, m_radius, m_radius);
@@ -159,15 +167,19 @@ public class Player {
 		if(((up && !down) || (up && down && !updown)) && (m_posY > m_fieldOriginY)){
 			m_speedY=-m_speed;
 		}
+		
 		if(((down && !up) || (up && down && updown)) && ((m_posY + m_radius) < (m_fieldOriginY + m_fieldHeight))) {
 			m_speedY=m_speed;
 		}
+		
 		if(((left && !right)|| (left && right && rightLeft)) && (m_posX > m_fieldOriginX)) {
 			m_speedX = -m_speed;
 		}
+		
 		if(((!left && right)|| (left && right && !rightLeft)) && ((m_posX + m_radius) < (m_fieldOriginX + m_fieldWidth))) {
 			m_speedX = m_speed;
 		}
+		
 		if (m_speedX!=0 && m_speedY!=0) {
 			m_speedX/=Math.sqrt(2);
 			m_speedY/=Math.sqrt(2);
@@ -175,5 +187,14 @@ public class Player {
 
 		m_posX+=dt*m_speedX;
 		m_posY+=dt*m_speedY;
+		
+		if(m_posY <= m_fieldOriginY)
+			m_posY = m_fieldOriginY;
+		else if((m_posY + m_radius) > (m_fieldOriginY + m_fieldHeight))
+			m_posY = m_fieldOriginY + m_fieldHeight;
+		else if (m_posX <= m_fieldOriginX)
+			m_posX = m_fieldOriginX;
+		else if ((m_posX + m_radius) > (m_fieldOriginX + m_fieldWidth))
+			m_posX = m_fieldOriginX + m_fieldWidth;
 	}
 }
