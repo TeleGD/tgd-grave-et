@@ -55,6 +55,14 @@ public class Player {
 		return m_posY;
 	}
 	
+	public float getSpeedX() {
+		return m_speedX;
+	}
+	
+	public float getSpeedY() {
+		return m_speedY;
+	}
+	
 	public int getRadius() {
 		return m_radius;
 	}
@@ -196,19 +204,19 @@ public class Player {
 		m_speedX = 0;
 		m_speedY = 0;
 	
-		if(((up && !down) || (up && down && !updown)) && (m_posY > m_fieldOriginY)){
+		if(((up && !down) || (up && down && !updown)) && (m_posY > m_fieldOriginY-m_radius)){
 			m_speedY=-m_speed;
 		}
 	
-		if(((down && !up) || (up && down && updown)) && ((m_posY + m_radius) < (m_fieldOriginY + m_fieldHeight))) {
+		if(((down && !up) || (up && down && updown)) && (m_posY < (m_fieldOriginY + m_fieldHeight))) {
 			m_speedY=m_speed;
 		}
 	
-		if(((left && !right)|| (left && right && rightLeft)) && (m_posX > m_fieldOriginX)) {
+		if(((left && !right)|| (left && right && rightLeft)) && (m_posX > m_fieldOriginX-m_radius)) {
 			m_speedX = -m_speed;
 		}
 		
-		if(((!left && right)|| (left && right && !rightLeft)) && ((m_posX + m_radius) < (m_fieldOriginX + m_fieldWidth))) {
+		if(((!left && right)|| (left && right && !rightLeft)) && (m_posX < (m_fieldOriginX + m_fieldWidth))) {
 			m_speedX = m_speed;
 		}
 		
@@ -220,22 +228,33 @@ public class Player {
 		m_tempPosX = m_posX;
 		m_posX += (int)(dt*m_speedX);
 		m_tempPosY = m_posY;
-		m_posY +=  + (int)(dt*m_speedY);
+		m_posY += (int)(dt*m_speedY);
 		
 		for(Player p : field.getPlayers()) {
 			if(!p.equals(this) && collision(p)) {
 				m_posX = m_tempPosX;
 				m_posY = m_tempPosY;
+				m_speedX = 0;
+				m_speedY = 0;
 			}
 		}
 		
-		if(m_posY <= m_fieldOriginY)
-			m_posY = m_fieldOriginY;
-		else if((m_posY + m_radius) > (m_fieldOriginY + m_fieldHeight))
-			m_posY = m_fieldOriginY + m_fieldHeight - m_radius;
-		else if (m_posX <= m_fieldOriginX)
-			m_posX = m_fieldOriginX;
-		else if ((m_posX + m_radius) > (m_fieldOriginX + m_fieldWidth))
-			m_posX = m_fieldOriginX + m_fieldWidth - m_radius;
+		if(m_posY <= m_fieldOriginY-m_radius) {
+			m_posY = m_fieldOriginY-m_radius;
+			m_speedY = 0;
+			
+		} else if((m_posY) > (m_fieldOriginY + m_fieldHeight)) {
+			m_posY = m_fieldOriginY + m_fieldHeight;
+			m_speedY = 0;			
+		}
+		
+		if (m_posX <= m_fieldOriginX-m_radius) {
+			m_posX = m_fieldOriginX-m_radius;
+			m_speedX = 0;
+			
+		} else if ((m_posX) > (m_fieldOriginX + m_fieldWidth)) {
+			m_posX = m_fieldOriginX + m_fieldWidth;
+			m_speedX = 0;			
+		}
 	}
 }
