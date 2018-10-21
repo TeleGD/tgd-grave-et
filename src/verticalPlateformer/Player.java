@@ -49,6 +49,10 @@ public class Player extends Entity {
 		Input input = container.getInput ();
 		boolean BUTTON_SPACE = input.isKeyDown(Input.KEY_SPACE);
 		
+		if (BUTTON_SPACE) {
+			super.unFreeze();
+		}
+		
 		changeGravity(input);
 		changeDirection(input);
 		
