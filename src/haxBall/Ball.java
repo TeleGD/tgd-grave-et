@@ -35,11 +35,11 @@ public class Ball {
 		r_origy=origy;
 		r_larg=larg;
 		r_haut=haut;
+		rad=haut/30;
 		posx=r_origx+r_larg/2-rad/2;
 		posy=r_origy+r_haut/2-rad/2;
 		vitx=0;
 		vity=0;
-		rad=haut/30;
 		color=Color.white;
 		pointsJ1=0;
 		pointsJ2=0;
