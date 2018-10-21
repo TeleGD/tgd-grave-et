@@ -41,16 +41,25 @@ public class Ball {
 	
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		posx+=vitx*delta;
-		vitx=vitx*99/100;
-		vity=vity*99/100;
+		posy+=vity*delta;
+		vitx=vitx*399/400;
+		vity=vity*399/400;
 		if (posx+rad> r_origx+r_larg){
 			vitx=-vitx;
+			//posx=r_origx+r_larg;
 		}
 		if (posx<r_origx) {
 			vitx=-vitx;
+			posx=r_origx;
 		}
-		if ((posy+rad>r_origy+r_haut)||(posy>r_origy)){
+		if (posy+rad>r_origy+r_haut){
 			vity=-vity;
+			posy=r_origy+r_haut;
+		}
+		if (posy<r_origy) {
+			vity=-vity;
+			posy=r_origy;
+			
 		}
 	}
 	
@@ -63,6 +72,7 @@ public class Ball {
 	public void keyPressed(int key,char c) {
 		if(key==Input.KEY_SPACE) {
 			vitx=1;
+			vity=1;
 		}
 	}
 	
