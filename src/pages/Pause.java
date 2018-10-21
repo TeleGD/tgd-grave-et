@@ -9,12 +9,14 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import app.AppMenu;
 import app.elements.MenuItem;
-import haxBall.World;
 
 public class Pause extends AppMenu {
-
-	public Pause (int ID) {
+	
+	private int worldID;
+	
+	public Pause (int ID, int worldID) {
 		super (ID);
+		this.worldID = worldID;
 	}
 
 	@Override
@@ -26,13 +28,21 @@ public class Pause extends AppMenu {
 		this.setMenu (Arrays.asList (new MenuItem [] {
 			new MenuItem ("Retour") {
 				public void itemSelected () {
-					((World) game.getState (3)).setState (2);
-					game.enterState (3, new FadeOutTransition (), new FadeInTransition ());
+					if (game.getState (Pause.this.worldID) instanceof verticalPlateformer.World ) {
+						((verticalPlateformer.World) game.getState (Pause.this.worldID)).setState (2);
+					} else {
+						((haxBall.World) game.getState (Pause.this.worldID)).setState (2);
+					}
+					game.enterState (Pause.this.worldID, new FadeOutTransition (), new FadeInTransition ());
 				}
 			},
 			new MenuItem ("Abandon") {
 				public void itemSelected () {
-					((World) game.getState (3)).setState (0);
+					if (game.getState (Pause.this.worldID) instanceof verticalPlateformer.World ) {
+						((verticalPlateformer.World) game.getState (Pause.this.worldID)).setState (0);
+					} else {
+						((haxBall.World) game.getState (Pause.this.worldID)).setState (0);
+					}
 					game.enterState (1, new FadeOutTransition (), new FadeInTransition ());
 				}
 			}
