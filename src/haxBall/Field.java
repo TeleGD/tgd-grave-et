@@ -1,5 +1,7 @@
 package haxBall;
 
+import java.util.*;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -19,6 +21,8 @@ public class Field {
 	private int world_height;
 	private int world_width;
 	
+	private List<Bonus> bonus;
+	
 	public Field(int world_height , int world_width){
 		// normalement ca marche (pas)...
 		this.height = (int)(0.7 * world_height);
@@ -29,6 +33,7 @@ public class Field {
 		this.world_width = world_width;
 		this.world_height = world_height; 
 		
+		this.bonus = new ArrayList<Bonus>();
 		
 		// creation des joueurs ...
 		player0 = new Player(this.height,this.width,this.pos_x , this.pos_y, 0);
@@ -66,6 +71,14 @@ public class Field {
 		player0.update(container, game, delta);
 		player1.update(container, game, delta);
 		ball.update(container, game, delta);
+		
+		for(Bonus b : bonus) {
+			b.update(container, game, delta);
+			
+			if(b.isDeleted()) {
+				bonus.remove(b);
+			}
+		}
 	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
@@ -88,9 +101,19 @@ public class Field {
 		context.drawRect(this.pos_x, this.pos_y, this.width, this.height); // touche
 		context.drawOval(this.pos_x + this.width/2 - this.height/8 , this.pos_y + this.height/2 - this.height/8, height/4, height/4); // cercle
 
+		for(Bonus b : bonus) {
+			if(!b.isActivated())
+				b.render(container, game, context);
+		}
+		
 		player0.render(container, game, context);
 		player1.render(container, game, context);
-		ball.render(container, game, context);}
+		ball.render(container, game, context);
+	}
+	
+	public void addBonus(Bonus b) {
+		bonus.add(b);
+	}
 	
 	public void keyPressed(int key, char c) {
 		player0.keyPressed(key,c);
