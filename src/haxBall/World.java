@@ -67,6 +67,7 @@ public class World extends BasicGameState {
 		} else if (this.state == 3) {
 			this.stop (container, game);
 		}
+		soundMusicBackground.stop();
 	}
 
 	@Override
