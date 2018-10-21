@@ -29,7 +29,7 @@ public class World extends BasicGameState {
 	public World (int ID) {
 		this.ID = ID;
 		this.state = -1;
-		this.amos = new Player();
+		this.amos = new Player("Amos",100,100);
 		this.line = new DeathLine();
 		this.p = new ArrayList<Player>();
 		this.p.add(amos);
@@ -74,7 +74,7 @@ public class World extends BasicGameState {
 		Input input = container.getInput ();
 		if (input.isKeyDown (Input.KEY_ESCAPE)) {
 			this.setState (1);
-			game.enterState (2, new FadeOutTransition (), new FadeInTransition ());
+			game.enterState (3, new FadeOutTransition (), new FadeInTransition ());
 		}
 	}
 
