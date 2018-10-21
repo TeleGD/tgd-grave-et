@@ -17,8 +17,8 @@ public abstract class Entity {
 	private int gravity;
 	private int dirX;
 	private int dirY;
-	protected float posX;
-	protected float posY;
+	private float posX;
+	private float posY;
 	private float speedX;
 	private float speedY;
 	private float accX;

@@ -62,8 +62,8 @@ public class Player extends Entity {
 		 */
 		context.setColor(Color.green);
 		context.setLineWidth(2);
-		context.drawImage(image, (float) posX, (float) posY, (float) posX+width, (float) posY+height, 0, 0, image.getWidth(), image.getHeight());
-		context.drawOval(0, (float) (161*heightRelation), (float) (1681*widthRelation), (float) (1567*heightRelation));
+		context.drawImage(image, getPosX(), getPosY(), getPosX()+width, getPosY()+height, 0, 0, image.getWidth(), image.getHeight());
+		context.drawOval(0, (161*heightRelation), (1681*widthRelation), (1567*heightRelation));
 	}
 	
 	public int getScore() {
