@@ -4,9 +4,14 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+
+import com.sun.javafx.geom.Ellipse2D;
+import com.sun.javafx.geom.Shape;
+
 import org.newdawn.slick.Input;
 
 public class Ball {
@@ -21,20 +26,25 @@ public class Ball {
 	private int r_origy;
 	private int r_larg;
 	private int r_haut;
+	private Shape hitbox;
+	private int pointsJ1;
+	private int pointsJ2;
 	
-	public Ball(int haut,int larg,int origx,int origy){
-		
-		posx=origx+larg/2-rad/2;
-		posy=origy+haut/2-rad/2;
-		vitx=0;
-		vity=0;
-		rad=haut/30;
-		color=Color.white;
+	public Ball(int haut,int larg,int origx,int origy){ 
 		r_origx=origx;
 		r_origy=origy;
 		r_larg=larg;
 		r_haut=haut;
+		posx=r_origx+r_larg/2-rad/2;
+		posy=r_origy+r_haut/2-rad/2;
+		vitx=0;
+		vity=0;
+		rad=haut/30;
+		color=Color.white;
+		pointsJ1=0;
+		pointsJ2=0;
 		
+		Circle hitbox=new Circle(posx+rad/2, posy+rad/2, rad/2, rad/2);
 		
 		}
 		
@@ -45,16 +55,34 @@ public class Ball {
 		vitx=vitx*99/100;
 		vity=vity*99/100;
 		if (posx+rad> r_origx+r_larg){
+			if ((posy>r_origy+r_haut*1/3)&&(posy<r_origy+2*r_haut/3)) {
+				pointsJ1+=1;
+				posx=r_origx+r_larg/2-rad/2;
+				posy=r_origy+r_haut/2-rad/2;
+				vitx=0;
+				vity=0;
+				System.out.println(pointsJ1);
+				System.out.println(pointsJ2);
+			}
 			vitx=-vitx;
-			//posx=r_origx+r_larg;
+			//posx=r_origx+r_larg; marche sans mais problèmes avec
 		}
 		if (posx<r_origx) {
 			vitx=-vitx;
 			posx=r_origx;
+			if ((posy>r_origy+r_haut*1/3)&&(posy<r_origy+2*r_haut/3)) {
+				pointsJ2+=1;
+				posx=r_origx+r_larg/2-rad/2;
+				posy=r_origy+r_haut/2-rad/2;
+				vitx=0;
+				vity=0;
+				System.out.println(pointsJ1);
+				System.out.println(pointsJ2);
+			}
 		}
 		if (posy+rad>r_origy+r_haut){
 			vity=-vity;
-			//posy=r_origy+r_haut;
+			//posy=r_origy+r_haut; marche sans mais problèmes avec
 		}
 		if (posy<r_origy) {
 			vity=-vity;
