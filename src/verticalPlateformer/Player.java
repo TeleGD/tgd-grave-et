@@ -19,8 +19,8 @@ public class Player extends Entity {
 	private int dirX, dirY;
 	private Image image;
 	private Ellipse shape;
-	private float width = 50;
-	private float height = 50;
+	private float width = 900;
+	private float height = 900;
 	private float widthRelation;
 	private float heightRelation;
 	private String name;
@@ -66,7 +66,7 @@ public class Player extends Entity {
 		context.setColor(Color.green);
 		context.setLineWidth(2);
 		context.drawImage(image, getPosX(), getPosY(), getPosX()+width, getPosY()+height, 0, 0, image.getWidth(), image.getHeight());
-		context.drawOval(0, (161*heightRelation), (1681*widthRelation), (1567*heightRelation));
+		context.drawOval(getPosX(), getPosY()+(161*heightRelation), 1675*widthRelation, 1567*heightRelation);
 	}
 	
 	public int getScore() {
