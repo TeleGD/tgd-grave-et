@@ -62,7 +62,7 @@ public class Player extends Entity {
 		
 		if (BUTTON_SPACE && (plateforme != null)) {
 			plateforme = null;
-			super.unFreeze();
+			super.jump(jumpSpeed);
 		}
 		
 		changeGravity(input);

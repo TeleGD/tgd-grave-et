@@ -78,7 +78,7 @@ public class World extends BasicGameState {
 		if (this.state == 1) {
 			this.pause (container, game);
 			defouloir.pause();
-		} else if (this.state == 3) {
+		} else if (this.state == 3 || this.state == 6) {
 			this.stop (container, game);
 			defouloir.stop();
 		}
@@ -122,8 +122,9 @@ public class World extends BasicGameState {
 		}
 		
 		for (Player player : p) {
-			if (player.getPosY() < line.getPosY()) {
+			if (player.getPosY() > line.getPosY()) {
 				// TODO : à changer si on met plusieurs joueurs
+				game.enterState (6, new FadeOutTransition (), new FadeInTransition ());
 			}
 		}
 
