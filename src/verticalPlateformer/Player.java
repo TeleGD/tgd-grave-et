@@ -19,8 +19,8 @@ public class Player extends Entity {
 	private int dirX, dirY;
 	private Image image;
 	private Ellipse shape;
-	private float width = 900;
-	private float height = 900;
+	private float width = 70;
+	private float height = 70;
 	private float widthRelation;
 	private float heightRelation;
 	private String name;
