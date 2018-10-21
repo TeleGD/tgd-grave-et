@@ -43,9 +43,7 @@ public class World extends BasicGameState {
 	@Override
 	public void init (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au chargement du programme */
-		this.width = container.getWidth ();
-		this.height = container.getHeight ();
-		field = new Field(this.height , this.width);
+		
 	}
 
 	@Override
@@ -91,6 +89,7 @@ public class World extends BasicGameState {
 		field.keyReleased(key,c);
 	}
 	
+	
 	@Override
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
@@ -98,7 +97,9 @@ public class World extends BasicGameState {
 	}
 
 	public void play (GameContainer container, StateBasedGame game) {
-		/* Méthode exécutée une unique fois au début du jeu */
+		this.width = container.getWidth ();
+		this.height = container.getHeight ();
+		field = new Field(this.height , this.width);
 	}
 
 	public void pause (GameContainer container, StateBasedGame game) {
