@@ -18,7 +18,6 @@ public class PlateformeClassique extends Plateforme {
 	
 
 	public void collideWithPlayer(Player player) {
-		
 	}
 	
 	public float getSpeedX() {

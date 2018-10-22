@@ -9,11 +9,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import verticalPlateformer.Player;
 
 public abstract class Plateforme extends Rectangle {
-	protected float posx;
-	protected float posy;
 	private boolean sens; /* sens de la plateforme */
-	private float width;
-	private float height;
 
 
 	public void render (GameContainer container, StateBasedGame game, Graphics g, float dy) {
@@ -21,14 +17,14 @@ public abstract class Plateforme extends Rectangle {
 		/* gravite = sens de la gravite */
 
 			g.setColor(Color.green);
-			g.fillRect(posx, container.getHeight() / 2 + posy - dy,width,height);
+			g.fillRect(x, container.getHeight() / 2 + y - dy,width,height);
 
 	}
 
 	public Plateforme(float posx,float posy,float longueur,float epaisseur,boolean sens) {
 		super(posx, posy, sens ? longueur : epaisseur, sens ? epaisseur : longueur );
-		this.posx=posx;
-		this.posy=posy;
+		this.x=posx;
+		this.y=posy;
 		this.width= sens ? longueur : epaisseur;
 		this.height= sens ? epaisseur : longueur;
 		this.sens=sens;
@@ -38,7 +34,7 @@ public abstract class Plateforme extends Rectangle {
 	public abstract void update(GameContainer container, StateBasedGame game, int delta);
 
 	public float getPosY() {
-		return this.posy;
+		return this.y;
 	}
 
 	public boolean getSens() {

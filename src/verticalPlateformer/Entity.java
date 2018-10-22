@@ -20,7 +20,7 @@ public abstract class Entity {
 	private float posY;
 	private float speedX;
 	private float speedY;
-	private float maxSpeed = .24f;
+	private float maxSpeed = .48f;
 	private float accX;
 	private float accY;
 
