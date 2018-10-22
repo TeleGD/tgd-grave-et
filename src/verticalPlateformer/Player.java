@@ -43,12 +43,13 @@ public class Player extends Entity {
 			shapeWidth = 1675*widthRelation;
 			shapeHeight = 1567*heightRelation;
 			shapeStartHeight = 161*heightRelation;
+			System.out.println(shapeWidth + " " + shapeHeight + " " + shapeStartHeight);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 		this.name = n;
 		this.score = 0;
-		this.shape = new Ellipse(getPosX(), getPosY()+shapeStartHeight, shapeWidth, shapeHeight);
+		this.shape = new Ellipse(getPosX()+width/2, getPosY()+shapeStartHeight+(height-shapeStartHeight)/2, shapeWidth/2, shapeHeight/2);
 	}
 
 	public String getName() {
@@ -69,7 +70,7 @@ public class Player extends Entity {
 		changeDirection(input);
 
 		super.update(container, game, delta);
-		shape.setLocation(getPosX(), getPosY());
+		shape.setLocation(getPosX(), getPosY()+shapeStartHeight);
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
@@ -83,9 +84,8 @@ public class Player extends Entity {
 		context.setColor(Color.green);
 		context.setLineWidth(2);
 		context.drawImage(image, getPosX(), container.getHeight() / 2, getPosX()+width, container.getHeight() / 2 + height, 0, 0, image.getWidth(), image.getHeight());
-		context.drawOval(getPosX(), container.getHeight() / 2 + shapeStartHeight, shapeWidth, shapeHeight);
-		
-		System.out.println(getPosX()+ " " + getPosY());
+		//context.draw(shape);
+		//context.drawOval(getPosX(), container.getHeight() / 2 + shapeStartHeight, shapeWidth, shapeHeight);
 	}
 
 	public void changeGravity(Input input) {
@@ -164,6 +164,10 @@ public class Player extends Entity {
 	
 	public Ellipse getShape() {
 		return shape;
+	}
+
+	public float getWidth() {
+		return width;
 	}
 
 	public void setPlateforme(Plateforme plat) {

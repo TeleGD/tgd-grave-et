@@ -128,7 +128,7 @@ public class World extends BasicGameState {
 		}
 		
 		for (Player player : players) {
-			if (player.getPosY() > line.getPosY()) {
+			if (player.getPosY() > line.getPosY() || player.getPosX()+player.getWidth()<0 || player.getPosX()>container.getWidth()) {
 				// TODO : à changer si on met plusieurs joueurs
 				game.enterState (6, new FadeOutTransition (), new FadeInTransition ());
 			}

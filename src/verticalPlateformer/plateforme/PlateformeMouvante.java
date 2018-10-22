@@ -18,33 +18,31 @@ public class PlateformeMouvante extends Plateforme {
 	}
 
 	public void update (GameContainer container, StateBasedGame game, int delta) {
-			this.temps -= delta;
-			if (this.sens) {
-				if (this.temps > 3000) {
-					this.x += this.speed * delta;
-				} else if (temps > 0) {
-					this.x -= this.speed * delta;
-				} else  {
-					this.temps = 6000;
-				}
+		this.temps -= delta;
+		if (this.sens) {
+			if (this.temps > 3000) {
+				this.x += this.speed * delta;
+			} else if (temps > 0) {
+				this.x -= this.speed * delta;
+			} else  {
+				this.temps = 6000;
+			}
+		} else {
+			if (this.temps > 3000) {
+				this.y += this.speed * delta;
+			} else if (temps > 0) {
+				this.y -= this.speed * delta;
 			} else {
-				if (this.temps > 3000) {
-					this.y += this.speed * delta;
-				} else if (temps > 0) {
-					this.y -= this.speed * delta;
-				} else  {
-					this.temps = 6000;
-				}
+				this.temps = 6000;
 			}
 		}
+	}
 
 	public void collideWithPlayer(Player player) {
-
 	}
 
 	public float getSpeedX() {
 		return this.sens ? speed : 0;
-
 	}
 
 	public float getSpeedY() {

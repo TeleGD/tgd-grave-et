@@ -11,7 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public final class Main {
 
 	public static final void main (String [] arguments) throws SlickException {
-		String title = "Sans titre";
+		String title = "CN-20-10";
 		Object [] options = {
 			"Oui",
 			"Non"
