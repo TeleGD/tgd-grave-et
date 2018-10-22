@@ -23,7 +23,6 @@ public class PlateformeGen {
 		totalCompt=0;
 	}
 	
-	
 	public void createPlateforme(GameContainer container, boolean classique, boolean horizontale) {
 		if (horizontale) {
 			if (classique) {
@@ -38,17 +37,16 @@ public class PlateformeGen {
 				world.addPlateforme(new PlateformeMouvante(r.nextInt(2)*(container.getWidth()-100)+50,container.getHeight()/2-300*totalCompt,200,30,horizontale));
 			}
 		}
-		
 	}
 
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		if (timer <= 0) {
 			totalCompt+=1;
 			if (compt==0) {
-				createPlateforme(container, r.nextBoolean(), true);	
+				createPlateforme(container, r.nextInt(4)>0, true);	
 				compt = r.nextInt(6);
 			} else {
-				createPlateforme(container, r.nextBoolean(), false);
+				createPlateforme(container, r.nextInt(4)>0, false);
 				compt--;
 			}
 			timer = 2000;

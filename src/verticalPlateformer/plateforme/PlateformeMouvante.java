@@ -43,12 +43,12 @@ public class PlateformeMouvante extends Plateforme {
 	}
 
 	public float getSpeedX() {
-		return this.sens ? 0 : speed;
+		return this.sens ? speed : 0;
 
 	}
 
 	public float getSpeedY() {
-		return this.sens ? speed : 0;
+		return this.sens ? 0 : speed;
 	}
 
 }

@@ -24,10 +24,10 @@ public abstract class Plateforme extends Rectangle {
 
 	public Plateforme(float posx,float posy,float longueur,float epaisseur,boolean sens) {
 		super(posx, posy, sens ? longueur : epaisseur, sens ? epaisseur : longueur );
-		this.x=posx;
-		this.y=posy;
-		this.width= sens ? longueur : epaisseur;
-		this.height= sens ? epaisseur : longueur;
+		this.setX(posx);
+		this.setY(posy);
+		this.setWidth(sens ? longueur : epaisseur);
+		this.setHeight(sens ? epaisseur : longueur);
 		this.sens=sens;
 
 	}
