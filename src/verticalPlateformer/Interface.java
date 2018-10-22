@@ -16,7 +16,8 @@ public class Interface {
 		// Affichage du score
 		g.setColor(Color.white);
 		for ( Player p : this.player) {
-			g.drawString(p.getName()+ " : " + p.getScore(), 399, 10);
+			g.drawString("Score de "+p.getName()+ " : " + p.getScore(), 399, 10);
+			g.drawString("Nombre de points de Gravité restants à " + p.getName()+ " : " + p.getGravityPoint(), 700, 10);
 		}
 	}
 }

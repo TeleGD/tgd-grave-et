@@ -36,9 +36,7 @@ public class Bip extends Bonus {
 
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		if(!activated) {
-			
 		
-			
 		} else if(!deleted) {
 			timer -= delta;
 			
@@ -46,7 +44,7 @@ public class Bip extends Bonus {
 				p.setColor(meme);
 				sound.play(1, (float) 0.4);
 				
-			} else {
+			} else if (timer>0){
 				p.setColor(field.getColor());
 			}
 		}

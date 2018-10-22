@@ -35,7 +35,7 @@ public class Player extends Entity {
 
 	public Player(String n,float posX, float posY) {
 		super(posX, posY);
-		gravityPoint = 10;
+		gravityPoint = 1000;
 		try {
 			image = new Image("images/verticalPlateformer/monstre.png");
 			widthRelation = width/image.getWidth();
@@ -84,12 +84,9 @@ public class Player extends Entity {
 		context.setLineWidth(2);
 		context.drawImage(image, getPosX(), container.getHeight() / 2, getPosX()+width, container.getHeight() / 2 + height, 0, 0, image.getWidth(), image.getHeight());
 		context.drawOval(getPosX(), container.getHeight() / 2 + shapeStartHeight, shapeWidth, shapeHeight);
+		
+		System.out.println(getPosX()+ " " + getPosY());
 	}
-
-	public int getScore() {
-		return this.score;
-	}
-
 
 	public void changeGravity(Input input) {
 		boolean KEY_LEFT = input.isKeyDown (Input.KEY_LEFT);
@@ -157,6 +154,14 @@ public class Player extends Entity {
 		}
 	}
 
+	public int getScore() {
+		return this.score;
+	}
+
+	public int getGravityPoint() {
+		return gravityPoint;
+	}
+	
 	public Ellipse getShape() {
 		return shape;
 	}
@@ -164,5 +169,6 @@ public class Player extends Entity {
 	public void setPlateforme(Plateforme plat) {
 		this.plateforme= plat;
 	}
+	
 
 }

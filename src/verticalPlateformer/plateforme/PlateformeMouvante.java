@@ -21,21 +21,17 @@ public class PlateformeMouvante extends Plateforme {
 			this.temps -= delta;
 			if (this.sens) {
 				if (this.temps > 3000) {
-					this.y += this.speed * delta;
-					this.setY (this.y);
+					this.x += this.speed * delta;
 				} else if (temps > 0) {
-					this.y -= this.speed * delta;
-					this.setY (this.y);
+					this.x -= this.speed * delta;
 				} else  {
 					this.temps = 6000;
 				}
 			} else {
 				if (this.temps > 3000) {
-					this.x += this.speed * delta;
-					this.setX (this.x);
+					this.y += this.speed * delta;
 				} else if (temps > 0) {
-					this.x -= this.speed * delta;
-					this.setX (this.x);
+					this.y -= this.speed * delta;
 				} else  {
 					this.temps = 6000;
 				}

@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import verticalPlateformer.Player;
 
+@SuppressWarnings("serial")
 public abstract class Plateforme extends Rectangle {
 	private boolean sens; /* sens de la plateforme */
 

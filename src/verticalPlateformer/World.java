@@ -21,7 +21,7 @@ import verticalPlateformer.plateforme.PlateformeGen;
 
 public class World extends BasicGameState {
 
-	private ArrayList<Player> p;
+	private ArrayList<Player> players;
 	private Interface I;
 	private Player amos;
 	private DeathLine line;
@@ -108,24 +108,26 @@ public class World extends BasicGameState {
 
 		plateformeGen.update(container, game, delta);
 
-		for(Player player : p) {
+		for(Player player : players) {
 			player.update(container, game, delta);
 			for (Plateforme plat : plateformes) {
 				if(player.getShape().intersects(plat)) {
 					player.freeze();
-					if ((player.getGravity() == 0) != plat.getSens()) {
+					if ((player.getGravity() == 0) == plat.getSens()) {
 						player.setPlateforme(plat);
+						// Le joueur s'arrête
 						System.out.println("FREEZE");
 					}
 					else {
 						player.unFreeze();
+						// Le joueur passe à travers
 						System.out.println("FREEZE - UNFREEZE");
 					}
 				}
 			}
 		}
 		
-		for (Player player : p) {
+		for (Player player : players) {
 			if (player.getPosY() > line.getPosY()) {
 				// TODO : à changer si on met plusieurs joueurs
 				game.enterState (6, new FadeOutTransition (), new FadeInTransition ());
@@ -150,14 +152,13 @@ public class World extends BasicGameState {
 	public void play (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au début du jeu */
 		this.amos = new Player("Amos",100,100);
-		this.p = new ArrayList<Player>();
-		this.p.add(amos);
-		this.I = new Interface(p);
+		this.players = new ArrayList<Player>();
+		this.players.add(amos);
+		this.I = new Interface(players);
 
 		this.line = new DeathLine(container);
 
 		plateformes=new ArrayList<Plateforme>();
-		plateformes.add(new PlateformeClassique(500,500,10,200,true));
 		plateformeGen = new PlateformeGen(this);
 	}
 
