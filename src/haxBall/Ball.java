@@ -4,6 +4,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
@@ -31,7 +33,15 @@ public class Ball {
 	private Field field;
 	private Player player;
 	private float  speed;
-	
+	private Sound goalsound;
+	{
+		try {
+			goalsound = new Sound("res/sound/Goal_Sound.ogg");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public Ball(int haut,int larg,int origx,int origy, Field field){ 
 		r_origx=origx;
 		r_origy=origy;
@@ -179,6 +189,7 @@ public class Ball {
 			if ((posy>r_origy+r_haut*1/3)&&(posy<r_origy+2*r_haut/3)) {
 				colliding = false;
 				pointsJ1+=1;
+				goalsound.play(1, 15f);
 				posx=r_origx+r_larg/2-rad/2;
 				posy=r_origy+r_haut/2-rad/2;
 				vitx=0;
@@ -198,6 +209,7 @@ public class Ball {
 			if ((posy>r_origy+r_haut*1/3)&&(posy<r_origy+2*r_haut/3)) {
 				colliding = false;
 				pointsJ2+=1;
+				goalsound.play(1, 15f);
 				posx=r_origx+r_larg/2-rad/2;
 				posy=r_origy+r_haut/2-rad/2;
 				vitx=0;
