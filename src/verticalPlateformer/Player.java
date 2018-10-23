@@ -71,7 +71,7 @@ public class Player extends Entity {
 
 		super.update(container, game, delta);
 		shape.setLocation(getPosX(), getPosY()+shapeStartHeight);
-		this.score = (int) -this.getPosY();
+		this.score = ((int) -this.getPosY())>score?(int) -this.getPosY():score;
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
@@ -132,24 +132,25 @@ public class Player extends Entity {
 		super.setDirX(0);
 		super.setDirY(0);
 
-		if (BUTTON_Q &&  (getGravity() == 0)) {
-			super.setDirX(-1 * baseSpeed );
-		}
-		else if (BUTTON_D &&  (getGravity()==0)){
-			super.setDirX( 1* baseSpeed);
-
-		}
-		else if ( (getGravity() != 0)) {
-			if (BUTTON_S) {
-				super.setDirY( 1* baseSpeed);
-
+		if (plateforme == null) {
+			if (BUTTON_Q &&  (getGravity() == 0)) {
+				super.setDirX(-1 * baseSpeed );
 			}
-			else if (BUTTON_Z) {
-				super.setDirY(-1* baseSpeed);
-
+			else if (BUTTON_D &&  (getGravity()==0)){
+				super.setDirX( 1* baseSpeed);
+	
 			}
-		}
-		if (plateforme != null) {
+			else if ( (getGravity() != 0)) {
+				if (BUTTON_S) {
+					super.setDirY( 1* baseSpeed);
+	
+				}
+				else if (BUTTON_Z) {
+					super.setDirY(-1* baseSpeed);
+	
+				}
+			}
+		} else {
 			super.setDirX(super.getDirX() + plateforme.getSpeedX());
 			super.setDirY(super.getDirY() + plateforme.getSpeedY());
 		}

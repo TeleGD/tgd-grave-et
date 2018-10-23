@@ -123,6 +123,7 @@ public class World extends BasicGameState {
 		for (Player player : players) {
 			if (player.getPosY() > line.getPosY() || player.getPosX()+player.getWidth()<0 || player.getPosX()>container.getWidth()) {
 				// TODO : à changer si on met plusieurs joueurs
+				DeathPage.setScore(player.getScore());
 				game.enterState (6, new FadeOutTransition (), new FadeInTransition ());
 			}
 		}
