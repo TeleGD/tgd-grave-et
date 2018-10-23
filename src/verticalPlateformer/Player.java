@@ -17,8 +17,6 @@ public class Player extends Entity {
 
 	private int gravityPoint;
 	private int score;
-	private boolean leftPress, rightPress, downPress, qPress, dPress, sPress, zPress, spacePress ;
-	private int dirX, dirY;
 	private Image image;
 	private Ellipse shape;
 	private float width = 70;

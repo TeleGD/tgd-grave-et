@@ -13,7 +13,6 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
-import app.AppLoader;
 import app.elements.MenuItem;
 
 public abstract class AppMenu extends AppPage {

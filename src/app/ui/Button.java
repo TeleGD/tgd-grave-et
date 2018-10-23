@@ -12,8 +12,6 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
-import app.AppLoader;
-
 @SuppressWarnings("serial")
 public class Button extends TGDComponent{
 

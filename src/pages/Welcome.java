@@ -9,7 +9,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import app.AppLoader;
 import app.AppPage;
 
 public class Welcome extends AppPage {

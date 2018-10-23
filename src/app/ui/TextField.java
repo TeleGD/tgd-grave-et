@@ -14,8 +14,6 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
-import app.AppLoader;
-
 /**
  * TextField Personnalisable a gogo
  * Constructeur: le gameContainer, la posittion x,y et la taille width height

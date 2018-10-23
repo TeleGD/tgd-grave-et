@@ -2,10 +2,8 @@ package verticalPlateformer;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
@@ -16,7 +14,6 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import verticalPlateformer.plateforme.Plateforme;
-import verticalPlateformer.plateforme.PlateformeClassique;
 import verticalPlateformer.plateforme.PlateformeGen;
 
 public class World extends BasicGameState {
@@ -30,9 +27,6 @@ public class World extends BasicGameState {
 
 	private int ID;
 	private int state;
-
-	private int width;
-	private int height;
 
 	private Sound trash;
 	private Music defouloir;
@@ -58,9 +52,8 @@ public class World extends BasicGameState {
 
 	@Override
 	public void init (GameContainer container, StateBasedGame game) {
-		/* Méthode exécutée une unique fois au chargement du programme */
-		this.width = container.getWidth ();
-		this.height = container.getHeight ();
+		container.getWidth ();
+		container.getHeight ();
 	}
 
 	@Override
