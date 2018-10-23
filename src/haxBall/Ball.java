@@ -229,6 +229,9 @@ public class Ball {
 		
 //		context.setColor(new Color(0,0,255));
 //		context.draw(hitbox);
+		
+		context.drawString("Score du joueur 1 : " + this.pointsJ1, 299, 10);
+		context.drawString("Score du joueur 2 : " + this.pointsJ2, 699, 10);
 	}
 
 	public void setPosX(int posx) {
@@ -245,6 +248,6 @@ public class Ball {
 	
 	public int getRad() {
 		return rad;
-	}	
+	}
 }
 
