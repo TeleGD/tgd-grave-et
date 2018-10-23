@@ -78,8 +78,10 @@ public class Player extends Entity {
 			this.gravityPoint+=1;
 			super.jump (jumpSpeed);
 		}
-
-		changeGravity(input);
+		
+		if (plateforme == null) {
+			changeGravity(input);
+		}
 		changeDirection(input);
 
 		super.update(container, game, delta);
