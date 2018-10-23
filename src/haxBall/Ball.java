@@ -188,6 +188,7 @@ public class Ball {
 				
 			} else {
 				if(!colliding) vitx=-vitx;
+				else vitx=0;
 				
 				posx = oldX;
 			}
@@ -206,6 +207,7 @@ public class Ball {
 				
 			} else {
 				if(!colliding) vitx=-vitx;
+				else vitx=0;
 				
 				posx=oldX;
 			}
@@ -214,6 +216,7 @@ public class Ball {
 		//s'il y a collision avec le bord du bas ou celui du haut
 		if (posy+rad>r_origy+r_haut || posy<r_origy){
 			if(!colliding) vity=-vity;
+			else vity=0;
 			
 			posy=oldY;	
 		}
