@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -17,8 +18,9 @@ public class Player extends Entity {
 
 	private int gravityPoint;
 	private int score;
-	private Image image;
+	private static Image image;
 	private Ellipse shape;
+	private Circle background;
 	private float width = 70;
 	private float height = 70;
 	private float baseSpeed = .24f;
@@ -30,24 +32,35 @@ public class Player extends Entity {
 	private float shapeStartHeight;
 	private String name;
 	private Plateforme plateforme;
-
+	private static Image leftArrow;
+	private static Image rightArrow;
+	private static Image downArrow;
+	
+	static {
+		try {
+			leftArrow = new Image("images/verticalPlateformer/leftArrow.png");
+			rightArrow = new Image("images/verticalPlateformer/rightArrow.png");
+			downArrow = new Image("images/verticalPlateformer/downArrow.png");
+			image = new Image("images/verticalPlateformer/monstre.png");
+		} catch(SlickException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public Player(String n,float posX, float posY) {
 		super(posX, posY);
 		gravityPoint = 10;
-		try {
-			image = new Image("images/verticalPlateformer/monstre.png");
-			widthRelation = width/image.getWidth();
-			heightRelation = height/image.getHeight();
-			shapeWidth = 1675*widthRelation;
-			shapeHeight = 1567*heightRelation;
-			shapeStartHeight = 161*heightRelation;
-			System.out.println(shapeWidth + " " + shapeHeight + " " + shapeStartHeight);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
+		widthRelation = width/image.getWidth();
+		heightRelation = height/image.getHeight();
+		shapeWidth = 1675*widthRelation;
+		shapeHeight = 1567*heightRelation;
+		shapeStartHeight = 161*heightRelation;
+
 		this.name = n;
 		this.score = 0;
 		this.shape = new Ellipse(getPosX()+width/2, getPosY()+shapeStartHeight+(height-shapeStartHeight)/2, shapeWidth/2, shapeHeight/2);
+		this.background = new Circle(posX+width/2, posY+width/2, (float) (1.5*width));
 	}
 
 	public String getName() {
@@ -71,12 +84,27 @@ public class Player extends Entity {
 
 		super.update(container, game, delta);
 		shape.setLocation(getPosX(), getPosY()+shapeStartHeight);
+		background.setCenterX(getPosX()+width/2);
+		background.setCenterY(container.getHeight()/2+height/2);
 		this.score = ((int) -this.getPosY())>score?(int) -this.getPosY():score;
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
-		/* Méthode exécutée environ 60 fois par seconde
-		 *  Ecran 1920-1080
+		/* Méthode exécutée environ 60 fois par seconde */
+		
+		switch (this.getGravity()) {
+		case 0:
+			context.texture(background, downArrow);
+			break;
+		case 1:
+			context.texture(background, rightArrow);
+			break;
+		case -1:
+			context.texture(background, leftArrow);
+			break;
+		}
+		
+		/*  Ecran 1920-1080
 		 *  Image :1681-1727
 		 *
 		 *  Début de la hitbox 0-161

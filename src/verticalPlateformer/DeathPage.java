@@ -30,7 +30,7 @@ public class DeathPage extends AppMenu{
 	}
 	
 	public void setScore(int score) {
-		this.setSubtitle (score+" points...");
+		this.setSubtitle ("Seulement "+score+" points...");
 	}
 
 }

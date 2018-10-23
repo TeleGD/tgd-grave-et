@@ -8,8 +8,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import verticalPlateformer.DeathPage;
-
 public final class Main {
 
 	public static final void main (String [] arguments) throws SlickException {
@@ -37,9 +35,8 @@ public final class Main {
 				this.addState (new pages.Pause (2, 4));
 				this.addState (new pages.Pause (3, 5));
 				this.addState (new haxBall.World (4));
-				DeathPage dp = new verticalPlateformer.DeathPage (6);
-				this.addState (dp);
-				this.addState (new verticalPlateformer.World (5, dp));
+				this.addState (new verticalPlateformer.World (5));
+				this.addState (new verticalPlateformer.DeathPage (6));
 			}
 
 		};

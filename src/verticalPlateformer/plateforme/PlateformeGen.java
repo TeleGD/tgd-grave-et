@@ -50,7 +50,7 @@ public class PlateformeGen {
 				createPlateforme(container, r.nextInt(4)>0, false);
 				compt--;
 			}
-			timer = 2000;
+			timer = 1200;
 		} else {
 			timer -= delta;
 		}

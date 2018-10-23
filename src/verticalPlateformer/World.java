@@ -30,13 +30,11 @@ public class World extends BasicGameState {
 
 	private Sound trash;
 	private Music defouloir;
-	private DeathPage dp;
 	
 	/*   Ajout d'un commentaire important    */
 
-	public World (int ID, DeathPage dp) {
+	public World (int ID) {
 		this.ID = ID;
-		this.dp = dp;
 		this.state = -1;
 		try {
 			defouloir = new Music("res/musics/verticalPlateformer/Defouloir.ogg");
@@ -124,7 +122,7 @@ public class World extends BasicGameState {
 		for (Player player : players) {
 			if (player.getPosY() > line.getPosY() || player.getPosX()+player.getWidth()<0 || player.getPosX()>container.getWidth()) {
 				// TODO : à changer si on met plusieurs joueurs
-				dp.setScore(player.getScore());
+				((DeathPage) game.getState(6)).setScore(player.getScore());
 				game.enterState (6, new FadeOutTransition (), new FadeInTransition ());
 			}
 		}

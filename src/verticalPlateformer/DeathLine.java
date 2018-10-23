@@ -14,7 +14,7 @@ public class DeathLine {
 	public DeathLine (GameContainer container) {
 		this.color = new Color (240, 0, 0, 204);
 		this.posY = container.getHeight () * 4;
-		this.speed = -.24f;
+		this.speed = -.18f;
 	}
 
 	public float getPosY () {
@@ -35,7 +35,9 @@ public class DeathLine {
 
 	public void render (GameContainer container, StateBasedGame game, Graphics g, float dy) {
 		g.setColor (this.color);
+		g.setLineWidth(3);
 		g.drawLine (0f, container.getHeight() / 2 + this.posY - dy, (float) container.getWidth(), container.getHeight() / 2 + this.posY - dy);
+		g.resetLineWidth();
 	}
 
 	public void update (GameContainer container, StateBasedGame game, int delta) {
