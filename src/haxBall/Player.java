@@ -231,16 +231,152 @@ public class Player {
 		}
 
 		m_tempPosX = m_posX;
-		m_posX += (int)(dt*m_speedX);
 		m_tempPosY = m_posY;
+		
+		m_posX += (int)(dt*m_speedX);
 		m_posY += (int)(dt*m_speedY);
 		
 		for(Player p : field.getPlayers()) {
 			if(!p.equals(this) && collision(p)) {
-				m_posX = m_tempPosX;
-				m_posY = m_tempPosY;
-				m_speedX = 0;
-				m_speedY = 0;
+				//on regarde de quel côté est la collision
+				if(m_shape.getCenterX()<p.getShape().getCenterX()) { //si on est à gauche de l'autre joueur
+					if(m_shape.getCenterY()<p.getShape().getCenterY()) { //si on est au dessus de l'autre joueur
+						//en haut à gauche
+						if(m_speedX>0 && m_speedY<=0) { //si on va vers la droite et pas vers le bas
+							m_speedY = -m_speed/5.1f;
+							m_speedX = 0;
+							
+							m_posX = m_tempPosX;
+							m_posY = m_tempPosY+(int)(dt*m_speedY);
+							
+						} else if(m_speedY>0 && m_speedX<=0) { //si on va vers le bas et pas vers la droite
+							m_speedX = -m_speed/5.1f;
+							m_speedY = 0;
+							
+							m_posX = m_tempPosX+(int)(dt*m_speedX);
+							m_posY = m_tempPosY;
+							
+						} else if(m_speedY>0 && m_speedX>0) { //si on va vers le bas à droite
+							if(m_shape.getCenterX() < p.getShape().getCenterX()-p.getShape().getRadius()*Math.sqrt(2)/2) { //si on a un angle>3pi/4
+								m_speedX = -m_speed/5.1f;
+								m_speedY = 0;
+								
+								m_posX = m_tempPosX+(int)(dt*m_speedX);
+								m_posY = m_tempPosY;
+								
+							} else { //si angle < 3pi/4
+								m_speedY = -m_speed/5.1f;
+								m_speedX = 0;
+								
+								m_posX = m_tempPosX;
+								m_posY = m_tempPosY+(int)(dt*m_speedY);
+							}
+						}
+						
+					} else { //si on est en dessous de l'autre joueur
+						//en bas à gauche
+						
+						if(m_speedX>0 && m_speedY>=0) { //si on va vers la droite et pas vers le haut
+							m_speedY = m_speed/5.1f;
+							m_speedX = 0;
+							
+							m_posX = m_tempPosX;
+							m_posY = m_tempPosY+(int)(dt*m_speedY);
+							
+							
+						} else if(m_speedY<0 && m_speedX<=0) { //si on va vers le haut et pas vers la droite
+							m_speedX = -m_speed/5.1f;
+							m_speedY = 0;
+							
+							m_posX = m_tempPosX+(int)(dt*m_speedX);
+							m_posY = m_tempPosY;
+							
+						} else if(m_speedY<0 && m_speedX>0) { //si on va vers le haut à droite
+							if(m_shape.getCenterX() < p.getShape().getCenterX()-p.getShape().getRadius()*Math.sqrt(2)/2) { //si on a un angle<5pi/4
+								m_speedX = -m_speed/5.1f;
+								m_speedY = 0;
+								
+								m_posX = m_tempPosX+(int)(dt*m_speedX);
+								m_posY = m_tempPosY;
+								
+							} else { //si angle > 5pi/4
+								m_speedY = m_speed/5.1f;
+								m_speedX = 0;
+								
+								m_posX = m_tempPosX;
+								m_posY = m_tempPosY+(int)(dt*m_speedY);
+							}
+						}
+					}
+					
+				} else { //si on est à droite de l'autre joueur
+					if(m_shape.getCenterY()<p.getShape().getCenterY()) { //si on est au dessus de l'autre joueur
+						//en haut à droite
+						if(m_speedX<0 && m_speedY<=0) { //si on va vers la gauche et pas vers le bas
+							m_speedY = -m_speed/5.1f;
+							m_speedX = 0;
+							
+							m_posX = m_tempPosX;
+							m_posY = m_tempPosY+(int)(dt*m_speedY);
+							
+						} else if(m_speedY>0 && m_speedX>=0) { //si on va vers le bas et pas vers la gauche
+							m_speedX = m_speed/5.1f;
+							m_speedY = 0;
+							
+							m_posX = m_tempPosX+(int)(dt*m_speedX);
+							m_posY = m_tempPosY;
+							
+						} else if(m_speedY>0 && m_speedX<0) { //si on va vers le bas à gauche
+							if(m_shape.getCenterX() > p.getShape().getCenterX()+p.getShape().getRadius()*Math.sqrt(2)/2) { //si on a un angle<pi/4
+								m_speedX = m_speed/5.1f;
+								m_speedY = 0;
+								
+								m_posX = m_tempPosX+(int)(dt*m_speedX);
+								m_posY = m_tempPosY;
+								
+							} else { //si angle > pi/4
+								m_speedY = -m_speed/5.1f;
+								m_speedX = 0;
+								
+								m_posX = m_tempPosX;
+								m_posY = m_tempPosY+(int)(dt*m_speedY);
+							}
+						}
+						
+					} else { //si on est en dessous de l'autre joueur
+						//en bas à droite
+						if(m_speedX<0 && m_speedY>=0) { //si on va vers la gauche et pas vers le haut
+							m_speedY = m_speed/5.1f;
+							m_speedX = 0;
+							
+							m_posX = m_tempPosX;
+							m_posY = m_tempPosY+(int)(dt*m_speedY);
+							
+						} else if(m_speedY<0 && m_speedX>=0) { //si on va vers le haut et pas vers la gauche
+							m_speedX = m_speed/5.1f;
+							m_speedY = 0;
+							
+							m_posX = m_tempPosX+(int)(dt*m_speedX);
+							m_posY = m_tempPosY;
+							
+						} else if(m_speedY<0 && m_speedX<0) { //si on va vers le haut à gauche
+							if(m_shape.getCenterX() > p.getShape().getCenterX()+p.getShape().getRadius()*Math.sqrt(2)/2) { //si on a un angle>7pi/4
+								m_speedX = m_speed/5.1f;
+								m_speedY = 0;
+								
+								m_posX = m_tempPosX+(int)(dt*m_speedX);
+								m_posY = m_tempPosY;
+								
+							} else { //si angle < 7pi/4
+								m_speedY = m_speed/5.1f;
+								m_speedX = 0;
+								
+								m_posX = m_tempPosX;
+								m_posY = m_tempPosY+(int)(dt*m_speedY);
+							}
+						}
+					}
+				}
 			}
 		}
 		
