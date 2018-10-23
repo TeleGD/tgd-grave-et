@@ -34,6 +34,7 @@ public class PlateformeGen {
 			if (classique) {
 				world.addPlateforme(new PlateformeClassique(r.nextInt(2)*(container.getWidth()-100)+50,container.getHeight()/2-300*totalCompt,200,30,horizontale));
 			} else {
+				totalCompt++;
 				world.addPlateforme(new PlateformeMouvante(r.nextInt(2)*(container.getWidth()-100)+50,container.getHeight()/2-300*totalCompt,200,30,horizontale));
 			}
 		}
