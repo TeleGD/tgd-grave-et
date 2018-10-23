@@ -12,7 +12,7 @@ public class PlateformeMouvante extends Plateforme {
 
 	public PlateformeMouvante(float posx,float posy,float longueur,float epaisseur,boolean sens) {
 		super(posx,posy,longueur,epaisseur,sens);
-		this.temps = 6000;
+		this.temps = 3000;
 		this.speed = .12f;
 		this.sens = sens;
 	}
@@ -20,21 +20,17 @@ public class PlateformeMouvante extends Plateforme {
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		this.temps -= delta;
 		if (this.sens) {
-			if (this.temps > 3000) {
-				this.x += this.speed * delta;
-			} else if (temps > 0) {
-				this.x -= this.speed * delta;
-			} else  {
-				this.temps = 6000;
+			if (temps < 0) {
+				this.speed = -this.speed;
+				this.temps = 3000;
 			}
+			this.setX(this.getX() + this.speed * delta);
 		} else {
-			if (this.temps > 3000) {
-				this.y += this.speed * delta;
-			} else if (temps > 0) {
-				this.y -= this.speed * delta;
-			} else {
-				this.temps = 6000;
+			if (temps < 0) {
+				this.speed = -this.speed;
+				this.temps = 3000;
 			}
+			this.setY(this.getY() + this.speed * delta);
 		}
 	}
 
