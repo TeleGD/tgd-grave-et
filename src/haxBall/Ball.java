@@ -98,24 +98,29 @@ public class Ball {
 		for (Player p : field.getPlayers()) {
 			updateShape();
 			if(hitbox.intersects(p.getShape())) { //si on a une collision avec un nouveau joueur
-				if(!(colliding && p.equals(player))) {
-					colliding = true;
-					player = p;
+				if(p.getID()>1) {
+					shoot(p);
 					
-					vitx = player.getSpeedX();
-					vity = player.getSpeedY();
+				} else {
+					if(!(colliding && p.equals(player))) {
+						colliding = true;
+						player = p;
+						
+						vitx = player.getSpeedX();
+						vity = player.getSpeedY();
+						
+						posx+=vitx*delta;
+						posy+=vity*delta;
+					}
 					
-					posx+=vitx*delta;
-					posy+=vity*delta;
+					collideWithPlayer();
+					bordersCollision(oldPosX, oldPosY);
 				}
-				
-				collideWithPlayer();
-				bordersCollision(oldPosX, oldPosY);
 			}
 			
 			if(p.isShooting() && colliding && player.equals(p)) {
 				updateShape();
-				shoot();
+				shoot(player);
 			}
 		}
 		
@@ -148,28 +153,31 @@ public class Ball {
 		}
 	}
 	
-	private void shoot() {
+	private void shoot(Player p) {
+		double tmpSpeed = speed;
+		if(p.getID()>1) tmpSpeed = Math.sqrt(Math.pow(vitx, 2)+Math.pow(vity, 2));
+		
 		double angle = 0;
-		double hyp = Math.sqrt(2)*speed;
+		double hyp = Math.sqrt(2)*tmpSpeed;
 		
 		int signeX = 1;
-		if(hitbox.getCenterX()-player.getShape().getCenterX()<0) signeX = -1;
+		if(hitbox.getCenterX()-p.getShape().getCenterX()<0) signeX = -1;
 		
 		//si on est en +-pi/2
-		if(hitbox.getCenterX() - player.getShape().getCenterX() == 0) {
+		if(hitbox.getCenterX() - p.getShape().getCenterX() == 0) {
 			int signe = 1;
-			if(hitbox.getCenterY()-player.getShape().getCenterY()>0) signe = -1;
+			if(hitbox.getCenterY()-p.getShape().getCenterY()>0) signe = -1;
 			angle = signe*Math.PI/2;
 				
 		} else {
 			
-			angle = (-signeX)*Math.atan((hitbox.getCenterY() - player.getShape().getCenterY())/(hitbox.getCenterX() - player.getShape().getCenterX())); //angle en radians
+			angle = (-signeX)*Math.atan((hitbox.getCenterY() - p.getShape().getCenterY())/(hitbox.getCenterX() - p.getShape().getCenterX())); //angle en radians
 		}
 		
 		vitx = (float)(Math.cos(angle)*hyp*signeX);
 		vity = (float)(-hyp*Math.sin(angle));
 		
-		colliding = false;
+		if(p.getID()<=1) colliding = false;
 	}
 	
 	private void bordersCollision(int oldX, int oldY) {

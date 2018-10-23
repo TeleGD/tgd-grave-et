@@ -43,6 +43,24 @@ public class Player {
 		m_shape = new Circle(m_posX+(m_radius/2), m_posY+(m_radius/2), m_radius/2);
 	}
 	
+	public Player(int x, int y, Field field) {
+		this.field = field;
+		
+		m_fieldHeight = field.getHeight();
+		m_fieldWidth = field.getWidth();
+		m_fieldOriginX = field.getPosX();
+		m_fieldOriginY = field.getPosY();
+		
+		this.shooting = false;
+		this.m_posX = x;
+		this.m_posY = y;
+		this.m_radius = m_fieldHeight/18;
+		this.m_color = new Color(50,50,50);
+		this.m_speed = 0;
+		this.m_id = 2;
+		this.m_shape = new Circle(m_posX+(m_radius/2), m_posY+(m_radius/2), m_radius/2);
+	}
+	
 	/*public Player(int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id, Player enemy) {
 		new Player(fieldHeight, fieldWidth, fieldOriginX, fieldOriginY, id);
 		m_enemy = enemy;
@@ -142,7 +160,7 @@ public class Player {
 	
 			}
 		}
-		else {
+		else if(m_id == 1) {
 			switch (key){
 			
 			case Input.KEY_UP:
@@ -187,7 +205,7 @@ public class Player {
 				break;
 			}
 		}
-		else {
+		else if (m_id == 1) {
 			switch (key) {
 			case Input.KEY_UP:
 				up=false;
