@@ -5,6 +5,7 @@ import java.util.Random;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
 
+import verticalPlateformer.Player;
 import verticalPlateformer.World;
 
 
@@ -14,28 +15,30 @@ public class PlateformeGen {
 	private int compt;
 	private int timer;
 	private int totalCompt;
+	private Player p;
 	
-	public PlateformeGen(World w) {
+	public PlateformeGen(World w, Player p) {
 		world = w;
 		r = new Random();
 		timer = 0;
 		compt = r.nextInt(6);
 		totalCompt=0;
+		this.p=p;
 	}
 	
 	public void createPlateforme(GameContainer container, boolean classique, boolean horizontale) {
 		if (horizontale) {
 			if (classique) {
-				world.addPlateforme(new PlateformeClassique(r.nextInt(container.getWidth()-400)+100,container.getHeight()/2-300*totalCompt,200,30,horizontale));
+				world.addPlateforme(new PlateformeClassique(r.nextInt(container.getWidth()-400)+100,container.getHeight()/2-300*totalCompt,200,30,horizontale,p));
 			} else {
-				world.addPlateforme(new PlateformeMouvante(r.nextInt(container.getWidth()-800)+200,container.getHeight()/2-300*totalCompt,200,30,horizontale));
+				world.addPlateforme(new PlateformeMouvante(r.nextInt(container.getWidth()-800)+200,container.getHeight()/2-300*totalCompt,200,30,horizontale,p));
 			}
 		} else {
 			if (classique) {
-				world.addPlateforme(new PlateformeClassique(r.nextInt(2)*(container.getWidth()-100)+50,container.getHeight()/2-300*totalCompt,200,30,horizontale));
+				world.addPlateforme(new PlateformeClassique(r.nextInt(2)*(container.getWidth()-100)+50,container.getHeight()/2-300*totalCompt,200,30,horizontale,p));
 			} else {
 				totalCompt++;
-				world.addPlateforme(new PlateformeMouvante(r.nextInt(2)*(container.getWidth()-100)+50,container.getHeight()/2-300*totalCompt,200,30,horizontale));
+				world.addPlateforme(new PlateformeMouvante(r.nextInt(2)*(container.getWidth()-100)+50,container.getHeight()/2-300*totalCompt,200,30,horizontale,p));
 			}
 		}
 	}

@@ -61,6 +61,7 @@ public class Player extends Entity {
 		this.score = 0;
 		this.shape = new Ellipse(getPosX()+width/2, getPosY()+shapeStartHeight+(height-shapeStartHeight)/2, shapeWidth/2, shapeHeight/2);
 		this.background = new Circle(posX+width/2, posY+width/2, (float) (1.5*width));
+		image=image.getScaledCopy((int)width, (int)height);
 	}
 
 	public String getName() {
@@ -75,7 +76,7 @@ public class Player extends Entity {
 		if (BUTTON_SPACE && (plateforme != null)) {
 			plateforme.setDestroyed(true);
 			plateforme = null;
-			this.gravityPoint+=1;
+			this.gravityPoint = getGravity()==0 ? this.gravityPoint+2 : this.gravityPoint+1;
 			super.jump (jumpSpeed);
 		}
 		
@@ -97,12 +98,15 @@ public class Player extends Entity {
 		switch (this.getGravity()) {
 		case 0:
 			context.texture(background, downArrow);
+			image.setRotation(0);
 			break;
 		case 1:
 			context.texture(background, rightArrow);
+			image.setRotation(-90);
 			break;
 		case -1:
 			context.texture(background, leftArrow);
+			image.setRotation(90);
 			break;
 		}
 		
@@ -131,19 +135,19 @@ public class Player extends Entity {
 			if (BUTTON_LEFT && (getGravity() != -1)) {
 				super.setGravity(-1);
 				gravityPoint --;
-				System.out.println("gravité  : -1");
+				//System.out.println("gravité : -1");
 
 			}
 			else if (BUTTON_DOWN && (getGravity() != 0)) {
 				super.setGravity(0);
 				gravityPoint --;
-				System.out.println("gravité  : 0");
+				//System.out.println("gravité : 0");
 
 			}
 			else if (BUTTON_RIGHT && (getGravity() != 1)) {
 				super.setGravity(1);
 				gravityPoint --;
-				System.out.println("gravité  : 1");
+				//System.out.println("gravité : 1");
 
 			}
 		}

@@ -24,7 +24,10 @@ public class World extends BasicGameState {
 	private DeathLine line;
 	private ArrayList<Plateforme> plateformes;
 	private PlateformeGen plateformeGen;
-
+	private ArrayList<Decoration> decorations;
+	private DecorationGen decorationGen;
+	
+	
 	private int ID;
 	private int state;
 
@@ -99,21 +102,23 @@ public class World extends BasicGameState {
 		}
 
 		plateformeGen.update(container, game, delta);
+		decorationGen.update(container, game, delta);
 
 		for(Player player : players) {
 			player.update(container, game, delta);
 			for (Plateforme plat : plateformes) {
 				if(player.getShape().intersects(plat)) {
-					player.freeze();
 					if ((player.getGravity() == 0) == plat.getSens()) {
+						player.freeze();
 						player.setPlateforme(plat);
 						// Le joueur s'arrête
-						System.out.println("FREEZE");
+						//System.out.println("FREEZE");
 					}
 					else {
-						player.unFreeze();
-						// Le joueur passe à travers
-						System.out.println("FREEZE - UNFREEZE");
+						((DeathPage) game.getState(6)).setScore(player.getScore());
+						game.enterState (6, new FadeOutTransition (), new FadeInTransition ());
+						// Le joueur meurt
+						//System.out.println("FREEZE - UNFREEZE");
 					}
 				}
 			}
@@ -135,8 +140,15 @@ public class World extends BasicGameState {
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		I.render(container,game,context);
+		
+		for(Decoration d: decorations) {
+			d.render(container, game, context, amos.getPosY ());
+		}
+		
 		amos.render(container, game, context);
+		
 		line.render (container, game, context, amos.getPosY ());
+		
 		for(Plateforme p:plateformes) {
 			p.render(container, game, context, amos.getPosY ());
 		}
@@ -152,11 +164,14 @@ public class World extends BasicGameState {
 		this.line = new DeathLine(container);
 
 		plateformes=new ArrayList<Plateforme>();
-		plateformeGen = new PlateformeGen(this);
+		decorations=new ArrayList<Decoration>();
+		plateformeGen = new PlateformeGen(this,players.get(0));
+		decorationGen = new DecorationGen(this,players);
 	}
 
 	public void pause (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée lors de la mise en pause du jeu */
+		defouloir.pause();
 	}
 
 	public void resume (GameContainer container, StateBasedGame game) {
@@ -165,6 +180,7 @@ public class World extends BasicGameState {
 
 	public void stop (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois à la fin du jeu */
+		defouloir.stop();
 	}
 
 	public void setState (int state) {
@@ -177,6 +193,10 @@ public class World extends BasicGameState {
 
 	public void addPlateforme(Plateforme plateforme ) {
 		plateformes.add(plateforme);
+	}
+
+	public void addDecoration(Decoration decoration) {
+		decorations.add(0,decoration);
 	}
 
 }
