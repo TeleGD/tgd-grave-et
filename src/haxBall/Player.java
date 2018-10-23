@@ -10,7 +10,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Player {
 	private int m_posX, m_posY, m_tempPosX, m_tempPosY, m_radius, m_id, m_fieldHeight, m_fieldWidth, m_fieldOriginX, m_fieldOriginY;
-	private Color m_color;
+	private Color m_actualColor, m_defaultColor;
 	private float m_speedX, m_speedY, m_speed;
 	private boolean up, down, right, left, updown, rightLeft;
 	private Field field;
@@ -33,13 +33,14 @@ public class Player {
 		
 		if(m_id == 0) {
 			m_posX = ((fieldWidth)/4) + fieldOriginX;
-			m_color = new Color(0, 0, 255);
+			m_defaultColor = new Color(0, 0, 255);
 		}
 		else {
 			m_posX = ((3*fieldWidth)/4) + fieldOriginX;
-			m_color = new Color(255, 0, 0);
+			m_defaultColor = new Color(255, 0, 0);
 		}
 		
+		m_actualColor = m_defaultColor;
 		m_shape = new Circle(m_posX+(m_radius/2), m_posY+(m_radius/2), m_radius/2);
 	}
 	
@@ -55,7 +56,8 @@ public class Player {
 		this.m_posX = x;
 		this.m_posY = y;
 		this.m_radius = m_fieldHeight/18;
-		this.m_color = new Color(50,50,50);
+		this.m_defaultColor = new Color(70,70,70);
+		this.m_actualColor = m_defaultColor;
 		this.m_speed = 0;
 		this.m_id = 2;
 		this.m_shape = new Circle(m_posX+(m_radius/2), m_posY+(m_radius/2), m_radius/2);
@@ -90,12 +92,12 @@ public class Player {
 		return m_id;
 	}
 	
-	public Color getColor() {
-		return m_color;
+	public void setColor(Color color) {
+		m_actualColor = color;
 	}
 	
-	public void setColor(Color color) {
-		m_color = color;
+	public void resetColor() {
+		m_actualColor = m_defaultColor;
 	}
 	
 	public Circle getShape() {
@@ -111,7 +113,7 @@ public class Player {
 //	}
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
-		context.setColor(m_color);
+		context.setColor(m_actualColor);
 		context.fillOval(m_posX, m_posY, m_radius, m_radius);
 		
 //		context.setColor(new Color(0,255,0));

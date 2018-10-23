@@ -99,7 +99,9 @@ public class Ball {
 			updateShape();
 			if(hitbox.intersects(p.getShape())) { //si on a une collision avec un nouveau joueur
 				if(p.getID()>1) {
+					collideWithPlayer(p);
 					shoot(p);
+					bordersCollision(oldPosX, oldPosY);
 					
 				} else {
 					if(!(colliding && p.equals(player))) {
@@ -113,7 +115,7 @@ public class Ball {
 						posy+=vity*delta;
 					}
 					
-					collideWithPlayer();
+					collideWithPlayer(player);
 					bordersCollision(oldPosX, oldPosY);
 				}
 			}
@@ -132,24 +134,24 @@ public class Ball {
 		hitbox.setRadius(rad/2);
 	}
 	
-	private void collideWithPlayer() {
+	private void collideWithPlayer(Player p) {
 		//on replace la balle au bord du joueur
 		//si on est en +-pi/2
-		if(hitbox.getCenterX() == player.getShape().getCenterX()) {
+		if(hitbox.getCenterX() == p.getShape().getCenterX()) {
 			int signe = 1;
-			if(hitbox.getCenterY()-player.getShape().getCenterY()<0) signe = -1;
-			posy = (int)(player.getShape().getCenterY() + (hitbox.getRadius() + player.getShape().getRadius() + 1)*signe - hitbox.getRadius());
+			if(hitbox.getCenterY()-p.getShape().getCenterY()<0) signe = -1;
+			posy = (int)(p.getShape().getCenterY() + (hitbox.getRadius() + p.getShape().getRadius() + 1)*signe - hitbox.getRadius());
 		
 		} else {
 			//signe pour les x
 			int signe = 1;
-			if(hitbox.getCenterX()-player.getShape().getCenterX()<0) signe = -1;
+			if(hitbox.getCenterX()-p.getShape().getCenterX()<0) signe = -1;
 			
-			double angle = (-signe)*Math.atan((hitbox.getCenterY() - player.getShape().getCenterY())/(hitbox.getCenterX() - player.getShape().getCenterX())); //angle en radians
-			double hyp = hitbox.getRadius() + player.getShape().getRadius() + 1;
+			double angle = (-signe)*Math.atan((hitbox.getCenterY() - p.getShape().getCenterY())/(hitbox.getCenterX() - p.getShape().getCenterX())); //angle en radians
+			double hyp = hitbox.getRadius() + p.getShape().getRadius() + 1;
 			
-			posx = (int)(player.getShape().getCenterX() + Math.cos(angle)*hyp*signe - hitbox.getRadius());
-			posy = (int)(player.getShape().getCenterY() - hyp*Math.sin(angle) - hitbox.getRadius());
+			posx = (int)(p.getShape().getCenterX() + Math.cos(angle)*hyp*signe - hitbox.getRadius());
+			posy = (int)(p.getShape().getCenterY() - hyp*Math.sin(angle) - hitbox.getRadius());
 		}
 	}
 	

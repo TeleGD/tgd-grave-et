@@ -16,7 +16,7 @@ public class Inflate extends Bonus {
 		super(posX, posY, new Color(255,0,255), field);
 		
 		this.ball = ball;
-		timer = 10*1000;
+		timer = 12*1000;
 	}
 	
 	public void update(GameContainer container, StateBasedGame game, int delta) {

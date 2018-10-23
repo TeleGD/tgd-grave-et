@@ -12,11 +12,11 @@ public class Deflate extends Bonus {
 	private Ball ball;
 	private int timer;
 	
-	public Deflate(int posX, int posY, Field field, Ball ball) {
+	public Deflate(int posX, int posY, Field field) {
 		super(posX, posY, new Color(255,128,0), field);
 		
-		this.ball = ball;
-		timer = 10*1000;
+		ball = null;
+		timer = 12*1000;
 	}
 	
 	public void update(GameContainer container, StateBasedGame game, int delta) {
@@ -34,6 +34,7 @@ public class Deflate extends Bonus {
 	public void activate(Player p, Ball b) {
 		activated = true;
 		
+		ball = b;
 		ball.setRad(ball.getRad()/2);
 	}	
 

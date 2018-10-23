@@ -12,16 +12,13 @@ import haxBall.Player;
 
 public class Bip extends Bonus {
 
-	private Field field;
 	private int timer;
 	private Sound sound;
 	private Player p;
-	private Color meme;
 	
 	public Bip(int posX, int posY,  Field field) {
 		super(posX, posY, new Color(254,222,1), field);
-		this.field = field;
-		this.timer = 10*1000;
+		this.timer = 12*1000;
 		
 		try {
 			this.sound = new Sound("res/sound/bip.ogg");
@@ -38,7 +35,7 @@ public class Bip extends Bonus {
 			timer -= delta;
 			
 			if (timer%500<=16 && timer!=0 ){
-				p.setColor(meme);
+				p.resetColor();
 				sound.play(1, (float) 0.4);
 				
 			} else if (timer>0){
@@ -46,7 +43,7 @@ public class Bip extends Bonus {
 			}
 		}
 		if (timer <= 0) {
-			p.setColor(meme);
+			p.resetColor();
 			deleted = true;
 		}
 		super.update(container, game, delta);
@@ -56,7 +53,6 @@ public class Bip extends Bonus {
 
 	public void activate(Player p, Ball b) {
 		activated = true;
-		meme = p.getColor();
 		this.p=p;
 		sound.play(1, (float) 0.4);
 	}

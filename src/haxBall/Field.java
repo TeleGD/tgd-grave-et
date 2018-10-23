@@ -106,7 +106,8 @@ public class Field {
 		//update les bonus
 		for(int i=0 ; i<bonus.size() ; i++) {
 			for(int j=0; j<2; j++) {
-				if(bonus.get(i).getShape().intersects(players.get(j).getShape()) && !bonus.get(i).isActivated()) bonus.get(i).activate(players.get(j), ball);
+				if(bonus.get(i).getShape().intersects(players.get(j).getShape()) && !bonus.get(i).isActivated()) 
+					bonus.get(i).activate(players.get(j), ball);
 			}
 			bonus.get(i).update(container, game, delta);
 			
@@ -117,13 +118,13 @@ public class Field {
 	}
 	
 	private void generateBonus() {		
-		int k= (int)(Math.random()*5);
+		int k= (int)(Math.random()*6);
 		int posX = (int)(Math.random()*5*width/6+pos_x+width/12);
 		int posY = (int)(Math.random()*5*height/6+pos_y+height/12);
 		
 		switch (k) {
 		case 0:
-			bonus.add(new Deflate(posX, posY, this, ball));
+			bonus.add(new Deflate(posX, posY, this));
 			break;
 		case 1:
 			bonus.add(new Flash(posX, posY, this));
@@ -137,7 +138,11 @@ public class Field {
 		case 4:
 			bonus.add(new Bip(posX, posY, this));
 			break;
+		case 5:
+			bonus.add(new Pillars(posX, posY, this));
+			break;
 		default:
+			System.out.println("test)");
 			bonus.add(new Inflate(posX, posY, this, ball));
 			break;
 		}
