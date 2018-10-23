@@ -60,8 +60,9 @@ public class Player extends Entity {
 		boolean BUTTON_SPACE = input.isKeyDown(Input.KEY_SPACE);
 
 		if (BUTTON_SPACE && (plateforme != null)) {
+			plateforme.setDestroyed(true);
 			plateforme = null;
-			this.gravityPoint+=2;
+			this.gravityPoint+=1;
 			super.jump (jumpSpeed);
 		}
 

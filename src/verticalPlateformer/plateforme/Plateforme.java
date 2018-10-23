@@ -11,6 +11,7 @@ import verticalPlateformer.Player;
 @SuppressWarnings("serial")
 public abstract class Plateforme extends Rectangle {
 	private boolean sens; /* sens de la plateforme */
+	private boolean destroyed;
 
 
 	public void render (GameContainer container, StateBasedGame game, Graphics g, float dy) {
@@ -47,5 +48,12 @@ public abstract class Plateforme extends Rectangle {
 
 	public abstract float getSpeedY();
 
+	public boolean isDestroyed() {
+		return destroyed;
+	}
+
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
+	}
 
 }

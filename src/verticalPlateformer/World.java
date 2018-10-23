@@ -93,7 +93,7 @@ public class World extends BasicGameState {
 			p.update(container, game, delta);
 		}
 		for(int i=plateformes.size()-1;i>=0;i--) {
-			if(plateformes.get(i).getPosY()>=this.line.getPosY()) {
+			if(plateformes.get(i).getPosY()>=this.line.getPosY() || plateformes.get(i).isDestroyed()) {
 				plateformes.remove(i);
 				trash.play(1, (float) 0.4);
 			}
