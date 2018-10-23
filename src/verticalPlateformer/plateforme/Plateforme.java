@@ -18,8 +18,8 @@ public abstract class Plateforme extends Rectangle {
 		/* gravite = sens de la gravite */
 			g.setColor(Color.green);
 			g.fillRect(x, container.getHeight() / 2 + y - dy,width,height);
-			g.setColor(Color.red);
-			g.draw(this);
+			//g.setColor(Color.red);
+			//g.draw(this);
 	}
 
 	public Plateforme(float posx,float posy,float longueur,float epaisseur,boolean sens) {

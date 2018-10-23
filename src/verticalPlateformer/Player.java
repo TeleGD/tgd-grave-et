@@ -35,7 +35,7 @@ public class Player extends Entity {
 
 	public Player(String n,float posX, float posY) {
 		super(posX, posY);
-		gravityPoint = 1000;
+		gravityPoint = 10;
 		try {
 			image = new Image("images/verticalPlateformer/monstre.png");
 			widthRelation = width/image.getWidth();
@@ -63,6 +63,7 @@ public class Player extends Entity {
 
 		if (BUTTON_SPACE && (plateforme != null)) {
 			plateforme = null;
+			this.gravityPoint+=2;
 			super.jump (jumpSpeed);
 		}
 
@@ -71,6 +72,7 @@ public class Player extends Entity {
 
 		super.update(container, game, delta);
 		shape.setLocation(getPosX(), getPosY()+shapeStartHeight);
+		this.score = (int) -this.getPosY();
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
