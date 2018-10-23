@@ -12,8 +12,6 @@ import haxBall.Player;
 
 public class Bip extends Bonus {
 
-
-	private Color fieldColor;
 	private Field field;
 	private int timer;
 	private Sound sound;
@@ -23,7 +21,6 @@ public class Bip extends Bonus {
 	public Bip(int posX, int posY,  Field field) {
 		super(posX, posY, new Color(254,222,1), field);
 		this.field = field;
-		this.fieldColor = field.getColor();
 		this.timer = 10*1000;
 		
 		try {
@@ -45,7 +42,7 @@ public class Bip extends Bonus {
 				sound.play(1, (float) 0.4);
 				
 			} else if (timer>0){
-				p.setColor(field.getColor());
+				p.setColor(new Color(0,0,0,0));
 			}
 		}
 		if (timer <= 0) {

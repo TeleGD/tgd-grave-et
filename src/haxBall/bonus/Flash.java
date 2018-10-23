@@ -12,13 +12,11 @@ import haxBall.Player;
 
 public class Flash extends Bonus {
 
-	private Color fieldColor;
 	private int timer;
 	private Sound sound;
 	
 	public Flash(int posX, int posY, Field field) {
 		super(posX, posY, new Color(255,255,255), field);
-		this.fieldColor = field.getColor();
 		this.timer = 7*1000;
  
 		try {
@@ -38,7 +36,7 @@ public class Flash extends Bonus {
 		}
 		
 		if (timer <= 0) {
-			field.setColor(fieldColor);
+			field.resetColor();
 			deleted = true;
 		}
 		

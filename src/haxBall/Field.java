@@ -14,7 +14,8 @@ public class Field {
 	private int width;
 	private int pos_x;
 	private int pos_y;
-	private Color color;
+	private Color defaultColor;
+	private Color actualColor;
 	private List<Player> players;
 	private Ball ball;
 	private int world_height;
@@ -29,7 +30,8 @@ public class Field {
 		this.width = (int)(0.7 * world_width);
 		this.pos_x = (int)(0.15 * world_width);
 		this.pos_y = (int)(0.15 * world_height);
-		this.color = new Color(102, 148, 68);
+		this.defaultColor = new Color(102, 148, 68);
+		this.actualColor = defaultColor;
 		this.world_width = world_width;
 		this.world_height = world_height;
 		this.bonusTimer = 10*1000;
@@ -48,12 +50,12 @@ public class Field {
 	}
 	
 	public void setColor(Color c) {
-		this.color = c;
+		this.actualColor = c;
 		
 	}
 	
-	public Color getColor() {
-		return color;
+	public void resetColor() {
+		actualColor = defaultColor;
 	}
 	
 	public int getWidth() {
@@ -149,7 +151,7 @@ public class Field {
 		context.setColor(new Color(102, 111, 69));
 		context.fillRect(0, 0, this.world_width, this.world_height);
 		//le fond du terrain
-		context.setColor(color);
+		context.setColor(actualColor);
 		context.fillRect(this.pos_x,this.pos_y,this.width,this.height);
 		//la ligne autour du terrain
 		context.setColor(new Color(243, 241, 255));
