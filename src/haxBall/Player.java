@@ -238,73 +238,65 @@ public class Player {
 		
 		for(Player p : field.getPlayers()) {
 			if(!p.equals(this) && collision(p)) {
+				m_posX = m_tempPosX;
+				m_posY = m_tempPosY;
 				//on regarde de quel côté est la collision
 				if(m_shape.getCenterX()<p.getShape().getCenterX()) { //si on est à gauche de l'autre joueur
 					if(m_shape.getCenterY()<p.getShape().getCenterY()) { //si on est au dessus de l'autre joueur
 						//en haut à gauche
 						if(m_speedX>0 && m_speedY<=0) { //si on va vers la droite et pas vers le bas
-							m_speedY = -m_speed/5.1f;
 							m_speedX = 0;
-							
-							m_posX = m_tempPosX;
-							m_posY = m_tempPosY+(int)(dt*m_speedY);
+							m_speedY = -m_speed;
+							m_posY += (int)(dt*m_speedY);
+							placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 							
 						} else if(m_speedY>0 && m_speedX<=0) { //si on va vers le bas et pas vers la droite
-							m_speedX = -m_speed/5.1f;
+							m_speedX = -m_speed;
 							m_speedY = 0;
-							
-							m_posX = m_tempPosX+(int)(dt*m_speedX);
-							m_posY = m_tempPosY;
+							m_posX += (int)(dt*m_speedX);
+							placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 							
 						} else if(m_speedY>0 && m_speedX>0) { //si on va vers le bas à droite
 							if(m_shape.getCenterX() < p.getShape().getCenterX()-p.getShape().getRadius()*Math.sqrt(2)/2) { //si on a un angle>3pi/4
-								m_speedX = -m_speed/5.1f;
+								m_speedX = -m_speed;
 								m_speedY = 0;
-								
-								m_posX = m_tempPosX+(int)(dt*m_speedX);
-								m_posY = m_tempPosY;
+								m_posX += (int)(dt*m_speedX);
+								placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 								
 							} else { //si angle < 3pi/4
-								m_speedY = -m_speed/5.1f;
 								m_speedX = 0;
-								
-								m_posX = m_tempPosX;
-								m_posY = m_tempPosY+(int)(dt*m_speedY);
+								m_speedY = -m_speed;
+								m_posY += (int)(dt*m_speedY);
+								placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 							}
 						}
 						
 					} else { //si on est en dessous de l'autre joueur
 						//en bas à gauche
-						
 						if(m_speedX>0 && m_speedY>=0) { //si on va vers la droite et pas vers le haut
-							m_speedY = m_speed/5.1f;
 							m_speedX = 0;
-							
-							m_posX = m_tempPosX;
-							m_posY = m_tempPosY+(int)(dt*m_speedY);
-							
+							m_speedY = m_speed;
+							m_posY += (int)(dt*m_speedY);
+							placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 							
 						} else if(m_speedY<0 && m_speedX<=0) { //si on va vers le haut et pas vers la droite
-							m_speedX = -m_speed/5.1f;
+							m_speedX = -m_speed;
 							m_speedY = 0;
-							
-							m_posX = m_tempPosX+(int)(dt*m_speedX);
-							m_posY = m_tempPosY;
+							m_posX += (int)(dt*m_speedX);
+							placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 							
 						} else if(m_speedY<0 && m_speedX>0) { //si on va vers le haut à droite
 							if(m_shape.getCenterX() < p.getShape().getCenterX()-p.getShape().getRadius()*Math.sqrt(2)/2) { //si on a un angle<5pi/4
-								m_speedX = -m_speed/5.1f;
+								m_speedX = -m_speed;
 								m_speedY = 0;
-								
-								m_posX = m_tempPosX+(int)(dt*m_speedX);
-								m_posY = m_tempPosY;
+								m_posX += (int)(dt*m_speedX);
+								placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 								
 							} else { //si angle > 5pi/4
-								m_speedY = m_speed/5.1f;
 								m_speedX = 0;
-								
-								m_posX = m_tempPosX;
-								m_posY = m_tempPosY+(int)(dt*m_speedY);
+								m_speedY = m_speed;
+								m_posY += (int)(dt*m_speedY);
+								placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 							}
 						}
 					}
@@ -313,66 +305,58 @@ public class Player {
 					if(m_shape.getCenterY()<p.getShape().getCenterY()) { //si on est au dessus de l'autre joueur
 						//en haut à droite
 						if(m_speedX<0 && m_speedY<=0) { //si on va vers la gauche et pas vers le bas
-							m_speedY = -m_speed/5.1f;
 							m_speedX = 0;
-							
-							m_posX = m_tempPosX;
-							m_posY = m_tempPosY+(int)(dt*m_speedY);
+							m_speedY = -m_speed;
+							m_posY += (int)(dt*m_speedY);
+							placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 							
 						} else if(m_speedY>0 && m_speedX>=0) { //si on va vers le bas et pas vers la gauche
-							m_speedX = m_speed/5.1f;
+							m_speedX = m_speed;
 							m_speedY = 0;
-							
-							m_posX = m_tempPosX+(int)(dt*m_speedX);
-							m_posY = m_tempPosY;
+							m_posX += (int)(dt*m_speedX);
+							placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 							
 						} else if(m_speedY>0 && m_speedX<0) { //si on va vers le bas à gauche
 							if(m_shape.getCenterX() > p.getShape().getCenterX()+p.getShape().getRadius()*Math.sqrt(2)/2) { //si on a un angle<pi/4
-								m_speedX = m_speed/5.1f;
+								m_speedX = m_speed;
 								m_speedY = 0;
-								
-								m_posX = m_tempPosX+(int)(dt*m_speedX);
-								m_posY = m_tempPosY;
+								m_posX += (int)(dt*m_speedX);
+								placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 								
 							} else { //si angle > pi/4
-								m_speedY = -m_speed/5.1f;
 								m_speedX = 0;
-								
-								m_posX = m_tempPosX;
-								m_posY = m_tempPosY+(int)(dt*m_speedY);
+								m_speedY = -m_speed;
+								m_posY += (int)(dt*m_speedY);
+								placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 							}
 						}
 						
 					} else { //si on est en dessous de l'autre joueur
 						//en bas à droite
 						if(m_speedX<0 && m_speedY>=0) { //si on va vers la gauche et pas vers le haut
-							m_speedY = m_speed/5.1f;
 							m_speedX = 0;
-							
-							m_posX = m_tempPosX;
-							m_posY = m_tempPosY+(int)(dt*m_speedY);
+							m_speedY = m_speed;
+							m_posY += (int)(dt*m_speedY);
+							placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 							
 						} else if(m_speedY<0 && m_speedX>=0) { //si on va vers le haut et pas vers la gauche
-							m_speedX = m_speed/5.1f;
+							m_speedX = m_speed;
 							m_speedY = 0;
-							
-							m_posX = m_tempPosX+(int)(dt*m_speedX);
-							m_posY = m_tempPosY;
+							m_posX += (int)(dt*m_speedX);
+							placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 							
 						} else if(m_speedY<0 && m_speedX<0) { //si on va vers le haut à gauche
 							if(m_shape.getCenterX() > p.getShape().getCenterX()+p.getShape().getRadius()*Math.sqrt(2)/2) { //si on a un angle>7pi/4
-								m_speedX = m_speed/5.1f;
+								m_speedX = m_speed;
 								m_speedY = 0;
-								
-								m_posX = m_tempPosX+(int)(dt*m_speedX);
-								m_posY = m_tempPosY;
+								m_posX += (int)(dt*m_speedX);
+								placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 								
 							} else { //si angle < 7pi/4
-								m_speedY = m_speed/5.1f;
 								m_speedX = 0;
-								
-								m_posX = m_tempPosX;
-								m_posY = m_tempPosY+(int)(dt*m_speedY);
+								m_speedY = m_speed;
+								m_posY += (int)(dt*m_speedY);
+								placeNextToPlayer(p); //on vient se coller à l'autre joueur pour éviter de se déplacer en escalier
 							}
 						}
 					}
@@ -396,6 +380,28 @@ public class Player {
 		} else if ((m_posX) > (m_fieldOriginX + m_fieldWidth)) {
 			m_posX = m_fieldOriginX + m_fieldWidth;
 			m_speedX = 0;			
+		}
+	}
+	
+	private void placeNextToPlayer(Player p) {
+		updateShape();
+		//on se place au bord du joueur
+		//si on est en +-pi/2
+		if(m_shape.getCenterX() == p.getShape().getCenterX()) {
+			int signe = 1;
+			if(m_shape.getCenterY()-p.getShape().getCenterY()<0) signe = -1;
+			m_posY = (int)(p.getShape().getCenterY() + (m_shape.getRadius() + p.getShape().getRadius() + 1)*signe - m_shape.getRadius());
+				
+		} else {
+			//signe pour les x
+			int signe = 1;
+			if(m_shape.getCenterX()-p.getShape().getCenterX()<0) signe = -1;
+					
+			double angle = (-signe)*Math.atan((m_shape.getCenterY() - p.getShape().getCenterY())/(m_shape.getCenterX() - p.getShape().getCenterX())); //angle en radians
+			double hyp = m_shape.getRadius() + p.getShape().getRadius() + 1;
+
+			m_posX = (int)(p.getShape().getCenterX() + Math.cos(angle)*hyp*signe - m_shape.getRadius());
+			m_posY = (int)(p.getShape().getCenterY() - hyp*Math.sin(angle) - m_shape.getRadius());
 		}
 	}
 	

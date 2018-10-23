@@ -107,11 +107,9 @@ public class Ball {
 					
 					posx+=vitx*delta;
 					posy+=vity*delta;
-					
-				} else {
-					collideWithPlayer();
 				}
-
+				
+				collideWithPlayer();
 				bordersCollision(oldPosX, oldPosY);
 			}
 			
@@ -132,10 +130,10 @@ public class Ball {
 	private void collideWithPlayer() {
 		//on replace la balle au bord du joueur
 		//si on est en +-pi/2
-		if(hitbox.getCenterX() - player.getShape().getCenterX() == 0) {
+		if(hitbox.getCenterX() == player.getShape().getCenterX()) {
 			int signe = 1;
 			if(hitbox.getCenterY()-player.getShape().getCenterY()<0) signe = -1;
-			posy = (int)(player.getShape().getCenterY() + (hitbox.getRadius() + player.getShape().getRadius() + 1)*signe);
+			posy = (int)(player.getShape().getCenterY() + (hitbox.getRadius() + player.getShape().getRadius() + 1)*signe - hitbox.getRadius());
 		
 		} else {
 			//signe pour les x
@@ -145,10 +143,8 @@ public class Ball {
 			double angle = (-signe)*Math.atan((hitbox.getCenterY() - player.getShape().getCenterY())/(hitbox.getCenterX() - player.getShape().getCenterX())); //angle en radians
 			double hyp = hitbox.getRadius() + player.getShape().getRadius() + 1;
 			
-			
-			
-			posx = (int)(player.getShape().getCenterX() + Math.cos(angle)*hyp*signe);
-			posy = (int)(player.getShape().getCenterY() - hyp*Math.sin(angle));
+			posx = (int)(player.getShape().getCenterX() + Math.cos(angle)*hyp*signe - hitbox.getRadius());
+			posy = (int)(player.getShape().getCenterY() - hyp*Math.sin(angle) - hitbox.getRadius());
 		}
 	}
 	
