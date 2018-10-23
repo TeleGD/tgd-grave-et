@@ -204,8 +204,12 @@ public class Ball {
 				posy=r_origy+r_haut/2-rad/2;
 				vitx=0;
 				vity=0;
-				System.out.println(pointsJ1);
-				System.out.println(pointsJ2);
+//				System.out.println(pointsJ1);
+//				System.out.println(pointsJ2);
+				
+				for(Player p : field.getPlayers()) {
+					p.resetPos();
+				}
 				
 			} else {
 				if(!colliding) vitx=-vitx;
@@ -224,8 +228,12 @@ public class Ball {
 				posy=r_origy+r_haut/2-rad/2;
 				vitx=0;
 				vity=0;
-				System.out.println(pointsJ1);
-				System.out.println(pointsJ2);
+//				System.out.println(pointsJ1);
+//				System.out.println(pointsJ2);
+				
+				for(Player p : field.getPlayers()) {
+					p.resetPos();
+				}
 				
 			} else {
 				if(!colliding) vitx=-vitx;

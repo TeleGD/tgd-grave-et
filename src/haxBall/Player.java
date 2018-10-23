@@ -16,6 +16,7 @@ public class Player {
 	private Field field;
 	private Circle m_shape;
 	private boolean shooting;
+	private int spawnX, spawnY;
 	
 	public Player(int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id, Field field) {
 		this.field = field;
@@ -28,18 +29,20 @@ public class Player {
 		m_fieldOriginY = fieldOriginY;
 		
 		m_radius = fieldHeight/15;
-		m_posY = (fieldHeight/2) + fieldOriginY - (m_radius/2);
+		spawnY = (fieldHeight/2) + fieldOriginY - (m_radius/2);
 		m_speed = (float) 0.3;
 		
 		if(m_id == 0) {
-			m_posX = ((fieldWidth)/4) + fieldOriginX;
+			spawnX = ((fieldWidth)/4) + fieldOriginX;
 			m_defaultColor = new Color(0, 0, 255);
 		}
 		else {
-			m_posX = ((3*fieldWidth)/4) + fieldOriginX;
+			spawnX = ((3*fieldWidth)/4) + fieldOriginX;
 			m_defaultColor = new Color(255, 0, 0);
 		}
 		
+		m_posX = spawnX;
+		m_posY = spawnY;
 		m_actualColor = m_defaultColor;
 		m_shape = new Circle(m_posX+(m_radius/2), m_posY+(m_radius/2), m_radius/2);
 	}
@@ -53,8 +56,10 @@ public class Player {
 		m_fieldOriginY = field.getPosY();
 		
 		this.shooting = false;
-		this.m_posX = x;
-		this.m_posY = y;
+		this.spawnX = x;
+		this.spawnY = y;
+		this.m_posX = spawnX;
+		this.m_posY = spawnY;
 		this.m_radius = m_fieldHeight/18;
 		this.m_defaultColor = new Color(70,70,70);
 		this.m_actualColor = m_defaultColor;
@@ -74,6 +79,11 @@ public class Player {
 	
 	public int getPosY() {
 		return m_posY;
+	}
+	
+	public void resetPos() {
+		m_posX = spawnX;
+		m_posY = spawnY;
 	}
 	
 	public float getSpeedX() {

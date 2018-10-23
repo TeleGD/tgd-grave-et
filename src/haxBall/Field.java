@@ -34,7 +34,7 @@ public class Field {
 		this.actualColor = defaultColor;
 		this.world_width = world_width;
 		this.world_height = world_height;
-		this.bonusTimer = 10*1000;
+		this.bonusTimer = 0;
 		
 		this.rnd = (float) Math.random();
 		//System.out.println(this.rnd);
@@ -100,7 +100,7 @@ public class Field {
 		bonusTimer -= delta;
 		if(bonusTimer <= 0) {
 			generateBonus();
-			bonusTimer = 10*1000;
+			bonusTimer = 500;
 		}
 		
 		//update les bonus
@@ -142,8 +142,6 @@ public class Field {
 			bonus.add(new Pillars(posX, posY, this));
 			break;
 		default:
-			System.out.println("test)");
-			bonus.add(new Inflate(posX, posY, this, ball));
 			break;
 		}
 		
