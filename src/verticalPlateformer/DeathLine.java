@@ -14,7 +14,7 @@ public class DeathLine {
 	public DeathLine (GameContainer container) {
 		this.color = new Color (240, 0, 0, 204);
 		this.posY = container.getHeight () * 4;
-		this.speed = -.12f;
+		this.speed = -.24f;
 	}
 
 	public float getPosY () {
