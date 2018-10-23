@@ -34,7 +34,7 @@ public class Field {
 		this.actualColor = defaultColor;
 		this.world_width = world_width;
 		this.world_height = world_height;
-		this.bonusTimer = 0;
+		this.bonusTimer = 10*1000;
 		
 		this.rnd = (float) Math.random();
 		//System.out.println(this.rnd);
@@ -100,7 +100,7 @@ public class Field {
 		bonusTimer -= delta;
 		if(bonusTimer <= 0) {
 			generateBonus();
-			bonusTimer = 500;
+			bonusTimer = 10*000;
 		}
 		
 		//update les bonus
