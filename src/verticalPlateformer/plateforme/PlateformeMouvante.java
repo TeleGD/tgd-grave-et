@@ -14,7 +14,7 @@ public class PlateformeMouvante extends Plateforme {
 	public PlateformeMouvante(float posx,float posy,float longueur,float epaisseur,boolean sens, Player p) {
 		super(posx,posy,longueur,epaisseur,sens,p);
 		this.temps = 3000;
-		this.speed = .12f;
+		this.speed = .2f;
 		this.sens = sens;
 	}
 
