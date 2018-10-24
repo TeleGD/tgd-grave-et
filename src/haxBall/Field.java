@@ -100,7 +100,7 @@ public class Field {
 		bonusTimer -= delta;
 		if(bonusTimer <= 0) {
 			generateBonus();
-			bonusTimer = 10*000;
+			bonusTimer = 10*1000;
 		}
 		
 		//update les bonus
