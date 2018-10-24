@@ -2,7 +2,6 @@ package verticalPlateformer;
 
 
 import org.newdawn.slick.Input;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -18,13 +17,14 @@ public class Player extends Entity {
 
 	private int gravityPoint;
 	private int score;
-	private static Image image;
+	private static Image imageB;
+	private Image image;
 	private Ellipse shape;
 	private Circle background;
 	private float width = 70;
 	private float height = 70;
-	private float baseSpeed = .24f;
-	private float jumpSpeed = .48f;
+	private float baseSpeed = .4f;
+	private float jumpSpeed = .64f;
 	private float widthRelation;
 	private float heightRelation;
 	private float shapeWidth;
@@ -41,18 +41,19 @@ public class Player extends Entity {
 			leftArrow = new Image("images/verticalPlateformer/leftArrow.png");
 			rightArrow = new Image("images/verticalPlateformer/rightArrow.png");
 			downArrow = new Image("images/verticalPlateformer/downArrow.png");
-			image = new Image("images/verticalPlateformer/monstre.png");
+			imageB = new Image("images/verticalPlateformer/monstre.png");
 		} catch(SlickException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	
+	
 	public Player(String n,float posX, float posY) {
 		super(posX, posY);
-		gravityPoint = 10;
-		widthRelation = width/image.getWidth();
-		heightRelation = height/image.getHeight();
+		gravityPoint = 8;
+		widthRelation = width/imageB.getWidth();
+		heightRelation = height/imageB.getHeight();
 		shapeWidth = 1675*widthRelation;
 		shapeHeight = 1567*heightRelation;
 		shapeStartHeight = 161*heightRelation;
@@ -61,7 +62,7 @@ public class Player extends Entity {
 		this.score = 0;
 		this.shape = new Ellipse(getPosX()+width/2, getPosY()+shapeStartHeight+(height-shapeStartHeight)/2, shapeWidth/2, shapeHeight/2);
 		this.background = new Circle(posX+width/2, posY+width/2, (float) (1.5*width));
-		image=image.getScaledCopy((int)width, (int)height);
+		this.image=imageB.getScaledCopy((int)width, (int)height);
 	}
 
 	public String getName() {
@@ -116,8 +117,8 @@ public class Player extends Entity {
 		 *  Début de la hitbox 0-161
 		 *  Taille de la hitbox 1681-1567
 		 */
-		context.setColor(Color.green);
-		context.setLineWidth(2);
+		//context.setColor(Color.green);
+		//context.setLineWidth(2);
 		context.drawImage(image, getPosX(), container.getHeight() / 2, getPosX()+width, container.getHeight() / 2 + height, 0, 0, image.getWidth(), image.getHeight());
 		//context.draw(shape);
 		//context.drawOval(getPosX(), container.getHeight() / 2 + shapeStartHeight, shapeWidth, shapeHeight);

@@ -1,18 +1,26 @@
 package verticalPlateformer;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class DeathLine {
 
-	private Color color;
 	private float posY;
 	private float speed;
+	private static Image souls;
+	
+	static {
+		try {
+			souls = new Image("images/verticalPlateformer/souls.png");
+		} catch(SlickException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public DeathLine (GameContainer container) {
-		this.color = new Color (240, 0, 0, 204);
 		this.posY = container.getHeight () * 4;
 		this.speed = -.18f;
 	}
@@ -34,10 +42,7 @@ public class DeathLine {
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics g, float dy) {
-		g.setColor (this.color);
-		g.setLineWidth(3);
-		g.drawLine (0f, container.getHeight() / 2 + this.posY - dy, (float) container.getWidth(), container.getHeight() / 2 + this.posY - dy);
-		g.resetLineWidth();
+		g.drawImage (souls, 0f, container.getHeight()/2+this.posY-dy, container.getWidth(), container.getHeight()/2+this.posY-dy+souls.getHeight(),0,0,souls.getWidth(),souls.getHeight());
 	}
 
 	public void update (GameContainer container, StateBasedGame game, int delta) {

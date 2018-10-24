@@ -2,6 +2,7 @@ package verticalPlateformer;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -14,19 +15,19 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import verticalPlateformer.plateforme.Plateforme;
+import verticalPlateformer.plateforme.PlateformeClassique;
 import verticalPlateformer.plateforme.PlateformeGen;
 
 public class World extends BasicGameState {
 
 	private ArrayList<Player> players;
 	private Interface I;
-	private Player amos;
 	private DeathLine line;
 	private ArrayList<Plateforme> plateformes;
 	private PlateformeGen plateformeGen;
 	private ArrayList<Decoration> decorations;
 	private DecorationGen decorationGen;
-	
+	private Color color = new Color(0x001e3514);
 	
 	private int ID;
 	private int state;
@@ -139,32 +140,39 @@ public class World extends BasicGameState {
 	@Override
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
-		I.render(container,game,context);
+		context.setColor(color);
+		context.fillRect(0, 0, container.getWidth(), container.getHeight());
+		context.setColor(Color.white);
 		
 		for(Decoration d: decorations) {
-			d.render(container, game, context, amos.getPosY ());
+			d.render(container, game, context, players.get(0).getPosY ());
 		}
-		
-		amos.render(container, game, context);
-		
-		line.render (container, game, context, amos.getPosY ());
 		
 		for(Plateforme p:plateformes) {
-			p.render(container, game, context, amos.getPosY ());
+			p.render(container, game, context, players.get(0).getPosY ());
 		}
+		
+		for(Player player : players) {
+			player.render(container, game, context);
+		}
+		
+		I.render(container,game,context);
+		line.render (container, game, context, players.get(0).getPosY ());
 	}
 
 	public void play (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au début du jeu */
-		this.amos = new Player("Amos",100,100);
 		this.players = new ArrayList<Player>();
-		this.players.add(amos);
+		this.players.add(new Player("Amos",container.getWidth()/2,0));
 		this.I = new Interface(players);
 
 		this.line = new DeathLine(container);
-
+		
 		plateformes=new ArrayList<Plateforme>();
 		decorations=new ArrayList<Decoration>();
+		
+		addPlateforme(new PlateformeClassique(container.getWidth()/2-65, 90, 200, 30, true, players.get(0)));
+		
 		plateformeGen = new PlateformeGen(this,players.get(0));
 		decorationGen = new DecorationGen(this,players);
 	}
@@ -196,7 +204,7 @@ public class World extends BasicGameState {
 	}
 
 	public void addDecoration(Decoration decoration) {
-		decorations.add(0,decoration);
+		decorations.add(decorations.size(),decoration);
 	}
 
 }
