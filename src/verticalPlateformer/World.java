@@ -28,6 +28,8 @@ public class World extends BasicGameState {
 	private ArrayList<Decoration> decorations;
 	private DecorationGen decorationGen;
 	private Color color = new Color(0x001e3514);
+	private int height;
+	private int width;
 	
 	private int ID;
 	private int state;
@@ -55,8 +57,8 @@ public class World extends BasicGameState {
 
 	@Override
 	public void init (GameContainer container, StateBasedGame game) {
-		container.getWidth ();
-		container.getHeight ();
+		height = container.getHeight ();
+		width = container.getWidth();
 	}
 
 	@Override
@@ -205,6 +207,14 @@ public class World extends BasicGameState {
 
 	public void addDecoration(Decoration decoration) {
 		decorations.add(decorations.size(),decoration);
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
 	}
 
 }

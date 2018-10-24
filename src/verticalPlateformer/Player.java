@@ -81,7 +81,7 @@ public class Player extends Entity {
 			super.jump (jumpSpeed);
 		}
 		
-		if (plateforme == null) {
+		if (!isFrozen()) {
 			changeGravity(input);
 		}
 		changeDirection(input);
@@ -167,7 +167,7 @@ public class Player extends Entity {
 		super.setDirX(0);
 		super.setDirY(0);
 
-		if (plateforme == null) {
+		if (!isFrozen()) {
 			if (BUTTON_Q &&  (getGravity() == 0)) {
 				super.setDirX(-1 * baseSpeed );
 			}
