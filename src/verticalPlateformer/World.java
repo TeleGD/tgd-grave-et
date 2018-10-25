@@ -30,13 +30,13 @@ public class World extends BasicGameState {
 	private Color color = new Color(0x001e3514);
 	private int height;
 	private int width;
-	
+
 	private int ID;
 	private int state;
 
 	private Sound trash;
 	private Music defouloir;
-	
+
 	/*   Ajout d'un commentaire important    */
 
 	public World (int ID) {
@@ -66,10 +66,8 @@ public class World extends BasicGameState {
 		/* Méthode exécutée à l'apparition de la page */
 		if (this.state == 0) {
 			this.play (container, game);
-			defouloir.loop(1, (float) 0.4);
 		} else if (this.state == 2) {
 			this.resume (container, game);
-			defouloir.resume();
 		}
 	}
 
@@ -78,10 +76,8 @@ public class World extends BasicGameState {
 		/* Méthode exécutée à la disparition de la page */
 		if (this.state == 1) {
 			this.pause (container, game);
-			defouloir.pause();
-		} else if (this.state == 3 || this.state == 6) {
+		} else if (this.state == 3) {
 			this.stop (container, game);
-			defouloir.stop();
 		}
 	}
 
@@ -115,25 +111,23 @@ public class World extends BasicGameState {
 						player.freeze();
 						player.setPlateforme(plat);
 						// Le joueur s'arrête
-						//System.out.println("FREEZE");
 					}
 					else {
-						defouloir.stop();
-						((DeathPage) game.getState(6)).setScore(player.getScore());
-						game.enterState (6, new FadeOutTransition (), new FadeInTransition ());
+						this.setState (3);
+						((DeathPage) game.getState(7)).setScore(player.getScore());
+						game.enterState (7, new FadeOutTransition (), new FadeInTransition ());
 						// Le joueur meurt
-						//System.out.println("FREEZE - UNFREEZE");
 					}
 				}
 			}
 		}
-		
+
 		for (Player player : players) {
 			if (player.getPosY() > line.getPosY() || player.getPosX()+player.getWidth()<0 || player.getPosX()>container.getWidth()) {
 				// TODO : à changer si on met plusieurs joueurs
-				defouloir.stop();
-				((DeathPage) game.getState(6)).setScore(player.getScore());
-				game.enterState (6, new FadeOutTransition (), new FadeInTransition ());
+				this.setState (3);
+				((DeathPage) game.getState(7)).setScore(player.getScore());
+				game.enterState (7, new FadeOutTransition (), new FadeInTransition ());
 			}
 		}
 
@@ -147,36 +141,37 @@ public class World extends BasicGameState {
 		context.setColor(color);
 		context.fillRect(0, 0, container.getWidth(), container.getHeight());
 		context.setColor(Color.white);
-		
+
 		for(Decoration d: decorations) {
 			d.render(container, game, context, players.get(0).getPosY ());
 		}
-		
+
 		for(Plateforme p:plateformes) {
 			p.render(container, game, context, players.get(0).getPosY ());
 		}
-		
+
 		for(Player player : players) {
 			player.render(container, game, context);
 		}
-		
+
 		I.render(container,game,context);
 		line.render (container, game, context, players.get(0).getPosY ());
 	}
 
 	public void play (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au début du jeu */
+		defouloir.loop(1, (float) 0.4);
 		this.players = new ArrayList<Player>();
 		this.players.add(new Player("Amos",container.getWidth()/2,0));
 		this.I = new Interface(players);
 
 		this.line = new DeathLine(container);
-		
+
 		plateformes=new ArrayList<Plateforme>();
 		decorations=new ArrayList<Decoration>();
-		
+
 		addPlateforme(new PlateformeClassique(container.getWidth()/2-65, 90, 200, 30, true, players.get(0)));
-		
+
 		plateformeGen = new PlateformeGen(this,players.get(0));
 		decorationGen = new DecorationGen(this,players);
 	}
@@ -188,6 +183,7 @@ public class World extends BasicGameState {
 
 	public void resume (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée lors de la reprise du jeu */
+		defouloir.resume();
 	}
 
 	public void stop (GameContainer container, StateBasedGame game) {

@@ -23,7 +23,8 @@ public class WinPage extends AppMenu{
 		this.setMenu (Arrays.asList (new MenuItem [] {
 			new MenuItem ("Quitter") {
 				public void itemSelected () {
-					game.enterState (0, new FadeOutTransition (), new FadeInTransition ());
+					((World) game.getState (4)).setState (0);
+					game.enterState (1, new FadeOutTransition (), new FadeInTransition ());
 				}
 			}
 		}));

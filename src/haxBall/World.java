@@ -3,8 +3,8 @@ package haxBall;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -20,11 +20,11 @@ public class World extends BasicGameState {
 	private int height;
 	private ScoreInterface interfaceScore;
 
-	private Sound soundMusicBackground;
+	private Music soundMusicBackground;
 
 	{
 	try {
-		soundMusicBackground = new Sound("res/sound/crowd.ogg");
+		soundMusicBackground = new Music("res/sound/crowd.ogg");
 	} catch (SlickException e) {
 		e.printStackTrace();
 		}
@@ -55,7 +55,6 @@ public class World extends BasicGameState {
 		} else if (this.state == 2) {
 			this.resume (container, game);
 		}
-		soundMusicBackground.loop(1,(float) 2);
 	}
 
 	@Override
@@ -66,7 +65,6 @@ public class World extends BasicGameState {
 		} else if (this.state == 3) {
 			this.stop (container, game);
 		}
-		soundMusicBackground.stop();
 	}
 
 	@Override
@@ -79,8 +77,8 @@ public class World extends BasicGameState {
 		}
 		field.update(container, game, delta);
 		if (interfaceScore.isWin()) {
-			this.setState (1);
-			game.enterState (7, new FadeOutTransition (), new FadeInTransition ());
+			this.setState (3);
+			game.enterState (6, new FadeOutTransition (), new FadeInTransition ());
 		}
 	}
 
@@ -103,6 +101,7 @@ public class World extends BasicGameState {
 	}
 
 	public void play (GameContainer container, StateBasedGame game) {
+		soundMusicBackground.loop(1,(float) 2);
 		this.width = container.getWidth ();
 		this.height = container.getHeight ();
 		field = new Field(this.height , this.width);
@@ -111,14 +110,17 @@ public class World extends BasicGameState {
 
 	public void pause (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée lors de la mise en pause du jeu */
+		soundMusicBackground.pause();
 	}
 
 	public void resume (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée lors de la reprise du jeu */
+		soundMusicBackground.resume();
 	}
 
 	public void stop (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois à la fin du jeu */
+		soundMusicBackground.stop();
 	}
 
 	public void setState (int state) {
