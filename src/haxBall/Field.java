@@ -45,6 +45,7 @@ public class Field {
 		this.players = new ArrayList<Player>();
 		players.add(new Player("J1",this.height,this.width,this.pos_x , this.pos_y, 0, this));
 		players.add(new Player("J2",this.height,this.width,this.pos_x , this.pos_y, 1, this));
+
 		
 		ball = new Ball(this.height,this.width,this.pos_x,this.pos_y,this);
 	}

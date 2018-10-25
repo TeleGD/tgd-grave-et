@@ -19,27 +19,31 @@ public class Player {
 	private int spawnX, spawnY;
 	private String name;
 	
+
 	public Player(String name, int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id, Field field) {
+
 		this.field = field;
 		this.name = name;
 		this.shooting = false;
 		m_id = id;
 		
-		m_fieldHeight = fieldHeight;
-		m_fieldWidth = fieldWidth;
-		m_fieldOriginX = fieldOriginX;
-		m_fieldOriginY = fieldOriginY;
+		m_fieldHeight = field.getHeight();
+		m_fieldWidth = field.getWidth();
+		m_fieldOriginX = field.getPosX();
+		m_fieldOriginY = field.getPosY();
 		
-		m_radius = fieldHeight/15;
-		spawnY = (fieldHeight/2) + fieldOriginY - (m_radius/2);
+		m_radius = m_fieldHeight/15;
+		spawnY = (m_fieldHeight/2) + m_fieldOriginY - (m_radius/2);
 		m_speed = (float) 0.3;
 		
 		if(m_id == 0) {
-			spawnX = ((fieldWidth)/6) + fieldOriginX - (m_radius/2);
+
+			spawnX = ((m_fieldWidth)/6) + m_fieldOriginX;
+
 			m_defaultColor = new Color(0, 0, 255);
 		}
 		else {
-			spawnX = ((3*fieldWidth)/4) + fieldOriginX;
+			spawnX = ((3*m_fieldWidth)/4) + m_fieldOriginX;
 			m_defaultColor = new Color(255, 0, 0);
 		}
 		
