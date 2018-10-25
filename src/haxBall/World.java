@@ -18,6 +18,7 @@ public class World extends BasicGameState {
 	private Field field;
 	private int width;
 	private int height;
+	private ScoreInterface interfaceScore;
 
 	private Sound soundMusicBackground;
 
@@ -77,7 +78,7 @@ public class World extends BasicGameState {
 			game.enterState (2, new FadeOutTransition (), new FadeInTransition ());
 		}
 		field.update(container, game, delta);
-		if (field.isWin()) {
+		if (interfaceScore.isWin()) {
 			this.setState (1);
 			game.enterState (7, new FadeOutTransition (), new FadeInTransition ());
 		}
@@ -98,12 +99,14 @@ public class World extends BasicGameState {
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		field.render(container, game, context);
+		interfaceScore.render(container, game, context);
 	}
 
 	public void play (GameContainer container, StateBasedGame game) {
 		this.width = container.getWidth ();
 		this.height = container.getHeight ();
 		field = new Field(this.height , this.width);
+		interfaceScore = new ScoreInterface(field.getBall());
 	}
 
 	public void pause (GameContainer container, StateBasedGame game) {

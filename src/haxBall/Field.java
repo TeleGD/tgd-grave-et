@@ -218,8 +218,7 @@ public class Field {
 			p.keyReleased(key,c);
 		}
 	}
-	
-	boolean isWin() {
-		return ball.isWin();
+	public Ball getBall() {
+		return this.ball;
 	}
 }
