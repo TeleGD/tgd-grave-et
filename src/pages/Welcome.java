@@ -5,6 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
@@ -16,6 +17,7 @@ public class Welcome extends AppPage {
 	private Image logo;
 	private Image background;
 	private Image transition;
+	private Music ambiance;
 
 	private boolean logoVisibility;
 
@@ -57,6 +59,8 @@ public class Welcome extends AppPage {
 			this.background = new Image("images/welcome.png");
 			this.transition = new Image("images/soulsTransition.png");
 			this.setLogo (new Image ("images/logo.png"));
+			this.ambiance = new Music("res/musics/HalloweenTheme.ogg");
+			ambiance.play();
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
