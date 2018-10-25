@@ -93,6 +93,7 @@ public class Ball {
 		
 		//si elle est en collision avec un joueur elle le suit
 		if(colliding) {
+			player.setSpeed((float) 0.3);
 			vitx = player.getSpeedX()*0.97f;
 			vity = player.getSpeedY()*0.97f;
 			
@@ -119,7 +120,7 @@ public class Ball {
 					if(!(colliding && p.equals(player))) {
 						colliding = true;
 						player = p;
-						
+						player.setSpeed((float) 0.3);
 						vitx = player.getSpeedX();
 						vity = player.getSpeedY();
 						

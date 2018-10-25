@@ -101,6 +101,10 @@ public class Player {
 		return m_speedY;
 	}
 	
+	public void setSpeed(float speed) {
+		m_speed = speed;
+	}
+	
 	public int getRadius() {
 		return m_radius;
 	}
@@ -197,7 +201,7 @@ public class Player {
 				rightLeft=false;
 				break;
 			case Input.KEY_R:
-				m_speed *= 1.5;
+				m_speed = (float) 0.45;
 	
 			}
 		}
@@ -223,7 +227,7 @@ public class Player {
 				rightLeft=false;
 				break;
 			case Input.KEY_RCONTROL:
-				m_speed *= 1.5;
+				m_speed = (float) 0.45;
 	
 			}
 		}
@@ -247,7 +251,7 @@ public class Player {
 				down=false;
 				break;
 			case Input.KEY_R:
-				m_speed /= 1.5;
+				m_speed = (float) 0.3;
 			}
 		}
 		else if (m_id == 1) {
@@ -265,7 +269,7 @@ public class Player {
 				down=false;
 				break;
 			case Input.KEY_RCONTROL:
-				m_speed /= 1.5;
+				m_speed = (float) 0.3;
 			}
 		}
 	}
