@@ -115,6 +115,10 @@ public class Player {
 		return m_speedY;
 	}
 	
+	public void setSpeed(float speed) {
+		m_speed = speed;
+	}
+	
 	public int getRadius() {
 		return m_radius;
 	}
@@ -200,6 +204,7 @@ public class Player {
 		if (key==leftButton) {
 			left=true;
 			rightLeft=true;
+
 		}
 		if (key==rightButton) {
 			right=true;

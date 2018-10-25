@@ -66,7 +66,7 @@ public class World extends BasicGameState {
 		/* Méthode exécutée à l'apparition de la page */
 		if (this.state == 0) {
 			this.play (container, game);
-			defouloir.play(1, (float) 0.4);
+			defouloir.loop(1, (float) 0.4);
 		} else if (this.state == 2) {
 			this.resume (container, game);
 			defouloir.resume();
@@ -118,6 +118,7 @@ public class World extends BasicGameState {
 						//System.out.println("FREEZE");
 					}
 					else {
+						defouloir.stop();
 						((DeathPage) game.getState(6)).setScore(player.getScore());
 						game.enterState (6, new FadeOutTransition (), new FadeInTransition ());
 						// Le joueur meurt
@@ -130,6 +131,7 @@ public class World extends BasicGameState {
 		for (Player player : players) {
 			if (player.getPosY() > line.getPosY() || player.getPosX()+player.getWidth()<0 || player.getPosX()>container.getWidth()) {
 				// TODO : à changer si on met plusieurs joueurs
+				defouloir.stop();
 				((DeathPage) game.getState(6)).setScore(player.getScore());
 				game.enterState (6, new FadeOutTransition (), new FadeInTransition ());
 			}
@@ -206,7 +208,7 @@ public class World extends BasicGameState {
 	}
 
 	public void addDecoration(Decoration decoration) {
-		decorations.add(decorations.size(),decoration);
+		decorations.add(0,decoration);
 	}
 
 	public int getHeight() {

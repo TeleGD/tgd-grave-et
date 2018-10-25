@@ -28,7 +28,7 @@ public class Choice extends AppMenu {
 					game.enterState (4, new FadeOutTransition (), new FadeInTransition ());
 				}
 			},
-			new MenuItem ("Vertical Plateformer") {
+			new MenuItem ("Grave-ET") {
 				public void itemSelected () {
 					((verticalPlateformer.World) game.getState (5)).setState (0);
 					game.enterState (5, new FadeOutTransition (), new FadeInTransition ());
