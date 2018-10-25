@@ -34,7 +34,7 @@ public class DecorationGen {
 		genCount=-3*world.getHeight();
 		this.players=players;
 		
-		while (genCount < 0) {
+		while (genCount < world.getHeight()) {
 			genCount+=r.nextInt(100);
 			world.addDecoration(new Decoration(r.nextInt(world.getWidth()-50),-genCount , decorations.get(r.nextInt(decorations.size()))));
 		}
