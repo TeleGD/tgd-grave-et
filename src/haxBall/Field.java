@@ -161,8 +161,9 @@ public class Field {
 		context.drawRect(this.pos_x, this.pos_y, this.width, this.height);
 		//toutes les lignes du terrain et les buts
 		if(this.rnd > 0.5) {
-			context.setColor(new Color(155, 177, 181));// Buts
+			context.setColor(new Color(128, 156, 255));// Buts
 			context.fillRect(this.pos_x - this.width/16 , this.pos_y+ this.height / 3, this.width / 16, this.height / 3);// but 1
+			context.setColor(new Color(255, 80, 80));// Buts
 			context.fillRect(this.pos_x + this.width  , this.pos_y + this.height / 3, this.width / 16, this.height / 3); // but 2
 	
 			context.setColor(new Color(243, 241, 255)); // traits inutiles
@@ -177,14 +178,10 @@ public class Field {
 			for(int i = 1 ; i < 6 ; i++) {
 				context.drawLine(this.pos_x + i * (this.width / 6)  , this.pos_y,this.pos_x + i * (this.width / 6) , this.pos_y  + this.height);
 			}
-			context.setColor(new Color(234, 217, 127));
-			context.drawRect(this.pos_x - this.width/20, this.pos_y + height/3- width/20, width/20, width/20);
-			context.drawRect(this.pos_x - this.width/20, this.pos_y + 2*height/3 , width/20, width/20);
-			context.drawRect(this.pos_x + this.width, this.pos_y + height/3- width/20, width/20, width/20);
-			context.drawRect(this.pos_x + this.width, this.pos_y + 2*height/3 , width/20, width/20);
-			context.setColor(new Color(255, 217, 127));
+			context.setColor(new Color(128, 156, 255));
 			context.fillRect(this.pos_x - this.width/20, this.pos_y + height/3- width/20, width/20, width/20);
 			context.fillRect(this.pos_x - this.width/20, this.pos_y + 2*height/3 , width/20, width/20);
+			context.setColor(new Color(255, 80, 80));
 			context.fillRect(this.pos_x + this.width, this.pos_y + height/3- width/20, width/20, width/20);
 			context.fillRect(this.pos_x + this.width, this.pos_y + 2*height/3 , width/20, width/20);
 		}

@@ -274,6 +274,9 @@ public class Ball {
 	
 	public void setRad(int r) {
 		rad = r;
+		posx = (int)hitbox.getCenterX() - rad/2;
+		posy = (int)hitbox.getCenterY() - rad/2;
+		updateShape();
 	}
 	
 	public int getRad() {
