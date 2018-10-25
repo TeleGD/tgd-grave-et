@@ -59,10 +59,6 @@ public abstract class Plateforme extends Rectangle {
 
 	public Plateforme(float posx,float posy,float longueur,float epaisseur,boolean sens, Player p) {
 		super(posx, posy, sens ? longueur : epaisseur, sens ? epaisseur : longueur );
-		this.setX(posx);
-		this.setY(posy);
-		this.setWidth(sens ? longueur : epaisseur);
-		this.setHeight(sens ? epaisseur : longueur);
 		this.sens=sens;
 		this.p=p;
 		if (sens) {

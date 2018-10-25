@@ -35,7 +35,7 @@ public class Player extends Entity {
 	private static Image leftArrow;
 	private static Image rightArrow;
 	private static Image downArrow;
-	
+
 	static {
 		try {
 			leftArrow = new Image("images/verticalPlateformer/leftArrow.png");
@@ -46,9 +46,9 @@ public class Player extends Entity {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
+
+
 	public Player(String n,float posX, float posY) {
 		super(posX, posY);
 		gravityPoint = 8;
@@ -74,13 +74,17 @@ public class Player extends Entity {
 		Input input = container.getInput ();
 		boolean BUTTON_SPACE = input.isKeyDown(Input.KEY_SPACE);
 
-		if (BUTTON_SPACE && (plateforme != null)) {
-			plateforme.setDestroyed(true);
-			plateforme = null;
-			this.gravityPoint = getGravity()==0 ? this.gravityPoint+2 : this.gravityPoint+1;
-			super.jump (jumpSpeed);
+		if (BUTTON_SPACE) {
+			if (plateforme != null) {
+				plateforme.setDestroyed(true);
+				plateforme = null;
+				this.gravityPoint = getGravity()==0 ? this.gravityPoint+2 : this.gravityPoint+1;
+				super.jump (jumpSpeed);
+			} else if (isFrozen ()) {
+				super.unFreeze ();
+			}
 		}
-		
+
 		if (!isFrozen()) {
 			changeGravity(input);
 		}
@@ -95,7 +99,7 @@ public class Player extends Entity {
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
-		
+
 		switch (this.getGravity()) {
 		case 0:
 			context.texture(background, downArrow);
@@ -110,7 +114,7 @@ public class Player extends Entity {
 			image.setRotation(90);
 			break;
 		}
-		
+
 		/*  Ecran 1920-1080
 		 *  Image :1681-1727
 		 *
@@ -167,22 +171,22 @@ public class Player extends Entity {
 		super.setDirX(0);
 		super.setDirY(0);
 
-		if (!isFrozen()) {
+		if (this.plateforme == null) {
 			if (BUTTON_Q &&  (getGravity() == 0)) {
 				super.setDirX(-1 * baseSpeed );
 			}
 			else if (BUTTON_D &&  (getGravity()==0)){
 				super.setDirX( 1* baseSpeed);
-	
+
 			}
 			else if ( (getGravity() != 0)) {
 				if (BUTTON_S) {
 					super.setDirY( 1* baseSpeed);
-	
+
 				}
 				else if (BUTTON_Z) {
 					super.setDirY(-1* baseSpeed);
-	
+
 				}
 			}
 		} else {
@@ -198,7 +202,7 @@ public class Player extends Entity {
 	public int getGravityPoint() {
 		return gravityPoint;
 	}
-	
+
 	public Ellipse getShape() {
 		return shape;
 	}
@@ -210,6 +214,6 @@ public class Player extends Entity {
 	public void setPlateforme(Plateforme plat) {
 		this.plateforme= plat;
 	}
-	
+
 
 }

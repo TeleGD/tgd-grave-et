@@ -1,6 +1,7 @@
 package verticalPlateformer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -25,6 +26,8 @@ public class World extends BasicGameState {
 	private DeathLine line;
 	private ArrayList<Plateforme> plateformes;
 	private PlateformeGen plateformeGen;
+	private List <Bonus> bonuses;
+	private BonusGen bonusGen;
 	private ArrayList<Decoration> decorations;
 	private DecorationGen decorationGen;
 	private Color color = new Color(0x001e3514);
@@ -93,14 +96,25 @@ public class World extends BasicGameState {
 		for(Plateforme p:plateformes) {
 			p.update(container, game, delta);
 		}
+		for (Bonus bonus: this.bonuses) {
+			bonus.update (container, game, delta);
+		}
 		for(int i=plateformes.size()-1;i>=0;i--) {
 			if(plateformes.get(i).getPosY()>=this.line.getPosY() || plateformes.get(i).isDestroyed()) {
 				plateformes.remove(i);
 				trash.play(1, (float) 0.4);
 			}
 		}
+		for (int i = this.bonuses.size () - 1; i >= 0; i--) {
+			Bonus bonus = bonuses.get (i);
+			if (bonus.isApplied () || bonus.getPosY () >= this.line.getPosY ()) {
+				this.bonuses.remove (i);
+				trash.play (1, .4f);
+			}
+		}
 
 		plateformeGen.update(container, game, delta);
+		bonusGen.update (container, game, delta);
 		decorationGen.update(container, game, delta);
 
 		for(Player player : players) {
@@ -118,6 +132,11 @@ public class World extends BasicGameState {
 						game.enterState (7, new FadeOutTransition (), new FadeInTransition ());
 						// Le joueur meurt
 					}
+				}
+			}
+			for (Bonus bonus: this.bonuses) {
+				if (player.getShape ().intersects (bonus.getShape ())) {
+					bonus.apply (player);
 				}
 			}
 		}
@@ -146,6 +165,10 @@ public class World extends BasicGameState {
 			d.render(container, game, context, players.get(0).getPosY ());
 		}
 
+		for (Bonus bonus: this.bonuses) {
+			bonus.render (container, game, context);
+		}
+
 		for(Plateforme p:plateformes) {
 			p.render(container, game, context, players.get(0).getPosY ());
 		}
@@ -168,11 +191,13 @@ public class World extends BasicGameState {
 		this.line = new DeathLine(container);
 
 		plateformes=new ArrayList<Plateforme>();
+		this.bonuses = new ArrayList <Bonus> ();
 		decorations=new ArrayList<Decoration>();
 
 		addPlateforme(new PlateformeClassique(container.getWidth()/2-65, 90, 200, 30, true, players.get(0)));
 
 		plateformeGen = new PlateformeGen(this,players.get(0));
+		this.bonusGen = new BonusGen (container, game);
 		decorationGen = new DecorationGen(this,players);
 	}
 
@@ -203,6 +228,10 @@ public class World extends BasicGameState {
 		plateformes.add(plateforme);
 	}
 
+	public void addBonus (Bonus bonus) {
+		this.bonuses.add (bonus);
+	}
+
 	public void addDecoration(Decoration decoration) {
 		decorations.add(0,decoration);
 	}
@@ -213,6 +242,10 @@ public class World extends BasicGameState {
 
 	public int getWidth() {
 		return width;
+	}
+
+	public List <Player> getPlayers () {
+		return this.players;
 	}
 
 }
