@@ -169,6 +169,8 @@ public class Player {
 				right=true;
 				rightLeft=false;
 				break;
+			case Input.KEY_R:
+				m_speed *= 1.5;
 	
 			}
 		}
@@ -193,6 +195,8 @@ public class Player {
 				right=true;
 				rightLeft=false;
 				break;
+			case Input.KEY_RCONTROL:
+				m_speed *= 1.5;
 	
 			}
 		}
@@ -215,6 +219,8 @@ public class Player {
 			case Input.KEY_S:
 				down=false;
 				break;
+			case Input.KEY_R:
+				m_speed /= 1.5;
 			}
 		}
 		else if (m_id == 1) {
@@ -231,6 +237,8 @@ public class Player {
 			case Input.KEY_DOWN:
 				down=false;
 				break;
+			case Input.KEY_RCONTROL:
+				m_speed /= 1.5;
 			}
 		}
 	}
