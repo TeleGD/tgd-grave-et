@@ -94,7 +94,7 @@ public class Ball {
 		if(colliding) {
 			vitx = player.getSpeedX();
 			vity = player.getSpeedY();
-			
+			player.setSpeed((float) 0.3);
 			posx+=vitx*delta;
 			posy+=vity*delta;
 			
@@ -117,7 +117,7 @@ public class Ball {
 					if(!(colliding && p.equals(player))) {
 						colliding = true;
 						player = p;
-						
+						player.setSpeed((float) 0.3);
 						vitx = player.getSpeedX();
 						vity = player.getSpeedY();
 						
