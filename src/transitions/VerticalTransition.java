@@ -17,7 +17,7 @@ import org.newdawn.slick.state.transition.Transition;
  * 
  * This state is an enter transitions.
  * 
- * @author kevin
+ * @author amos
  */
 public class VerticalTransition implements Transition {
 	/** The renderer to use for all GL operations */
@@ -88,12 +88,6 @@ public class VerticalTransition implements Transition {
 		
 		g.translate(0,(int) (container.getHeight()-offset));
 		g.setClip(0,(int) (container.getHeight()-offset),container.getWidth(),image.getHeight());
-//		if (background != null) {
-//			Color c = g.getColor();
-//			g.setColor(background);
-//			g.fillRect(0,0,container.getWidth(),container.getHeight());
-//			g.setColor(c);
-//		}
 		GL.glPushMatrix();
 		g.drawImage(image, container.getWidth()/2-image.getWidth()/2, 0, container.getWidth()/2+image.getWidth()/2, image.getHeight(), 0, 0, image.getWidth(), image.getHeight());
 		GL.glPopMatrix();
