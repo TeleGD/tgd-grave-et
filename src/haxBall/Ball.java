@@ -91,6 +91,7 @@ public class Ball {
 			e.printStackTrace();
 		}
 	}
+	
 	public Ball(int haut,int larg,int origx,int origy, Field field){ 
 
 		r_origx=origx;
@@ -142,17 +143,18 @@ public class Ball {
 		
 		//si elle est en collision avec un joueur elle le suit
 		if(colliding) {
-			vitx = player.getSpeedX();
-			vity = player.getSpeedY();
+			vitx = player.getSpeedX()*0.97f;
+			vity = player.getSpeedY()*0.97f;
 			
-			posx+=vitx*delta;
-			posy+=vity*delta;
+			posx+=(int)(vitx*delta);
+			posy+=(int)(vity*delta);
 			
 			bordersCollision(oldPosX, oldPosY);
 			
 			//on regarde si on est toujours en collision avec le joueur
 			updateShape();
-			colliding = !(Math.sqrt(Math.pow(hitbox.getCenterX() - player.getShape().getCenterX(),2) + Math.pow(hitbox.getCenterY() - player.getShape().getCenterY(),2) ) > (hitbox.getRadius() + player.getShape().getRadius()+5) );
+			colliding = !(Math.sqrt(Math.pow(hitbox.getCenterX() - player.getShape().getCenterX(),2) + Math.pow(hitbox.getCenterY() - player.getShape().getCenterY(),2) ) > (hitbox.getRadius() + player.getShape().getRadius()+1) );
+			
 		}
 		
 		for (Player p : field.getPlayers()) {
@@ -200,7 +202,7 @@ public class Ball {
 		if(hitbox.getCenterX() == p.getShape().getCenterX()) {
 			int signe = 1;
 			if(hitbox.getCenterY()-p.getShape().getCenterY()<0) signe = -1;
-			posy = (int)(p.getShape().getCenterY() + (hitbox.getRadius() + p.getShape().getRadius() + 1)*signe - hitbox.getRadius());
+			posy = (int)(p.getShape().getCenterY() + (hitbox.getRadius() + p.getShape().getRadius())*signe - hitbox.getRadius());
 		
 		} else {
 			//signe pour les x
@@ -208,9 +210,9 @@ public class Ball {
 			if(hitbox.getCenterX()-p.getShape().getCenterX()<0) signe = -1;
 			
 			double angle = (-signe)*Math.atan((hitbox.getCenterY() - p.getShape().getCenterY())/(hitbox.getCenterX() - p.getShape().getCenterX())); //angle en radians
-			double hyp = hitbox.getRadius() + p.getShape().getRadius() + 1;
+			double hyp = hitbox.getRadius() + p.getShape().getRadius();
 			
-			posx = (int)(p.getShape().getCenterX() + Math.cos(angle)*hyp*signe - hitbox.getRadius());
+			posx = (int)(p.getShape().getCenterX() + Math.rint(Math.cos(angle)*hyp*signe - hitbox.getRadius()));
 			posy = (int)(p.getShape().getCenterY() - hyp*Math.sin(angle) - hitbox.getRadius());
 		}
 	}
