@@ -17,9 +17,11 @@ public class Player {
 	private Circle m_shape;
 	private boolean shooting;
 	private int spawnX, spawnY;
+	private String name;
 	
-	public Player(int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id, Field field) {
+	public Player(String name, int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id, Field field) {
 		this.field = field;
+		this.name = name;
 		this.shooting = false;
 		m_id = id;
 		
@@ -33,7 +35,7 @@ public class Player {
 		m_speed = (float) 0.3;
 		
 		if(m_id == 0) {
-			spawnX = ((fieldWidth)/4) + fieldOriginX;
+			spawnX = ((fieldWidth)/6) + fieldOriginX - (m_radius/2);
 			m_defaultColor = new Color(0, 0, 255);
 		}
 		else {
@@ -49,6 +51,7 @@ public class Player {
 	
 	public Player(int x, int y, Field field) {
 		this.field = field;
+		name = "";
 		
 		m_fieldHeight = field.getHeight();
 		m_fieldWidth = field.getWidth();
@@ -114,6 +117,8 @@ public class Player {
 		return m_shape;
 	}
 	
+	
+	
 //	public void setShape(Circle shape) {
 //		m_shape = shape;
 //	}
@@ -122,9 +127,27 @@ public class Player {
 //		m_enemy = enemy;
 //	}
 	
+	public int getSpawnX() {
+		return spawnX;
+	}
+
+	public void setSpawnX(int spawnX) {
+		this.spawnX = spawnX;
+	}
+
+	public int getSpawnY() {
+		return spawnY;
+	}
+
+	public void setSpawnY(int spawnY) {
+		this.spawnY = spawnY;
+	}
+
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		context.setColor(m_actualColor);
 		context.fillOval(m_posX, m_posY, m_radius, m_radius);
+		context.setColor(Color.black);
+		context.drawString(name, m_posX, m_posY+(float)1.1*(m_radius)); 
 		
 //		context.setColor(new Color(0,255,0));
 //		context.draw(m_shape);
@@ -438,4 +461,12 @@ public class Player {
 	public boolean isShooting() {
 		return shooting;
 	}
+	
+	public void placer(int x, int y) {
+		m_posX = x;
+		m_posY = y;
+		m_speedX = 0;
+		m_speedY = 0;
+	}
+	
 }
