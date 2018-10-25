@@ -1,4 +1,4 @@
-﻿package haxBall;
+package haxBall;
 
 import java.util.*;
 
@@ -22,8 +22,8 @@ public class Field {
 	private int world_width;
 	private int bonusTimer;
 	private float rnd;
-	
-	private List<Bonus> bonus;	
+
+	private List<Bonus> bonus;
 	public Field(int world_height , int world_width){
 		// normalement ca marche (pas)...
 		this.height = (int)(0.7 * world_height);
@@ -35,94 +35,94 @@ public class Field {
 		this.world_width = world_width;
 		this.world_height = world_height;
 		this.bonusTimer = 10*1000;
-		
+
 		this.rnd = (float) Math.random();
 		//System.out.println(this.rnd);
-		
+
 		this.bonus = new ArrayList<Bonus>();
-		
+
 		// creation des joueurs ...
 		this.players = new ArrayList<Player>();
 		players.add(new Player("J1",this.height,this.width,this.pos_x , this.pos_y, 0, this));
 		players.add(new Player("J2",this.height,this.width,this.pos_x , this.pos_y, 1, this));
 
-		
+
 		ball = new Ball(this.height,this.width,this.pos_x,this.pos_y,this);
 	}
-	
+
 	public void setColor(Color c) {
 		this.actualColor = c;
-		
+
 	}
-	
+
 	public void resetColor() {
 		actualColor = defaultColor;
 	}
-	
+
 	public int getWidth() {
 		return width;
 	}
-	
+
 	public int getHeight() {
 		return height;
 	}
-	
+
 	public int getPosX() {
 		return pos_x;
 	}
-	
+
 	public int getPosY() {
 		return pos_y;
 	}
-	
+
 	public List<Player> getPlayers() {
 		return players;
 	}
-	
+
 	public void addPlayer(Player p) {
 		players.add(p);
 	}
-	
+
 	public void removePlayer(Player p) {
 		players.remove(p);
 	}
-	
+
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		//update les players
 		for(Player p : players) {
 			p.update(container, game, delta);
 		}
-		
+
 		//update la ball
 		ball.update(container, game, delta);
-		
+
 		//genere les bonus
 		bonusTimer -= delta;
 		if(bonusTimer <= 0) {
 			generateBonus();
 			bonusTimer = 10*1000;
 		}
-		
+
 		//update les bonus
 		for(int i=0 ; i<bonus.size() ; i++) {
 			for(int j=0; j<2; j++) {
-				if(bonus.get(i).getShape().intersects(players.get(j).getShape()) && !bonus.get(i).isActivated()) 
+				if(bonus.get(i).getShape().intersects(players.get(j).getShape()) && !bonus.get(i).isActivated())
 					bonus.get(i).activate(players.get(j), ball);
 			}
 			bonus.get(i).update(container, game, delta);
-			
+
 			if(bonus.get(i).isDeleted()) {
 				bonus.remove(i);
 			}
 		}
 	}
-	
-	private void generateBonus() {		
+
+	private void generateBonus() {
 		int k= (int)(Math.random()*6);
 		int posX = (int)(Math.random()*5*width/6+pos_x+width/12);
 		int posY = (int)(Math.random()*5*height/6+pos_y+height/12);
-		
+
 		switch (k) {
 		case 0:
 			bonus.add(new Deflate(posX, posY, this));
@@ -145,12 +145,12 @@ public class Field {
 		default:
 			break;
 		}
-		
+
 	}
-	
+
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde on espère !  */
-		
+
 		//le tour du terrain
 		context.setColor(new Color(102, 111, 69));
 		context.fillRect(0, 0, this.world_width, this.world_height);
@@ -166,14 +166,14 @@ public class Field {
 			context.fillRect(this.pos_x - this.width/16 , this.pos_y+ this.height / 3, this.width / 16, this.height / 3);// but 1
 			context.setColor(new Color(255, 80, 80));// Buts
 			context.fillRect(this.pos_x + this.width  , this.pos_y + this.height / 3, this.width / 16, this.height / 3); // but 2
-	
+
 			context.setColor(new Color(243, 241, 255)); // traits inutiles
 			context.drawRect(this.pos_x ,  this.pos_y+ this.height/4,  this.width / 8, this.height / 2); // zone 1
 			context.drawRect(this.pos_x +  7 *this.width /8 ,  this.pos_y+ this.height/4,  this.width / 8, this.height / 2); // zone 2
 			context.drawLine(this.pos_x + this.width/2, this.pos_y, this.pos_x + this.width/2, this.pos_y + this.height); // ligne milieu
 			context.drawRect(this.pos_x, this.pos_y, this.width, this.height); // touche
 			context.drawOval(this.pos_x + this.width/2 - this.height/8 , this.pos_y + this.height/2 - this.height/8, height/4, height/4); // cercle
-		
+
 		} else {
 			context.setColor(new Color(231, 235, 221));
 			for(int i = 1 ; i < 6 ; i++) {
@@ -192,30 +192,34 @@ public class Field {
 			if(!b.isActivated())
 				b.render(container, game, context);
 		}
-		
+
 		//on affiche les joueurs
 		for(Player p : players) {
 			p.render(container, game, context);
 		}
-		
+
 		//on affiche la ball
 		ball.render(container, game, context);
 	}
-	
+
 	public void addBonus(Bonus b) {
 		bonus.add(b);
 
 	}
-	
+
 	public void keyPressed(int key, char c) {
 		for(Player p : players) {
 			p.keyPressed(key,c);
 		}
 	}
-	
+
 	public void keyReleased(int key, char c) {
 		for(Player p : players) {
 			p.keyReleased(key,c);
 		}
+	}
+	
+	boolean isWin() {
+		return ball.isWin();
 	}
 }

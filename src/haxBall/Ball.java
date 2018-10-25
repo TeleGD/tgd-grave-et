@@ -3,6 +3,7 @@ package haxBall;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
@@ -34,7 +35,55 @@ public class Ball {
 	private Player player;
 	private float  speed;
 	private Sound goalsound;
+	private Image zb;
+	private Image zr;
+	private Image ub;
+	private Image ur;
+	private Image db;
+	private Image dr;
+	private Image tb;
+	private Image tr;
+	private Image qb;
+	private Image qr;
+	private Image cb;
+	private Image cr;
+	private Image sb;
+	private Image sr;
+	private Image septr;
+	private Image septb;
+	private Image hb;
+	private Image hr;
+	private Image nb;
+	private Image nr;
+	private boolean win;
+
 	{
+		try {
+			zb = new Image("images/haxball/score/0b.png");
+			zr = new Image("images/haxball/score/0r.png");
+			ub = new Image("images/haxball/score/1b.png");
+			ur = new Image("images/haxball/score/1r.png");
+			db = new Image("images/haxball/score/2b.png");
+			dr = new Image("images/haxball/score/2r.png");
+			tb = new Image("images/haxball/score/3b.png");
+			tr = new Image("images/haxball/score/3r.png");
+			qb = new Image("images/haxball/score/4b.png");
+			qr = new Image("images/haxball/score/4r.png");
+			cb = new Image("images/haxball/score/5b.png");
+			cr = new Image("images/haxball/score/5r.png");
+			sb = new Image("images/haxball/score/6b.png");
+			sr = new Image("images/haxball/score/6r.png");
+			septb = new Image("images/haxball/score/7b.png");
+			septr = new Image("images/haxball/score/7r.png");
+			hb = new Image("images/haxball/score/8b.png");
+			hr = new Image("images/haxball/score/8r.png");
+			nb = new Image("images/haxball/score/9b.png");
+			nr = new Image("images/haxball/score/9r.png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		try {
 			goalsound = new Sound("res/sound/Goal_Sound.ogg");
 		} catch (SlickException e) {
@@ -44,6 +93,7 @@ public class Ball {
 	}
 	
 	public Ball(int haut,int larg,int origx,int origy, Field field){ 
+
 		r_origx=origx;
 		r_origy=origy;
 		r_larg=larg;
@@ -263,8 +313,76 @@ public class Ball {
 //		context.setColor(new Color(0,0,255));
 //		context.draw(hitbox);
 		
-		context.drawString("Score du joueur 1 : " + this.pointsJ1, 299, 10);
-		context.drawString("Score du joueur 2 : " + this.pointsJ2, 699, 10);
+		switch(this.pointsJ1) {
+		case 0:
+			context.drawImage(zb, 399, 50);
+			break ;
+		case 1:
+			context.drawImage(ub, 399, 50);
+			break ;
+		case 2:
+			context.drawImage(db, 399, 50);
+			break ;
+		case 3:
+			context.drawImage(tb, 399, 50);
+			break ;
+		case 4:
+			context.drawImage(qb, 399, 50);
+			break ;
+		case 5:
+			context.drawImage(cb, 399, 50);
+			break ;
+		case 6:
+			context.drawImage(sb, 399, 50);
+			break ;
+		case 7:
+			context.drawImage(septb, 399, 50);
+			break ;
+		case 8:
+			context.drawImage(hb, 399, 50);
+			break ;
+		case 9:
+			context.drawImage(nb, 399, 50);
+			break ;
+		case 10:
+			win = true;
+			break ;
+		}
+		switch(this.pointsJ2) {
+		case 0:
+			context.drawImage(zr, 1499, 50);
+			break ;
+		case 1:
+			context.drawImage(ur, 1499, 50);
+			break ;
+		case 2:
+			context.drawImage(dr, 1499, 50);
+			break ;
+		case 3:
+			context.drawImage(tr, 1499, 50);
+			break ;
+		case 4:
+			context.drawImage(qr, 1499, 50);
+			break ;
+		case 5:
+			context.drawImage(cr, 1499, 50);
+			break ;
+		case 6:
+			context.drawImage(sr, 1499, 50);
+			break ;
+		case 7:
+			context.drawImage(septr, 1499, 50);
+			break ;
+		case 8:
+			context.drawImage(hr, 1499, 50);
+			break ;
+		case 9:
+			context.drawImage(nr, 1499, 50);
+			break ;
+		case 10:
+			win = true;
+			break ;
+		}
 	}
 
 	public void setPosX(int posx) {
@@ -284,6 +402,10 @@ public class Ball {
 	
 	public int getRad() {
 		return rad;
+	}
+	
+	public boolean isWin() {
+		return win;
 	}
 }
 
