@@ -37,6 +37,7 @@ public final class Main {
 				this.addState (new haxBall.World (4));
 				this.addState (new verticalPlateformer.World (5));
 				this.addState (new verticalPlateformer.DeathPage (6));
+				this.addState (new haxBall.WinPage (7));
 			}
 
 		};
