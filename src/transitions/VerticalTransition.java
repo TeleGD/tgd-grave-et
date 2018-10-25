@@ -1,4 +1,4 @@
-package transition;
+package transitions;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -12,10 +12,10 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.Transition;
 
 /**
- * Vertical split transition that causes the previous state to split vertically
+ * Vertical split transitions that causes the previous state to split vertically
  * revealing the new state underneath.
  * 
- * This state is an enter transition.
+ * This state is an enter transitions.
  * 
  * @author kevin
  */
@@ -27,15 +27,15 @@ public class VerticalTransition implements Transition {
 	private GameState prev;
 	/** The current offset */
 	private float offset;
-	/** True if the transition is finished */
+	/** True if the transitions is finished */
 	private boolean finish;
 	/** The background to draw underneath the previous state (null for none) */
 	private Color background;
-	/** The image draw on top of the new screen during the transition */
+	/** The image draw on top of the new screen during the transitions */
 	private Image image;
 	
 	/**
-	 * Create a new transition
+	 * Create a new transitions
 	 * 
 	 * @param image The image to draw on top of the previous state
 	 */
@@ -44,7 +44,7 @@ public class VerticalTransition implements Transition {
 	}
 
 	/**
-	 * Create a new transition
+	 * Create a new transitions
 	 * 
 	 * @param background The background colour to draw under the previous state
 	 * @param image The image to draw on top of the previous state

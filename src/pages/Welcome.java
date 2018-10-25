@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
 import app.AppPage;
-import transition.VerticalTransition;
+import transitions.VerticalTransition;
 
 public class Welcome extends AppPage {
 
