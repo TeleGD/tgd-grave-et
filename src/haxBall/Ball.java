@@ -35,50 +35,12 @@ public class Ball {
 	private Player player;
 	private float  speed;
 	private Sound goalsound;
-	private Image zb;
-	private Image zr;
-	private Image ub;
-	private Image ur;
-	private Image db;
-	private Image dr;
-	private Image tb;
-	private Image tr;
-	private Image qb;
-	private Image qr;
-	private Image cb;
-	private Image cr;
-	private Image sb;
-	private Image sr;
-	private Image septr;
-	private Image septb;
-	private Image hb;
-	private Image hr;
-	private Image nb;
-	private Image nr;
+	private Image scoreball;
 	private boolean win;
 
 	{
 		try {
-			zb = new Image("images/haxball/score/0b.png");
-			zr = new Image("images/haxball/score/0r.png");
-			ub = new Image("images/haxball/score/1b.png");
-			ur = new Image("images/haxball/score/1r.png");
-			db = new Image("images/haxball/score/2b.png");
-			dr = new Image("images/haxball/score/2r.png");
-			tb = new Image("images/haxball/score/3b.png");
-			tr = new Image("images/haxball/score/3r.png");
-			qb = new Image("images/haxball/score/4b.png");
-			qr = new Image("images/haxball/score/4r.png");
-			cb = new Image("images/haxball/score/5b.png");
-			cr = new Image("images/haxball/score/5r.png");
-			sb = new Image("images/haxball/score/6b.png");
-			sr = new Image("images/haxball/score/6r.png");
-			septb = new Image("images/haxball/score/7b.png");
-			septr = new Image("images/haxball/score/7r.png");
-			hb = new Image("images/haxball/score/8b.png");
-			hr = new Image("images/haxball/score/8r.png");
-			nb = new Image("images/haxball/score/9b.png");
-			nr = new Image("images/haxball/score/9r.png");
+			scoreball = new Image("images/haxball/score/ball.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -313,70 +275,136 @@ public class Ball {
 //		context.draw(hitbox);
 		
 		switch(this.pointsJ1) {
-		case 0:
-			context.drawImage(zb, 399, 50);
-			break ;
 		case 1:
-			context.drawImage(ub, 399, 50);
+			context.drawImage(scoreball, 399, 25,Color.blue);
 			break ;
 		case 2:
-			context.drawImage(db, 399, 50);
+			context.drawImage(scoreball, 449, 25,Color.blue);
+			context.drawImage(scoreball, 399, 25,Color.blue);
 			break ;
 		case 3:
-			context.drawImage(tb, 399, 50);
+			context.drawImage(scoreball, 449, 25,Color.blue);
+			context.drawImage(scoreball, 499, 25,Color.blue);
+			context.drawImage(scoreball, 399, 25,Color.blue);
 			break ;
 		case 4:
-			context.drawImage(qb, 399, 50);
+			context.drawImage(scoreball, 549, 25,Color.blue);
+			context.drawImage(scoreball, 449, 25,Color.blue);
+			context.drawImage(scoreball, 499, 25,Color.blue);
+			context.drawImage(scoreball, 399, 25,Color.blue);
 			break ;
 		case 5:
-			context.drawImage(cb, 399, 50);
+			context.drawImage(scoreball, 549, 25,Color.blue);
+			context.drawImage(scoreball, 449, 25,Color.blue);
+			context.drawImage(scoreball, 499, 25,Color.blue);
+			context.drawImage(scoreball, 399, 25,Color.blue);
+			context.drawImage(scoreball, 599, 25,Color.blue);
 			break ;
 		case 6:
-			context.drawImage(sb, 399, 50);
+			context.drawImage(scoreball, 649, 25,Color.blue);
+			context.drawImage(scoreball, 549, 25,Color.blue);
+			context.drawImage(scoreball, 449, 25,Color.blue);
+			context.drawImage(scoreball, 499, 25,Color.blue);
+			context.drawImage(scoreball, 399, 25,Color.blue);
+			context.drawImage(scoreball, 599, 25,Color.blue);
 			break ;
 		case 7:
-			context.drawImage(septb, 399, 50);
+			context.drawImage(scoreball, 649, 25,Color.blue);
+			context.drawImage(scoreball, 549, 25,Color.blue);
+			context.drawImage(scoreball, 449, 25,Color.blue);
+			context.drawImage(scoreball, 499, 25,Color.blue);
+			context.drawImage(scoreball, 399, 25,Color.blue);
+			context.drawImage(scoreball, 599, 25,Color.blue);
+			context.drawImage(scoreball, 349, 25,Color.blue);
 			break ;
 		case 8:
-			context.drawImage(hb, 399, 50);
+			context.drawImage(scoreball, 649, 25,Color.blue);
+			context.drawImage(scoreball, 549, 25,Color.blue);
+			context.drawImage(scoreball, 449, 25,Color.blue);
+			context.drawImage(scoreball, 499, 25,Color.blue);
+			context.drawImage(scoreball, 399, 25,Color.blue);
+			context.drawImage(scoreball, 599, 25,Color.blue);
+			context.drawImage(scoreball, 349, 25,Color.blue);
+			context.drawImage(scoreball, 299, 25,Color.blue);
 			break ;
 		case 9:
-			context.drawImage(nb, 399, 50);
+			context.drawImage(scoreball, 699, 25,Color.blue);
+			context.drawImage(scoreball, 649, 25,Color.blue);
+			context.drawImage(scoreball, 549, 25,Color.blue);
+			context.drawImage(scoreball, 449, 25,Color.blue);
+			context.drawImage(scoreball, 499, 25,Color.blue);
+			context.drawImage(scoreball, 399, 25,Color.blue);
+			context.drawImage(scoreball, 599, 25,Color.blue);
+			context.drawImage(scoreball, 349, 25,Color.blue);
+			context.drawImage(scoreball, 299, 25,Color.blue);
 			break ;
 		case 10:
 			win = true;
 			break ;
 		}
 		switch(this.pointsJ2) {
-		case 0:
-			context.drawImage(zr, 1499, 50);
-			break ;
 		case 1:
-			context.drawImage(ur, 1499, 50);
+			context.drawImage(scoreball, 999, 25,Color.red);
 			break ;
 		case 2:
-			context.drawImage(dr, 1499, 50);
+			context.drawImage(scoreball, 949, 25,Color.red);
+			context.drawImage(scoreball, 999, 25,Color.red);
 			break ;
 		case 3:
-			context.drawImage(tr, 1499, 50);
+			context.drawImage(scoreball, 949, 25,Color.red);
+			context.drawImage(scoreball, 999, 25,Color.red);
+			context.drawImage(scoreball, 1049, 25,Color.red);
 			break ;
 		case 4:
-			context.drawImage(qr, 1499, 50);
+			context.drawImage(scoreball, 949, 25,Color.red);
+			context.drawImage(scoreball, 1049, 25,Color.red);
+			context.drawImage(scoreball, 999, 25,Color.red);
+			context.drawImage(scoreball, 1099, 25,Color.red);
 			break ;
 		case 5:
-			context.drawImage(cr, 1499, 50);
+			context.drawImage(scoreball, 949, 25,Color.red);
+			context.drawImage(scoreball, 1049, 25,Color.red);
+			context.drawImage(scoreball, 999, 25,Color.red);
+			context.drawImage(scoreball, 1099, 25,Color.red);
+			context.drawImage(scoreball, 1149, 25,Color.red);
 			break ;
 		case 6:
-			context.drawImage(sr, 1499, 50);
+			context.drawImage(scoreball, 949, 25,Color.red);
+			context.drawImage(scoreball, 1049, 25,Color.red);
+			context.drawImage(scoreball, 1149, 25,Color.red);
+			context.drawImage(scoreball, 1199, 25,Color.red);
+			context.drawImage(scoreball, 999, 25,Color.red);
+			context.drawImage(scoreball, 1099, 25,Color.red);
 			break ;
 		case 7:
-			context.drawImage(septr, 1499, 50);
+			context.drawImage(scoreball, 949, 25,Color.red);
+			context.drawImage(scoreball, 1049, 25,Color.red);
+			context.drawImage(scoreball, 1149, 25,Color.red);
+			context.drawImage(scoreball, 999, 25,Color.red);
+			context.drawImage(scoreball, 1099, 25,Color.red);
+			context.drawImage(scoreball, 1199, 25,Color.red);
+			context.drawImage(scoreball, 1249, 25,Color.red);
 			break ;
 		case 8:
-			context.drawImage(hr, 1499, 50);
+			context.drawImage(scoreball, 949, 25,Color.red);
+			context.drawImage(scoreball, 1049, 25,Color.red);
+			context.drawImage(scoreball, 1149, 25,Color.red);
+			context.drawImage(scoreball, 999, 25,Color.red);
+			context.drawImage(scoreball, 1099, 25,Color.red);
+			context.drawImage(scoreball, 1199, 25,Color.red);
+			context.drawImage(scoreball, 1249, 25,Color.red);
+			context.drawImage(scoreball, 1299, 25,Color.red);
 			break ;
 		case 9:
-			context.drawImage(nr, 1499, 50);
+			context.drawImage(scoreball, 999, 25,Color.red);
+			context.drawImage(scoreball, 949, 25,Color.red);
+			context.drawImage(scoreball, 1049, 25,Color.red);
+			context.drawImage(scoreball, 1149, 25,Color.red);
+			context.drawImage(scoreball, 1099, 25,Color.red);
+			context.drawImage(scoreball, 1199, 25,Color.red);
+			context.drawImage(scoreball, 1299, 25,Color.red);
+			context.drawImage(scoreball, 1249, 25,Color.red);
+			context.drawImage(scoreball, 1349, 25,Color.red);
 			break ;
 		case 10:
 			win = true;
