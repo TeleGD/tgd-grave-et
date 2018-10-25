@@ -17,7 +17,7 @@ public class Welcome extends AppPage {
 	private Image logo;
 	private Image background;
 	private Image transition;
-	private Music ambiance;
+	private Music music;
 
 	private boolean logoVisibility;
 
@@ -59,8 +59,7 @@ public class Welcome extends AppPage {
 			this.background = new Image("images/welcome.png");
 			this.transition = new Image("images/soulsTransition.png");
 			this.setLogo (new Image ("images/logo.png"));
-			this.ambiance = new Music("res/musics/HalloweenTheme.ogg");
-			ambiance.play();
+			this.music = new Music("res/musics/HalloweenTheme.ogg");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,6 +75,16 @@ public class Welcome extends AppPage {
 		} else if (input.isKeyDown (Input.KEY_ENTER)) {
 			game.enterState (1, new VerticalTransition (Color.black, transition), new EmptyTransition ());
 		}
+	}
+
+	@Override
+	public void enter (GameContainer container, StateBasedGame game) {
+		this.music.play ();
+	}
+
+	@Override
+	public void leave (GameContainer container, StateBasedGame game) {
+		this.music.stop ();
 	}
 
 	@Override
