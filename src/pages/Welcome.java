@@ -1,19 +1,21 @@
 package pages;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
-
+import org.newdawn.slick.state.transition.EmptyTransition;
 import app.AppPage;
+import transition.VerticalTransition;
 
 public class Welcome extends AppPage {
 
 	private Image logo;
+	private Image background;
+	private Image transition;
 
 	private boolean logoVisibility;
 
@@ -36,18 +38,15 @@ public class Welcome extends AppPage {
 
 	@Override
 	public void init (GameContainer container, StateBasedGame game) {
-		super.initSize (container, game, 600, 400);
+		super.initSize (container, game, container.getWidth()/3, container.getHeight()*7/8);
 		super.init (container, game);
-
-		this.hintBoxX = this.contentX;
-		this.hintBoxY = this.contentY;
 
 		this.logoBoxX = this.contentX;
 		this.logoBoxY = this.hintBoxY + this.hintBoxHeight + AppPage.gap;
 		this.logoBoxWidth = this.contentWidth;
 		this.logoBoxHeight = this.contentY + this.contentHeight - this.logoBoxY;
 
-		this.logoVisibility = true;
+		this.logoVisibility = false;
 
 		this.titleVisibility = false;
 		this.subtitleVisibility = false;
@@ -55,6 +54,8 @@ public class Welcome extends AppPage {
 
 		this.setHint ("PRESS [START]");
 		try {
+			this.background = new Image("images/welcome.png");
+			this.transition = new Image("images/soulsTransition.png");
 			this.setLogo (new Image ("images/logo.png"));
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
@@ -69,12 +70,13 @@ public class Welcome extends AppPage {
 		if (input.isKeyDown (Input.KEY_ESCAPE)) {
 			container.exit ();
 		} else if (input.isKeyDown (Input.KEY_ENTER)) {
-			game.enterState (1, new FadeOutTransition (), new FadeInTransition ());
+			game.enterState (1, new VerticalTransition (Color.black, transition), new EmptyTransition ());
 		}
 	}
 
 	@Override
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
+		context.drawImage(background, 0, 0, container.getWidth(), container.getHeight(), 0, 0, background.getWidth(), background.getHeight());
 		super.render (container, game, context);
 		this.renderLogo (container, game, context);
 	}
