@@ -1,4 +1,4 @@
-﻿package haxBall;
+package haxBall;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,11 +14,11 @@ public class World extends BasicGameState {
 
 	private int ID;
 	private int state;
-	
+
 	private Field field;
 	private int width;
 	private int height;
-	
+
 	private Sound soundMusicBackground;
 
 	{
@@ -28,7 +28,7 @@ public class World extends BasicGameState {
 		e.printStackTrace();
 		}
 	}
-	
+
 	public World (int ID) {
 		this.ID = ID;
 		this.state = -1;
@@ -43,7 +43,7 @@ public class World extends BasicGameState {
 	@Override
 	public void init (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au chargement du programme */
-		
+
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class World extends BasicGameState {
 		} else if (this.state == 2) {
 			this.resume (container, game);
 		}
-		soundMusicBackground.loop(1,(float) 2); 
+		soundMusicBackground.loop(1,(float) 2);
 	}
 
 	@Override
@@ -83,17 +83,17 @@ public class World extends BasicGameState {
 		}
 	}
 
-	@Override 
+	@Override
 	public void keyPressed(int key, char c) {
 		field.keyPressed(key,c);
 	}
-	
+
 	@Override
 	public void keyReleased(int key, char c) {
 		field.keyReleased(key,c);
 	}
-	
-	
+
+
 	@Override
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */

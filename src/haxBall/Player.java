@@ -17,14 +17,17 @@ public class Player {
 	private Circle m_shape;
 	private boolean shooting;
 	private int spawnX, spawnY;
+	private int team;
 	private String name;
+	private int rightButton, leftButton, upButton, downButton, shootButton;
 	
 
-	public Player(String name, int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id, Field field) {
+	public Player(String name, int fieldHeight, int fieldWidth, int fieldOriginX, int fieldOriginY, int id, Field field, int team) {
 
 		this.field = field;
 		this.name = name;
 		this.shooting = false;
+		this.team = team;
 		m_id = id;
 		
 		m_fieldHeight = field.getHeight();
@@ -41,10 +44,21 @@ public class Player {
 			spawnX = ((m_fieldWidth)/6) + m_fieldOriginX;
 
 			m_defaultColor = new Color(0, 0, 255);
+			upButton = Input.KEY_Z;
+			downButton = Input.KEY_S;
+			leftButton = Input.KEY_Q;
+			rightButton = Input.KEY_D;
+			shootButton = Input.KEY_SPACE;
 		}
 		else {
 			spawnX = ((3*m_fieldWidth)/4) + m_fieldOriginX;
 			m_defaultColor = new Color(255, 0, 0);
+			
+			upButton = Input.KEY_UP;
+			downButton = Input.KEY_DOWN;
+			leftButton = Input.KEY_LEFT;
+			rightButton = Input.KEY_RIGHT;
+			shootButton = Input.KEY_NUMPAD0;
 		}
 		
 		m_posX = spawnX;
@@ -99,6 +113,10 @@ public class Player {
 	
 	public float getSpeedY() {
 		return m_speedY;
+	}
+	
+	public void setSpeed(float speed) {
+		m_speed = speed;
 	}
 	
 	public int getRadius() {
@@ -173,101 +191,49 @@ public class Player {
 	}
 	
 	public void keyPressed(int key, char c) {
-		if(key==Input.KEY_SPACE) shooting = true;
+		if(key==shootButton) shooting = true;
 		
-		if(m_id == 0) {
-			switch (key){
-			
-			case Input.KEY_Z:
-				up = true;
-				updown=false;
-				break;
-	
-			case Input.KEY_S:
-				down=true;
-				updown=true;
-				break;
-	
-			case Input.KEY_Q:
-				left=true;
-				rightLeft=true;
-				break;
-			case Input.KEY_D:
-				right=true;
-				rightLeft=false;
-				break;
-			case Input.KEY_R:
-				m_speed *= 1.5;
-	
-			}
+		if (key==upButton) {
+			up = true;
+			updown=false;
 		}
-		else if(m_id == 1) {
-			switch (key){
-			
-			case Input.KEY_UP:
-				up = true;
-				updown=false;
-				break;
-	
-			case Input.KEY_DOWN:
-				down=true;
-				updown=true;
-				break;
-	
-			case Input.KEY_LEFT:
-				left=true;
-				rightLeft=true;
-				break;
-			case Input.KEY_RIGHT:
-				right=true;
-				rightLeft=false;
-				break;
-			case Input.KEY_RCONTROL:
-				m_speed *= 1.5;
-	
-			}
+		if (key==downButton) {
+			down=true;
+			updown=true;
 		}
+		if (key==leftButton) {
+			left=true;
+			rightLeft=true;
+
+		}
+		if (key==rightButton) {
+			right=true;
+			rightLeft=false;
+		}
+		
+		
 	}
 
 	public void keyReleased(int key, char c) {
-		if(key==Input.KEY_SPACE) shooting = false;
 		
-		if(m_id == 0) {
-			switch (key) {
-			case Input.KEY_Z:
-				up=false;
-				break;
-			case Input.KEY_D:
-				right=false;
-				break;
-			case Input.KEY_Q:
-				left=false;
-				break;
-			case Input.KEY_S:
-				down=false;
-				break;
-			case Input.KEY_R:
-				m_speed /= 1.5;
-			}
+		if(key==shootButton) shooting = false;
+		
+		if (key==upButton) {
+			up = false;
 		}
-		else if (m_id == 1) {
-			switch (key) {
-			case Input.KEY_UP:
-				up=false;
-				break;
-			case Input.KEY_RIGHT:
-				right=false;
-				break;
-			case Input.KEY_LEFT:
-				left=false;
-				break;
-			case Input.KEY_DOWN:
-				down=false;
-				break;
-			case Input.KEY_RCONTROL:
-				m_speed /= 1.5;
-			}
+		if (key==downButton) {
+			down=false;
 		}
+		if (key==leftButton) {
+			left=false;
+		}
+		if (key==rightButton) {
+			right=false;
+		}
+		
+		
+		
+		
 	}
 
 	public void move(int dt) {

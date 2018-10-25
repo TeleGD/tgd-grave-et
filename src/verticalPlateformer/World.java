@@ -66,7 +66,7 @@ public class World extends BasicGameState {
 		/* Méthode exécutée à l'apparition de la page */
 		if (this.state == 0) {
 			this.play (container, game);
-			defouloir.play(1, (float) 0.4);
+			defouloir.loop(1, (float) 0.4);
 		} else if (this.state == 2) {
 			this.resume (container, game);
 			defouloir.resume();
