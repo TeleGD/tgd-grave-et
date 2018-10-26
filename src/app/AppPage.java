@@ -111,7 +111,7 @@ public abstract class AppPage extends BasicGameState {
 	}
 
 	@Override
-	public void init (GameContainer container, StateBasedGame game) {
+	public void init(GameContainer container, StateBasedGame game) {
 		this.titleBoxWidth = this.contentWidth;
 		this.titleBoxHeight = AppPage.titleLineHeight;
 		this.titleBoxX = this.contentX;

@@ -27,6 +27,13 @@ public class DeathPage extends AppMenu{
 					game.enterState (5, new FadeOutTransition (), new FadeInTransition ());
 				}
 			},
+			new MenuItem ("Règles") {
+				public void itemSelected () {
+					((World) game.getState (5)).showRules();
+					((World) game.getState (5)).setState (0);
+					game.enterState (5, new FadeOutTransition (), new FadeInTransition ());
+				}
+			},
 			new MenuItem ("Quitter") {
 				public void itemSelected () {
 					((World) game.getState (5)).setState (0);

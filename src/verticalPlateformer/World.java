@@ -6,6 +6,7 @@ import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
@@ -33,24 +34,28 @@ public class World extends BasicGameState {
 	private Color color = new Color(0x001e3514);
 	private int height;
 	private int width;
+	private boolean showRules;
 
 	private int ID;
 	private int state;
 
-	private Sound trash;
-	private Music defouloir;
+	private static Sound trash;
+	private static Music defouloir;
+	private static Image rules;
 
-	/*   Ajout d'un commentaire important    */
-
-	public World (int ID) {
-		this.ID = ID;
-		this.state = -1;
+	static {
 		try {
-			defouloir = new Music("res/musics/verticalPlateformer/Defouloir.ogg");
-			trash = new Sound("res/sound/verticalPlateformer/trash.ogg");
+			defouloir = new Music("musics/verticalPlateformer/Defouloir.ogg");
+			trash = new Sound("sound/verticalPlateformer/trash.ogg");
+			rules = new Image("images/verticalPlateformer/rules.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public World (int ID) {
+		this.ID = ID;
+		this.state = -1;
 	}
 
 	@Override
@@ -62,6 +67,7 @@ public class World extends BasicGameState {
 	public void init (GameContainer container, StateBasedGame game) {
 		height = container.getHeight ();
 		width = container.getWidth();
+		this.showRules = true;
 	}
 
 	@Override
@@ -92,64 +98,73 @@ public class World extends BasicGameState {
 			this.setState (1);
 			game.enterState (3, new FadeOutTransition (), new FadeInTransition ());
 		}
-		line.update(container, game, delta);
-		for(Plateforme p:plateformes) {
-			p.update(container, game, delta);
+		if (input.isKeyDown(Input.KEY_R)) {
+			this.showRules = true;
 		}
-		for (Bonus bonus: this.bonuses) {
-			bonus.update (container, game, delta);
-		}
-		for(int i=plateformes.size()-1;i>=0;i--) {
-			if(plateformes.get(i).getPosY()>=this.line.getPosY() || plateformes.get(i).isDestroyed()) {
-				plateformes.remove(i);
-				trash.play(1, (float) 0.4);
-			}
-		}
-		for (int i = this.bonuses.size () - 1; i >= 0; i--) {
-			Bonus bonus = bonuses.get (i);
-			if (bonus.isApplied () || bonus.getPosY () >= this.line.getPosY ()) {
-				this.bonuses.remove (i);
-				trash.play (1, .4f);
-			}
-		}
-
-		plateformeGen.update(container, game, delta);
-		bonusGen.update (container, game, delta);
-		decorationGen.update(container, game, delta);
-
-		for(Player player : players) {
-			player.update(container, game, delta);
-			for (Plateforme plat : plateformes) {
-				if(player.getShape().intersects(plat)) {
-					if ((player.getGravity() == 0) == plat.getSens()) {
-						player.freeze();
-						player.setPlateforme(plat);
-						// Le joueur s'arrête
-					}
-					else {
-						this.setState (3);
-						((DeathPage) game.getState(7)).setScore(player.getScore());
-						game.enterState (7, new FadeOutTransition (), new FadeInTransition ());
-						// Le joueur meurt
-					}
-				}
+		
+		if (!showRules) {
+			line.update(container, game, delta);
+			for(Plateforme p:plateformes) {
+				p.update(container, game, delta);
 			}
 			for (Bonus bonus: this.bonuses) {
-				if (player.getShape ().intersects (bonus.getShape ())) {
-					bonus.apply (player);
+				bonus.update (container, game, delta);
+			}
+			for(int i=plateformes.size()-1;i>=0;i--) {
+				if(plateformes.get(i).getPosY()>=this.line.getPosY() || plateformes.get(i).isDestroyed()) {
+					plateformes.remove(i);
+					trash.play(1, (float) 0.4);
 				}
 			}
-		}
-
-		for (Player player : players) {
-			if (player.getPosY() > line.getPosY() || player.getPosX()+player.getWidth()<0 || player.getPosX()>container.getWidth()) {
-				// TODO : à changer si on met plusieurs joueurs
-				this.setState (3);
-				((DeathPage) game.getState(7)).setScore(player.getScore());
-				game.enterState (7, new FadeOutTransition (), new FadeInTransition ());
+			for (int i = this.bonuses.size () - 1; i >= 0; i--) {
+				Bonus bonus = bonuses.get (i);
+				if (bonus.isApplied () || bonus.getPosY () >= this.line.getPosY ()) {
+					this.bonuses.remove (i);
+					trash.play (1, .4f);
+				}
+			}
+	
+			plateformeGen.update(container, game, delta);
+			bonusGen.update (container, game, delta);
+			decorationGen.update(container, game, delta);
+	
+			for(Player player : players) {
+				player.update(container, game, delta);
+				for (Plateforme plat : plateformes) {
+					if(player.getShape().intersects(plat)) {
+						if ((player.getGravity() == 0) == plat.getSens()) {
+							player.freeze();
+							player.setPlateforme(plat);
+							// Le joueur s'arrête
+						}
+						else {
+							this.setState (3);
+							((DeathPage) game.getState(7)).setScore(player.getScore());
+							game.enterState (7, new FadeOutTransition (), new FadeInTransition ());
+							// Le joueur meurt
+						}
+					}
+				}
+				for (Bonus bonus: this.bonuses) {
+					if (player.getShape ().intersects (bonus.getShape ())) {
+						bonus.apply (player);
+					}
+				}
+			}
+	
+			for (Player player : players) {
+				if (player.getPosY() > line.getPosY() || player.getPosX()+player.getWidth()<0 || player.getPosX()>container.getWidth()) {
+					// TODO : à changer si on met plusieurs joueurs
+					this.setState (3);
+					((DeathPage) game.getState(7)).setScore(player.getScore());
+					game.enterState (7, new FadeOutTransition (), new FadeInTransition ());
+				}
+			}
+		} else {
+			if (input.isKeyDown (Input.KEY_ENTER)) {
+				this.showRules=false;
 			}
 		}
-
 
 
 	}
@@ -157,28 +172,33 @@ public class World extends BasicGameState {
 	@Override
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
-		context.setColor(color);
-		context.fillRect(0, 0, container.getWidth(), container.getHeight());
-		context.setColor(Color.white);
-
-		for(Decoration d: decorations) {
-			d.render(container, game, context, players.get(0).getPosY ());
+		
+		if (!showRules) {
+			context.setColor(color);
+			context.fillRect(0, 0, container.getWidth(), container.getHeight());
+			context.setColor(Color.white);
+	
+			for(Decoration d: decorations) {
+				d.render(container, game, context, players.get(0).getPosY ());
+			}
+	
+			for (Bonus bonus: this.bonuses) {
+				bonus.render (container, game, context);
+			}
+	
+			for(Plateforme p:plateformes) {
+				p.render(container, game, context, players.get(0).getPosY ());
+			}
+	
+			for(Player player : players) {
+				player.render(container, game, context);
+			}
+	
+			I.render(container,game,context);
+			line.render (container, game, context, players.get(0).getPosY ());
+		} else {
+			context.drawImage(rules, 0, 0, container.getWidth(), container.getHeight(), 0, 0, rules.getWidth(), rules.getHeight());
 		}
-
-		for (Bonus bonus: this.bonuses) {
-			bonus.render (container, game, context);
-		}
-
-		for(Plateforme p:plateformes) {
-			p.render(container, game, context, players.get(0).getPosY ());
-		}
-
-		for(Player player : players) {
-			player.render(container, game, context);
-		}
-
-		I.render(container,game,context);
-		line.render (container, game, context, players.get(0).getPosY ());
 	}
 
 	public void play (GameContainer container, StateBasedGame game) {
@@ -246,6 +266,10 @@ public class World extends BasicGameState {
 
 	public List <Player> getPlayers () {
 		return this.players;
+	}
+
+	public void showRules() {
+		this.showRules=true;
 	}
 
 }
