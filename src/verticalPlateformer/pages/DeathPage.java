@@ -1,4 +1,4 @@
-package verticalPlateformer;
+package verticalPlateformer.pages;
 
 import java.util.Arrays;
 
@@ -9,8 +9,9 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import app.AppMenu;
 import app.elements.MenuItem;
+import verticalPlateformer.World;
 
-public class DeathPage extends AppMenu{
+public class DeathPage extends AppMenu {
 	
 	public DeathPage(int ID) {
 		super(ID);
@@ -23,13 +24,6 @@ public class DeathPage extends AppMenu{
 		this.setMenu (Arrays.asList (new MenuItem [] {
 			new MenuItem ("Rejouer") {
 				public void itemSelected () {
-					((World) game.getState (5)).setState (0);
-					game.enterState (5, new FadeOutTransition (), new FadeInTransition ());
-				}
-			},
-			new MenuItem ("Règles") {
-				public void itemSelected () {
-					((World) game.getState (5)).showRules();
 					((World) game.getState (5)).setState (0);
 					game.enterState (5, new FadeOutTransition (), new FadeInTransition ());
 				}

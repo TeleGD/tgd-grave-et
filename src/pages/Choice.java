@@ -9,9 +9,12 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import app.AppMenu;
 import app.elements.MenuItem;
+import verticalPlateformer.pages.RulesPage;
 
 public class Choice extends AppMenu {
-
+	
+	private boolean firstStart;
+	
 	public Choice (int ID) {
 		super (ID);
 	}
@@ -21,6 +24,7 @@ public class Choice extends AppMenu {
 		super.initSize (container, game, 600, 400);
 		super.init (container, game);
 		this.setSubtitle ("CN du 20 octobre 2018");
+		this.firstStart=true;
 		this.setMenu (Arrays.asList (new MenuItem [] {
 			new MenuItem ("HaxBall") {
 				public void itemSelected () {
@@ -31,7 +35,15 @@ public class Choice extends AppMenu {
 			new MenuItem ("Grave-ET") {
 				public void itemSelected () {
 					((verticalPlateformer.World) game.getState (5)).setState (0);
-					game.enterState (5, new FadeOutTransition (), new FadeInTransition ());
+					if (firstStart) {
+						firstStart=false;
+						((RulesPage) game.getState(8)).setNextPageID(((verticalPlateformer.World) game.getState (5)).getID());
+						((RulesPage) game.getState(8)).setPrevPageID(Choice.this.getID());
+						game.enterState (8, new FadeOutTransition (), new FadeInTransition ());
+					} else {
+						game.enterState (5, new FadeOutTransition (), new FadeInTransition ());
+					}
+					
 				}
 			},
 			new MenuItem ("Retour") {

@@ -10,6 +10,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import app.AppMenu;
 import app.elements.MenuItem;
+import verticalPlateformer.pages.RulesPage;
 
 public class Pause extends AppMenu {
 	
@@ -39,11 +40,11 @@ public class Pause extends AppMenu {
 			}
 		});
 		if (game.getState (Pause.this.worldID) instanceof verticalPlateformer.World ) {
-			menu.add(new MenuItem("Règles") {
+			menu.add(new MenuItem ("Règles") {
 				public void itemSelected () {
-					((verticalPlateformer.World) game.getState (Pause.this.worldID)).setState (2);
-					((verticalPlateformer.World) game.getState (Pause.this.worldID)).showRules();
-					game.enterState (Pause.this.worldID, new FadeOutTransition (), new FadeInTransition ());
+					((RulesPage) game.getState(8)).setNextPageID(Pause.this.getID());
+					((RulesPage) game.getState(8)).setPrevPageID(Pause.this.getID());
+					game.enterState (8, new FadeOutTransition (), new FadeInTransition ());
 				}
 			});
 		}
