@@ -43,5 +43,13 @@ public class Choice extends AppMenu {
 		this.setTitle ("Choix");
 		this.setHint ("SELECT A GAME");
 	}
+	
+	@Override
+	public void enter (GameContainer container, StateBasedGame game) {
+		super.enter(container, game);
+		if (!Welcome.music.playing()) {
+			Welcome.music.loop();
+		}
+	}
 
 }

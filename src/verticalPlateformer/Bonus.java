@@ -10,25 +10,25 @@ import org.newdawn.slick.state.StateBasedGame;
 public abstract class Bonus extends Entity {
 
 	private Circle shape;
-	private float radius;
+	private float radius; //rayon
 	private Color color;
 
 	public Bonus (float posX, float posY, float radius, Color color) {
 		super (posX, posY);
-		this.shape = new Circle (posX, posY, radius);
+		this.shape = new Circle (posX+radius, posY+radius, radius);
 		this.radius = radius;
 		this.color = color;
 	}
 
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		super.update (container, game, delta);
-		this.shape.setX (super.getPosX ());
-		this.shape.setY (super.getPosY ());
+		//this.shape.setX (super.getPosX ());
+		//this.shape.setY (super.getPosY ());
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		context.setColor (this.color);
-		context.fillOval (super.getPosX (), super.getPosY () - ((World) game.getCurrentState ()).getPlayers ().get (0).getPosY (), radius, radius);
+		context.fillOval (super.getPosX (), container.getHeight() / 2 + super.getPosY() - ((World) game.getCurrentState()).getPlayers().get(0).getPosY(), 2*radius, 2*radius);
 	}
 
 	public Shape getShape () {

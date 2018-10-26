@@ -98,9 +98,6 @@ public class World extends BasicGameState {
 			this.setState (1);
 			game.enterState (3, new FadeOutTransition (), new FadeInTransition ());
 		}
-		if (input.isKeyDown(Input.KEY_R)) {
-			this.showRules = true;
-		}
 		
 		if (!showRules) {
 			line.update(container, game, delta);
