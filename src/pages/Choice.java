@@ -60,7 +60,7 @@ public class Choice extends AppMenu {
 	public void enter (GameContainer container, StateBasedGame game) {
 		super.enter(container, game);
 		if (!Welcome.music.playing()) {
-			Welcome.music.loop();
+			Welcome.music.loop(1, (float) 0.4);
 		}
 	}
 

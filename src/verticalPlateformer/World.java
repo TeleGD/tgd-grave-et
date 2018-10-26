@@ -140,8 +140,6 @@ public class World extends BasicGameState {
 					} else {
 						player.setPosX(player.getPosX()-container.getWidth()+110+player.getWidth()+100);
 					}
-					
-					// Le joueur s'arrête
 				}
 			}
 			for (Bonus bonus: this.bonuses) {
@@ -178,15 +176,11 @@ public class World extends BasicGameState {
 		}
 
 		for(Plateforme p:plateformes) {
-			p.render1(container, game, context, players.get(0).getPosY ());
+			p.render(container, game, context, players.get(0).getPosY ());
 		}
 
 		for(Player player : players) {
 			player.render(container, game, context);
-		}
-
-		for(Plateforme p:plateformes) {
-			p.render2(container, game, context, players.get(0).getPosY ());
 		}
 		
 		I.render(container,game,context);

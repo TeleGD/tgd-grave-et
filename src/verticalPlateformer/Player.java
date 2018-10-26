@@ -80,7 +80,7 @@ public class Player extends Entity {
 				plateforme.setDestroyed(true);
 				plateforme = null;
 				this.gravityPoint = getGravity()==0 ? this.gravityPoint+2 : this.gravityPoint+1;
-				super.jump (jumpSpeed);
+				super.jump (jumpSpeed*(1+2*((getGravity()+1)%2)));
 			} else if (isFrozen ()) {
 				super.unFreeze ();
 			}

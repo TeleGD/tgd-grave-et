@@ -42,7 +42,7 @@ public abstract class Plateforme extends Rectangle {
 		}
 	}
 
-	public void render1(GameContainer container, StateBasedGame game, Graphics context, float dy) {
+	public void render(GameContainer container, StateBasedGame game, Graphics context, float dy) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		/* gravite = sens de la gravite */
 		if (sens) {
@@ -61,14 +61,6 @@ public abstract class Plateforme extends Rectangle {
 			} else {
 				context.drawImage(image, x-20, container.getHeight() / 2 + y - dy);
 			}
-		}
-	}
-	
-	public void render2(GameContainer container, StateBasedGame game, Graphics context, float dy) {
-		if (this.value==1) {
-			context.drawImage(image, x-20, container.getHeight() / 2 + y - dy, x+50, container.getHeight() / 2 + y - dy, 0, 0, image.getWidth()/2, image.getHeight());
-		} else if (this.value==2) {
-			context.drawImage(image, x+50, container.getHeight() / 2 + y - dy, x+120, container.getHeight() / 2 + y - dy, 0, 0, image.getWidth()/2, image.getHeight());
 		}
 	}
 	
