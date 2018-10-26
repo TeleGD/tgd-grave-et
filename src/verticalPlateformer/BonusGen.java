@@ -29,11 +29,11 @@ public class BonusGen {
 			int h = container.getHeight ();
 			float x = this.rng.nextInt (w);
 			float y = this.count + (this.rng.nextInt (h * 7) + h) / 2;
-			float r = 60;
+			float r = 30;
 			Bonus bonus = null;
 			switch (this.rng.nextInt (1)) {
 				case 0:
-					bonus = new Weightlessness (x, -y, r);
+					bonus = new Weightlessness (x, -y, r, world.getPlayers().get(rng.nextInt(world.getPlayers().size())));
 			}
 			this.count = y;
 			world.addBonus (bonus);

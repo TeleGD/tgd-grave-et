@@ -18,9 +18,13 @@ public class Player extends Entity {
 
 	private int gravityPoint;
 	private int score;
+	private int portalCooldown;
 	private static Image imageB;
 	private Image image;
-	private Ellipse shape;
+	private Ellipse currentShape;
+	private Ellipse shapeL;
+	private Ellipse shapeD;
+	private Ellipse shapeR;
 	private Circle background;
 	private float width = 70;
 	private float height = 70;
@@ -61,9 +65,13 @@ public class Player extends Entity {
 
 		this.name = n;
 		this.score = 0;
-		this.shape = new Ellipse(getPosX()+width/2, getPosY()+shapeStartHeight+(height-shapeStartHeight)/2, shapeWidth/2, shapeHeight/2);
+		this.shapeL = new Ellipse(getPosX()+(height-shapeStartHeight)/2, getPosY()+height/2, shapeHeight/2, shapeWidth/2);
+		this.shapeD = new Ellipse(getPosX()+width/2, getPosY()+shapeStartHeight+(height-shapeStartHeight)/2, shapeWidth/2, shapeHeight/2);
+		this.shapeR = new Ellipse(getPosX()+shapeStartHeight+(height-shapeStartHeight)/2, getPosY()+height/2, shapeHeight/2, shapeWidth/2);
+		this.currentShape = shapeD;
 		this.background = new Circle(posX+width/2, posY+width/2, (float) (1.5*width));
 		this.image=imageB.getScaledCopy((int)width, (int)height);
+		this.portalCooldown = 0;
 	}
 
 	public String getName() {
@@ -80,7 +88,7 @@ public class Player extends Entity {
 				plateforme.setDestroyed(true);
 				plateforme = null;
 				this.gravityPoint = getGravity()==0 ? this.gravityPoint+2 : this.gravityPoint+1;
-				super.jump (jumpSpeed*(1+2*((getGravity()+1)%2)));
+				super.jump (jumpSpeed*(1+1*((getGravity()+1)%2)));
 			} else if (isFrozen ()) {
 				super.unFreeze ();
 			}
@@ -92,10 +100,13 @@ public class Player extends Entity {
 		changeDirection(input);
 
 		super.update(container, game, delta);
-		shape.setLocation(getPosX(), getPosY()+shapeStartHeight);
+		shapeD.setLocation(getPosX(), getPosY()+shapeStartHeight);
+		shapeL.setLocation(getPosX(), getPosY());
+		shapeR.setLocation(getPosX()+shapeStartHeight, getPosY());
 		background.setCenterX(getPosX()+width/2);
 		background.setCenterY(container.getHeight()/2+height/2);
 		this.score = ((int) -this.getPosY())>score?(int) -this.getPosY():score;
+		this.portalCooldown = this.portalCooldown>0 ? this.portalCooldown-delta : 0;
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
@@ -104,15 +115,12 @@ public class Player extends Entity {
 		switch (this.getGravity()) {
 		case 0:
 			context.texture(background, downArrow);
-			image.setRotation(0);
 			break;
 		case 1:
 			context.texture(background, rightArrow);
-			image.setRotation(-90);
 			break;
 		case -1:
 			context.texture(background, leftArrow);
-			image.setRotation(90);
 			break;
 		}
 
@@ -125,7 +133,7 @@ public class Player extends Entity {
 		//context.setColor(Color.green);
 		//context.setLineWidth(2);
 		context.drawImage(image, getPosX(), container.getHeight() / 2, getPosX()+width, container.getHeight() / 2 + height, 0, 0, image.getWidth(), image.getHeight());
-		//context.draw(shape);
+		//context.draw(currentShape);
 		//context.drawOval(getPosX(), container.getHeight() / 2 + shapeStartHeight, shapeWidth, shapeHeight);
 	}
 
@@ -140,18 +148,24 @@ public class Player extends Entity {
 		if (gravityPoint > 0 ) {
 			if (BUTTON_LEFT && (getGravity() != -1)) {
 				super.setGravity(-1);
+				image.setRotation(90);
+				this.currentShape=shapeL;
 				gravityPoint --;
 				//System.out.println("gravité : -1");
 
 			}
 			else if (BUTTON_DOWN && (getGravity() != 0)) {
 				super.setGravity(0);
+				image.setRotation(0);
+				this.currentShape=shapeD;
 				gravityPoint --;
 				//System.out.println("gravité : 0");
 
 			}
 			else if (BUTTON_RIGHT && (getGravity() != 1)) {
 				super.setGravity(1);
+				image.setRotation(-90);
+				this.currentShape=shapeR;
 				gravityPoint --;
 				//System.out.println("gravité : 1");
 
@@ -205,7 +219,7 @@ public class Player extends Entity {
 	}
 
 	public Ellipse getShape() {
-		return shape;
+		return currentShape;
 	}
 
 	public float getWidth() {
@@ -216,5 +230,12 @@ public class Player extends Entity {
 		this.plateforme= plat;
 	}
 
+	public int getPortalCooldown() {
+		return portalCooldown;
+	}
+
+	public void setPortalCooldown(int portalCooldown) {
+		this.portalCooldown = portalCooldown;
+	}
 
 }

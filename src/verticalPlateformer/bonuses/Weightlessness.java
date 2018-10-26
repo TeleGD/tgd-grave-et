@@ -1,8 +1,9 @@
 package verticalPlateformer.bonuses;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import verticalPlateformer.Bonus;
@@ -10,18 +11,22 @@ import verticalPlateformer.Player;
 
 public class Weightlessness extends Bonus {
 
-	private static Color color;
+	private static Image image;
 
 	static {
-		Weightlessness.color = new Color (0, 255, 0, 51);
+		try {
+			Weightlessness.image = new Image("images/verticalPlateformer/weightlessness.png");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private boolean applied;
 	private int count;
 	private Player player;
 
-	public Weightlessness (float posX, float posY, float radius) {
-		super (posX, posY, radius, Weightlessness.color);
+	public Weightlessness (float posX, float posY, float radius, Player player) {
+		super (posX, posY, radius, player, Weightlessness.image);
 		//super.freeze ();
 		this.applied = false;
 		this.count = 2000;

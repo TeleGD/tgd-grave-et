@@ -34,7 +34,7 @@ public abstract class Entity {
 		this.speedX = 0f;
 		this.speedY = 0f;
 		this.accX = 0f;
-		this.accY = Entity.GRAVITY;
+		this.accY = this instanceof Bonus ? Entity.GRAVITY/3 : Entity.GRAVITY;
 	}
 
 	public void update (GameContainer container, StateBasedGame game, int delta) {
@@ -94,15 +94,15 @@ public abstract class Entity {
 		this.gravity = gravity;
 		switch (gravity) {
 			case -1:
-				this.accX = -Entity.GRAVITY;
+				this.accX = this instanceof Bonus ? -Entity.GRAVITY/3 : -Entity.GRAVITY;
 				this.accY = 0;
 				break;
 			case 0:
 				this.accX = 0;
-				this.accY = Entity.GRAVITY;
+				this.accY = this instanceof Bonus ? Entity.GRAVITY/3 : Entity.GRAVITY;
 				break;
 			case 1:
-				this.accX = Entity.GRAVITY;
+				this.accX = this instanceof Bonus ? Entity.GRAVITY/3 : Entity.GRAVITY;
 				this.accY = 0;
 		}
 	}
@@ -135,7 +135,8 @@ public abstract class Entity {
 		return this.posY;
 	}
 	
-	public void setPosX(float f) {
-		this.posX=f;
+	public void teleport(float x, float y) {
+		this.posX = x;
+		this.posY = y;
 	}
 }

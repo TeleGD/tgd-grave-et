@@ -6,7 +6,6 @@ import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
@@ -18,8 +17,8 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import verticalPlateformer.pages.DeathPage;
 import verticalPlateformer.plateforme.Plateforme;
-import verticalPlateformer.plateforme.PlateformeClassique;
 import verticalPlateformer.plateforme.PlateformeGen;
+import verticalPlateformer.plateforme.Portalforme;
 
 public class World extends BasicGameState {
 
@@ -44,7 +43,6 @@ public class World extends BasicGameState {
 		try {
 			defouloir = new Music("musics/verticalPlateformer/Defouloir.ogg");
 			trash = new Sound("sound/verticalPlateformer/trash.ogg");
-			new Image("images/verticalPlateformer/rules.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -123,7 +121,7 @@ public class World extends BasicGameState {
 		for(Player player : players) {
 			player.update(container, game, delta);
 			for (Plateforme plat : plateformes) {
-				if(player.getShape().intersects(plat) && plat.getValue()==0) {
+				if(player.getShape().intersects(plat) && !(plat instanceof Portalforme)) {
 					if ((player.getGravity() == 0) == plat.getSens()) {
 						player.freeze();
 						player.setPlateforme(plat);
@@ -134,12 +132,9 @@ public class World extends BasicGameState {
 						game.enterState (7, new FadeOutTransition (), new FadeInTransition ());
 						// Le joueur meurt
 					}
-				} else if (plat.contains(player.getShape()) && plat.getValue()!=0) {
-					if (player.getPosX()<container.getWidth()/2) {
-						player.setPosX(player.getPosX()+container.getWidth()-110-player.getWidth()-100);
-					} else {
-						player.setPosX(player.getPosX()-container.getWidth()+110+player.getWidth()+100);
-					}
+				} else if (plat.contains(player.getShape()) && (plat instanceof Portalforme) && player.getPortalCooldown()<=0) {
+					player.teleport(((Portalforme) plat).getCouple().getX()+15, ((Portalforme) plat).getCouple().getY()+65);
+					player.setPortalCooldown(500);
 				}
 			}
 			for (Bonus bonus: this.bonuses) {
@@ -199,8 +194,6 @@ public class World extends BasicGameState {
 		plateformes=new ArrayList<Plateforme>();
 		this.bonuses = new ArrayList <Bonus> ();
 		decorations=new ArrayList<Decoration>();
-
-		addPlateforme(new PlateformeClassique(container.getWidth()/2-65, 90, 200, 30, true, players.get(0),0));
 
 		plateformeGen = new PlateformeGen(this,players.get(0));
 		this.bonusGen = new BonusGen (container, game);
