@@ -19,10 +19,13 @@ public abstract class Plateforme extends Rectangle {
 	private static Image plateformeV2;
 	private static Image piqueH;
 	private static Image piqueV;
+	private static Image portalO;
+	private static Image portalB;
 	private boolean sens; /* sens de la plateforme */
 	private boolean destroyed;
 	private Image image;
 	private Player p;
+	private int value;
 
 	static {
 		try {
@@ -32,39 +35,56 @@ public abstract class Plateforme extends Rectangle {
 			plateformeV2 = new Image("images/verticalPlateformer/plateformeV2.png");
 			piqueH = new Image("images/verticalPlateformer/spikesH.png");
 			piqueV = new Image("images/verticalPlateformer/spikesV.png");
+			portalO = new Image("images/verticalPlateformer/orangePortal.png");
+			portalB = new Image("images/verticalPlateformer/bluePortal.png");
 		} catch(SlickException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void render (GameContainer container, StateBasedGame game, Graphics g, float dy) {
+	public void render1(GameContainer container, StateBasedGame game, Graphics context, float dy) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		/* gravite = sens de la gravite */
 		if (sens) {
 			if (p.getGravity()==0) {
-				g.drawImage(image, x, container.getHeight() / 2 + y - dy);
+				context.drawImage(image, x, container.getHeight() / 2 + y - dy);
 			} else {
-				g.drawImage(piqueH, x, container.getHeight() / 2 + y - dy);
+				context.drawImage(piqueH, x, container.getHeight() / 2 + y - dy);
 			}
 		} else {
-			if (p.getGravity()==0) {
-				g.drawImage(piqueV, x, container.getHeight() / 2 + y - dy);
+			if (this.width==30) {
+				if (p.getGravity()==0) {
+					context.drawImage(piqueV, x, container.getHeight() / 2 + y - dy);
+				} else {
+					context.drawImage(image, x, container.getHeight() / 2 + y - dy);
+				}
 			} else {
-				g.drawImage(image, x, container.getHeight() / 2 + y - dy);
+				context.drawImage(image, x-20, container.getHeight() / 2 + y - dy);
 			}
 		}
-		//g.setColor(Color.red);
-		//g.draw(this);
 	}
-
-	public Plateforme(float posx,float posy,float longueur,float epaisseur,boolean sens, Player p) {
+	
+	public void render2(GameContainer container, StateBasedGame game, Graphics context, float dy) {
+		if (this.value==1) {
+			context.drawImage(image, x-20, container.getHeight() / 2 + y - dy, x+50, container.getHeight() / 2 + y - dy, 0, 0, image.getWidth()/2, image.getHeight());
+		} else if (this.value==2) {
+			context.drawImage(image, x+50, container.getHeight() / 2 + y - dy, x+120, container.getHeight() / 2 + y - dy, 0, 0, image.getWidth()/2, image.getHeight());
+		}
+	}
+	
+	public Plateforme(float posx,float posy,float longueur,float epaisseur,boolean sens, Player p, int v) {
 		super(posx, posy, sens ? longueur : epaisseur, sens ? epaisseur : longueur );
 		this.sens=sens;
 		this.p=p;
-		if (sens) {
-			image = new Random().nextBoolean() ? plateformeH1 : plateformeH2;
+		this.value=v;
+		if (value==0) {
+			if (sens) {
+				image = new Random().nextBoolean() ? plateformeH1 : plateformeH2;
+			} else {
+				image = new Random().nextBoolean() ? plateformeV1 : plateformeV2;
+			}
 		} else {
-			image = new Random().nextBoolean() ? plateformeV1 : plateformeV2;
+			image = value==1 ? portalO : portalB;
 		}
 	}
 
@@ -76,6 +96,10 @@ public abstract class Plateforme extends Rectangle {
 
 	public boolean getSens() {
 		return sens;
+	}
+	
+	public int getValue() {
+		return value;
 	}
 
 	public abstract float getSpeedX();

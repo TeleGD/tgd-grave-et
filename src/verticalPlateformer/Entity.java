@@ -134,5 +134,8 @@ public abstract class Entity {
 	public float getPosY () {
 		return this.posY;
 	}
-
+	
+	public void setPosX(float f) {
+		this.posX=f;
+	}
 }

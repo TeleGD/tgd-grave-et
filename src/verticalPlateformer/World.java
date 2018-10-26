@@ -123,18 +123,25 @@ public class World extends BasicGameState {
 		for(Player player : players) {
 			player.update(container, game, delta);
 			for (Plateforme plat : plateformes) {
-				if(player.getShape().intersects(plat)) {
+				if(player.getShape().intersects(plat) && plat.getValue()==0) {
 					if ((player.getGravity() == 0) == plat.getSens()) {
 						player.freeze();
 						player.setPlateforme(plat);
 						// Le joueur s'arrête
-					}
-					else {
+					} else {
 						this.setState (3);
 						((DeathPage) game.getState(7)).setScore(player.getScore());
 						game.enterState (7, new FadeOutTransition (), new FadeInTransition ());
 						// Le joueur meurt
 					}
+				} else if (plat.contains(player.getShape()) && plat.getValue()!=0) {
+					if (player.getPosX()<container.getWidth()/2) {
+						player.setPosX(player.getPosX()+container.getWidth()-110-player.getWidth()-100);
+					} else {
+						player.setPosX(player.getPosX()-container.getWidth()+110+player.getWidth()+100);
+					}
+					
+					// Le joueur s'arrête
 				}
 			}
 			for (Bonus bonus: this.bonuses) {
@@ -171,13 +178,17 @@ public class World extends BasicGameState {
 		}
 
 		for(Plateforme p:plateformes) {
-			p.render(container, game, context, players.get(0).getPosY ());
+			p.render1(container, game, context, players.get(0).getPosY ());
 		}
 
 		for(Player player : players) {
 			player.render(container, game, context);
 		}
 
+		for(Plateforme p:plateformes) {
+			p.render2(container, game, context, players.get(0).getPosY ());
+		}
+		
 		I.render(container,game,context);
 		line.render (container, game, context, players.get(0).getPosY ());
 	}
@@ -195,7 +206,7 @@ public class World extends BasicGameState {
 		this.bonuses = new ArrayList <Bonus> ();
 		decorations=new ArrayList<Decoration>();
 
-		addPlateforme(new PlateformeClassique(container.getWidth()/2-65, 90, 200, 30, true, players.get(0)));
+		addPlateforme(new PlateformeClassique(container.getWidth()/2-65, 90, 200, 30, true, players.get(0),0));
 
 		plateformeGen = new PlateformeGen(this,players.get(0));
 		this.bonusGen = new BonusGen (container, game);

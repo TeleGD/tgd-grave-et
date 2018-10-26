@@ -22,7 +22,7 @@ public class Weightlessness extends Bonus {
 
 	public Weightlessness (float posX, float posY, float radius) {
 		super (posX, posY, radius, Weightlessness.color);
-		super.freeze ();
+		//super.freeze ();
 		this.applied = false;
 		this.count = 2000;
 		this.player = null;

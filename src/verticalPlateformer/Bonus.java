@@ -22,8 +22,8 @@ public abstract class Bonus extends Entity {
 
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		super.update (container, game, delta);
-		//this.shape.setX (super.getPosX ());
-		//this.shape.setY (super.getPosY ());
+		this.shape.setX (super.getPosX ());
+		this.shape.setY (super.getPosY ());
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {

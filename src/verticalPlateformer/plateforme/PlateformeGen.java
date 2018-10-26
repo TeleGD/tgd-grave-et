@@ -27,16 +27,22 @@ public class PlateformeGen {
 	public void createPlateforme(GameContainer container, boolean classique, boolean horizontale) {
 		if (horizontale) {
 			if (classique) {
-				world.addPlateforme(new PlateformeClassique(r.nextInt(container.getWidth()-400)+100,container.getHeight()/2-500*totalCompt,200,30,horizontale,p));
+				world.addPlateforme(new PlateformeClassique(r.nextInt(container.getWidth()-400)+100,container.getHeight()/2-500*totalCompt,200,30,horizontale,p,0));
 			} else {
 				world.addPlateforme(new PlateformeMouvante(r.nextInt(container.getWidth()-800)+200,container.getHeight()/2-500*totalCompt,200,30,horizontale,p));
 			}
 		} else {
 			if (classique) {
-				world.addPlateforme(new PlateformeClassique(r.nextInt(2)*(container.getWidth()-100)+50,container.getHeight()/2-500*totalCompt,200,30,horizontale,p));
+				int i = r.nextInt(15);
+				if (i==1 | i==2) {
+					world.addPlateforme(new PlateformeClassique(50,container.getHeight()/2-500*totalCompt,200,100,horizontale,p,i));
+					world.addPlateforme(new PlateformeClassique(container.getWidth()-150,container.getHeight()/2-500*totalCompt,200,100,horizontale,p,(i%2)+1));
+				} else {
+					world.addPlateforme(new PlateformeClassique(r.nextInt(2)*(container.getWidth()-130)+50,container.getHeight()/2-500*totalCompt,200,30,horizontale,p,0));
+				}
 			} else {
 				totalCompt++;
-				world.addPlateforme(new PlateformeMouvante(r.nextInt(2)*(container.getWidth()-100)+50,container.getHeight()/2-500*totalCompt,200,30,horizontale,p));
+				world.addPlateforme(new PlateformeMouvante(r.nextInt(2)*(container.getWidth()-130)+50,container.getHeight()/2-500*totalCompt,200,30,horizontale,p));
 			}
 		}
 	}

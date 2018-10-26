@@ -16,16 +16,19 @@ public final class Main {
 			"Oui",
 			"Non"
 		};
-		int returnValue = JOptionPane.showOptionDialog (
-			null,
-			"Voulez-vous jouer en plein écran ?",
-			title,
-			JOptionPane.YES_NO_OPTION,
-			JOptionPane.QUESTION_MESSAGE,
-			null,
-			options,
-			options [0]
-		);
+		int returnValue;
+		if ((returnValue = JOptionPane.showOptionDialog (
+				null,
+				"Voulez-vous jouer en plein écran ?",
+				title,
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				options,
+				options [0]
+			))==-1) {
+			System.exit(0);
+		}
 		StateBasedGame game = new StateBasedGame (title) {
 
 			@Override
