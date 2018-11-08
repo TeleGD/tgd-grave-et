@@ -2,6 +2,8 @@ package haxBall.bonus;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.StateBasedGame;
 
 import haxBall.Ball;
@@ -10,6 +12,7 @@ import haxBall.Player;
 
 public class Deflate extends Bonus {
 	private Ball ball;
+	private Sound sound;
 	private int timer;
 	
 	public Deflate(int posX, int posY, Field field) {
@@ -17,6 +20,11 @@ public class Deflate extends Bonus {
 		
 		ball = null;
 		timer = 12*1000;
+		try {
+			this.sound = new Sound("res/sound/haxBall/deflate.ogg");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void update(GameContainer container, StateBasedGame game, int delta) {

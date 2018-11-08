@@ -19,7 +19,7 @@ public class Teleport extends Bonus {
 
 		this.ball = ball;
 		try {
-			this.sound = new Sound("res/sound/teleportation.ogg");
+			this.sound = new Sound("res/sound/haxBall/teleportation.ogg");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

@@ -20,7 +20,7 @@ public class Flash extends Bonus {
 		this.timer = 7*1000;
  
 		try {
-			this.sound = new Sound("res/sound/flash.ogg");
+			this.sound = new Sound("res/sound/haxBall/flash.ogg");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

@@ -21,7 +21,7 @@ public class Bip extends Bonus {
 		this.timer = 12*1000;
 		
 		try {
-			this.sound = new Sound("res/sound/bip.ogg");
+			this.sound = new Sound("res/sound/haxBall/bip.ogg");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

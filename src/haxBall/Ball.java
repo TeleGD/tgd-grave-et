@@ -40,7 +40,7 @@ public class Ball {
 	{
 		try
 		{
-			goalsound = new Sound("res/sound/Goal_Sound.ogg");
+			goalsound = new Sound("res/sound/haxBall/Goal_Sound.ogg");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

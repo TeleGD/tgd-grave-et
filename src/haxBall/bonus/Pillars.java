@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.StateBasedGame;
 
 import haxBall.Ball;
@@ -14,12 +16,18 @@ public class Pillars extends Bonus {
 
 	private int timer;
 	private List<Player> pillars;
+	private Sound sound;
 	
 	public Pillars(int posX, int posY, Field field) {
 		super(posX, posY, new Color(70,70,70), field);
 		
 		pillars = new ArrayList<Player>();
 		this.timer = 20*1000;
+		try {
+			this.sound = new Sound("res/sound/haxBall/pillar.ogg");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void update(GameContainer container, StateBasedGame game, int delta) {
@@ -39,6 +47,7 @@ public class Pillars extends Bonus {
 
 	public void activate(Player p, Ball b) {
 		activated = true;
+		sound.play(1, (float) 0.4);
 		
 		int w = field.getWidth();
 		int h = field.getHeight();

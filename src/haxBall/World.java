@@ -24,7 +24,7 @@ public class World extends BasicGameState {
 
 	{
 	try {
-		soundMusicBackground = new Music("res/sound/crowd.ogg");
+		soundMusicBackground = new Music("res/sound/haxBall/crowd.ogg");
 	} catch (SlickException e) {
 		e.printStackTrace();
 		}
