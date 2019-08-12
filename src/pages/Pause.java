@@ -13,10 +13,10 @@ import app.elements.MenuItem;
 import verticalPlateformer.pages.RulesPage;
 
 public class Pause extends AppMenu {
-	
+
 	private int worldID;
 	private List<MenuItem> menu;
-	
+
 	public Pause (int ID, int worldID) {
 		super (ID);
 		this.worldID = worldID;

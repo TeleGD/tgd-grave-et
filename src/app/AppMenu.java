@@ -1,7 +1,5 @@
 package app;
 
-import java.awt.FontFormatException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +7,7 @@ import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
 
 import app.elements.MenuItem;
 
@@ -22,15 +18,7 @@ public abstract class AppMenu extends AppPage {
 	static private int menuLineHeight;
 
 	static {
-		try {
-			AppMenu.menuFont = new TrueTypeFont (java.awt.Font.createFont (java.awt.Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("fonts/vt323.ttf")).deriveFont (java.awt.Font.BOLD, 24), true);
-		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		AppMenu.menuFont = AppLoader.loadFont ("/fonts/vt323.ttf", AppFont.BOLD, 24);
 
 		AppMenu.menuLineHeight = 30;
 	}

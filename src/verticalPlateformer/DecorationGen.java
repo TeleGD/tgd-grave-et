@@ -14,7 +14,7 @@ public class DecorationGen {
 	private static ArrayList<Image> decorations = new ArrayList<>();
 	private ArrayList<Player> players;
 	private int genCount;
-	
+
 	static {
 		try {
 			decorations.add(new Image("images/verticalPlateformer/Tree.png"));
@@ -27,13 +27,13 @@ public class DecorationGen {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public DecorationGen(World w, ArrayList<Player> players) {
 		world = w;
 		r = new Random();
 		genCount=-3*world.getHeight();
 		this.players=players;
-		
+
 		while (genCount < world.getHeight()) {
 			genCount+=r.nextInt(100);
 			world.addDecoration(new Decoration(r.nextInt(world.getWidth()-50),-genCount , decorations.get(r.nextInt(decorations.size()))));
@@ -48,7 +48,7 @@ public class DecorationGen {
 		if (genCount<maxHighScore+2000) {
 			genCount+=r.nextInt(100);
 			world.addDecoration(new Decoration(r.nextInt(container.getWidth()-50),-genCount , decorations.get(r.nextInt(decorations.size()))));
-		}		
+		}
 	}
-	
+
 }

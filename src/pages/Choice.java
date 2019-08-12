@@ -12,9 +12,9 @@ import app.elements.MenuItem;
 import verticalPlateformer.pages.RulesPage;
 
 public class Choice extends AppMenu {
-	
+
 	private boolean firstStart;
-	
+
 	public Choice (int ID) {
 		super (ID);
 	}
@@ -23,6 +23,7 @@ public class Choice extends AppMenu {
 	public void init (GameContainer container, StateBasedGame game) {
 		super.initSize (container, game, 600, 400);
 		super.init (container, game);
+		this.setTitle ("Choix");
 		this.setSubtitle ("CN du 20 octobre 2018");
 		this.firstStart=true;
 		this.setMenu (Arrays.asList (new MenuItem [] {
@@ -43,7 +44,7 @@ public class Choice extends AppMenu {
 					} else {
 						game.enterState (5, new FadeOutTransition (), new FadeInTransition ());
 					}
-					
+
 				}
 			},
 			new MenuItem ("Retour") {
@@ -52,10 +53,9 @@ public class Choice extends AppMenu {
 				}
 			}
 		}));
-		this.setTitle ("Choix");
 		this.setHint ("SELECT A GAME");
 	}
-	
+
 	@Override
 	public void enter (GameContainer container, StateBasedGame game) {
 		super.enter(container, game);

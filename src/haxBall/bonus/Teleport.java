@@ -19,33 +19,33 @@ public class Teleport extends Bonus {
 
 		this.ball = ball;
 		try {
-			this.sound = new Sound("res/sound/haxBall/teleportation.ogg");
+			this.sound = new Sound("res/sounds/haxBall/teleportation.ogg");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		super.update(container, game, delta);
 	}
 
 	public void activate(Player p, Ball b) {
 		activated = true;
-		
+
 		int posX = (int)(Math.random()*field.getWidth()/6);
 		int posY = (int)(Math.random()*field.getHeight()/2) + field.getPosY() + field.getHeight()/4;
 		if(p.getID() == 1) {
 			posX += field.getPosX() + field.getWidth()/6;
-			
+
 		} else {
-			posX += field.getPosX() + field.getWidth()/6 + field.getWidth()/2; 
+			posX += field.getPosX() + field.getWidth()/6 + field.getWidth()/2;
 		}
-		
+
 		ball.setPosX(posX);
 		ball.setPosY(posY);
-		
+
 		deleted = true;
 		sound.play(1, (float) 0.4);
 	}
-	
+
 }

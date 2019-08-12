@@ -1,4 +1,4 @@
-import java.awt.GraphicsDevice;
+import java.awt.DisplayMode;
 import java.awt.GraphicsEnvironment;
 
 import javax.swing.JOptionPane;
@@ -12,22 +12,32 @@ public final class Main {
 
 	public static final void main (String [] arguments) throws SlickException {
 		String title = "CN-20-10";
-		Object [] options = {
+		int width = 1280;
+		int height = 720;
+		boolean fullscreen = false;
+		String request = "Voulez-vous jouer en plein écran ?";
+		String [] options = {
 			"Oui",
 			"Non"
 		};
-		int returnValue;
-		if ((returnValue = JOptionPane.showOptionDialog (
-				null,
-				"Voulez-vous jouer en plein écran ?",
-				title,
-				JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE,
-				null,
-				options,
-				options [0]
-			))==-1) {
-			System.exit(0);
+		int returnValue = JOptionPane.showOptionDialog (
+			null,
+			request,
+			title,
+			JOptionPane.YES_NO_OPTION,
+			JOptionPane.QUESTION_MESSAGE,
+			null,
+			options,
+			options [0]
+		);
+		if (returnValue == -1) {
+			return;
+		}
+		if (returnValue == 0) {
+			DisplayMode display = GraphicsEnvironment.getLocalGraphicsEnvironment ().getDefaultScreenDevice ().getDisplayMode ();
+			width = display.getWidth ();
+			height = display.getHeight ();
+			fullscreen = true;
 		}
 		StateBasedGame game = new StateBasedGame (title) {
 
@@ -45,10 +55,7 @@ public final class Main {
 			}
 
 		};
-		
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		
-		AppGameContainer container = returnValue == 0 ? new AppGameContainer (game,  gd.getDisplayMode().getWidth(), gd.getDisplayMode().getHeight(), true) : new AppGameContainer (game, 1280, 720, false);
+		AppGameContainer container = new AppGameContainer (game, width, height, fullscreen);
 		container.setTargetFrameRate (60);
 		container.setVSync (true);
 		container.setShowFPS (false);

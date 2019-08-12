@@ -1,16 +1,14 @@
 package app.ui;
 
-import java.awt.FontFormatException;
-import java.io.IOException;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
+
+import app.AppFont;
+import app.AppLoader;
 
 @SuppressWarnings("serial")
 public class Button extends TGDComponent{
@@ -44,15 +42,7 @@ public class Button extends TGDComponent{
 		setTextColor(new Color(255,255,255));
 		setTextColorPressed(new Color(255,255,255));
 		setTextColorEntered(new Color(0,0,0));
-		try {
-			setTextFont(new TrueTypeFont (java.awt.Font.createFont (java.awt.Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("fonts/vt323.ttf")).deriveFont (java.awt.Font.BOLD, textSize), true));
-		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		setTextFont(AppLoader.loadFont("/fonts/vt323.ttf",AppFont.BOLD,textSize));
 
 		setPaddingTop(5);
 		setPaddingBottom(5);

@@ -14,24 +14,24 @@ public class Deflate extends Bonus {
 	private Ball ball;
 	private Sound sound;
 	private int timer;
-	
+
 	public Deflate(int posX, int posY, Field field) {
 		super(posX, posY, new Color(255,128,0), field);
-		
+
 		ball = null;
 		timer = 12*1000;
 		try {
-			this.sound = new Sound("res/sound/haxBall/deflate.ogg");
+			this.sound = new Sound("res/sounds/haxBall/deflate.ogg");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		if(!deleted && activated) {
 			timer -= delta;
 		}
-		
+
 		if (timer <= 0) {
 			ball.setRad(ball.getRad()*2);
 			deleted = true;
@@ -41,9 +41,9 @@ public class Deflate extends Bonus {
 
 	public void activate(Player p, Ball b) {
 		activated = true;
-		
+
 		ball = b;
 		ball.setRad(ball.getRad()/2);
-	}	
+	}
 
 }

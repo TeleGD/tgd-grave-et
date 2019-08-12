@@ -134,7 +134,7 @@ public abstract class Entity {
 	public float getPosY () {
 		return this.posY;
 	}
-	
+
 	public void teleport(float x, float y) {
 		this.posX = x;
 		this.posY = y;

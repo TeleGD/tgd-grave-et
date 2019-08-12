@@ -14,15 +14,15 @@ import org.newdawn.slick.state.transition.Transition;
 /**
  * Vertical split transitions that causes the previous state to split vertically
  * revealing the new state underneath.
- * 
+ *
  * This state is an enter transitions.
- * 
+ *
  * @author amos
  */
 public class VerticalTransition implements Transition {
 	/** The renderer to use for all GL operations */
 	protected static SGL GL = Renderer.get();
-	
+
 	/** The previous game state */
 	private GameState prev;
 	/** The current offset */
@@ -33,10 +33,10 @@ public class VerticalTransition implements Transition {
 	private Color background;
 	/** The image draw on top of the new screen during the transitions */
 	private Image image;
-	
+
 	/**
 	 * Create a new transitions
-	 * 
+	 *
 	 * @param image The image to draw on top of the previous state
 	 */
 	public VerticalTransition(Image image) {
@@ -45,7 +45,7 @@ public class VerticalTransition implements Transition {
 
 	/**
 	 * Create a new transitions
-	 * 
+	 *
 	 * @param background The background colour to draw under the previous state
 	 * @param image The image to draw on top of the previous state
 	 */
@@ -53,7 +53,7 @@ public class VerticalTransition implements Transition {
 		this.background = background;
 		this.image = image;
 	}
-	
+
 	/**
 	 * @see org.newdawn.slick.state.transition.Transition#init(org.newdawn.slick.state.GameState, org.newdawn.slick.state.GameState)
 	 */
@@ -85,7 +85,7 @@ public class VerticalTransition implements Transition {
 		GL.glPopMatrix();
 		g.clearClip();
 		g.resetTransform();
-		
+
 		g.translate(0,(int) (container.getHeight()-offset));
 		g.setClip(0,(int) (container.getHeight()-offset),container.getWidth(),image.getHeight());
 		GL.glPushMatrix();

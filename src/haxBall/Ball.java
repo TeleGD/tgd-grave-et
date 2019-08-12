@@ -13,9 +13,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import com.sun.javafx.geom.Ellipse2D;
-import org.newdawn.slick.Input;
-
 public class Ball {
 	private int posx;
 	private int posy;
@@ -35,19 +32,19 @@ public class Ball {
 	private Player player;
 	private float  speed;
 	private Sound goalsound;
-	
-	
+
+
 	{
 		try
 		{
-			goalsound = new Sound("res/sound/haxBall/Goal_Sound.ogg");
+			goalsound = new Sound("res/sounds/haxBall/Goal_Sound.ogg");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public Ball(int haut,int larg,int origx,int origy, Field field){ 
+
+	public Ball(int haut,int larg,int origx,int origy, Field field){
 
 		r_origx=origx;
 		r_origy=origy;
@@ -65,16 +62,16 @@ public class Ball {
 		this.player = null;
 		this.colliding = false;
 		this.speed = 1.0f;
-		
-		hitbox=new Circle(posx+rad/2, posy+rad/2, rad/2);	
+
+		hitbox=new Circle(posx+rad/2, posy+rad/2, rad/2);
 	}
-		
-	
+
+
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		//on update la position
 		int oldPosX = posx;
 		int oldPosY = posy;
-		
+
 		if(!colliding) {
 			//c'est pas beau mais si on fait pas ça les arrondis sont diff en négatif et en positif du coup si la balle a une vitesse negative elle met plus longtemps à s'arrêter sur cette composante...
 			int newVitX = (int)(vitx*delta);
@@ -85,34 +82,34 @@ public class Ball {
 			if(vity<0) {
 				newVitY = -(int)(-vity*delta);
 			}
-			
+
 			posx+=newVitX;
 			posy+=newVitY;
-			
+
 			vitx=vitx*0.97f;
 			vity=vity*0.97f;
 			//on regarde si la balle sort du terrain
 			bordersCollision(oldPosX, oldPosY);
-			
+
 		}
-		
+
 		//si elle est en collision avec un joueur elle le suit
 		if(colliding) {
 			player.setSpeed((float) 0.3);
 			vitx = player.getSpeedX()*0.97f;
 			vity = player.getSpeedY()*0.97f;
-			
+
 			posx+=(int)(vitx*delta);
 			posy+=(int)(vity*delta);
-			
+
 			bordersCollision(oldPosX, oldPosY);
-			
+
 			//on regarde si on est toujours en collision avec le joueur
 			updateShape();
 			colliding = !(Math.sqrt(Math.pow(hitbox.getCenterX() - player.getShape().getCenterX(),2) + Math.pow(hitbox.getCenterY() - player.getShape().getCenterY(),2) ) > (hitbox.getRadius() + player.getShape().getRadius()+1) );
-			
+
 		}
-		
+
 		for (Player p : field.getPlayers()) {
 			updateShape();
 			if(hitbox.intersects(p.getShape())) { //si on a une collision avec un nouveau joueur
@@ -120,7 +117,7 @@ public class Ball {
 					collideWithPlayer(p);
 					shoot(p);
 					bordersCollision(oldPosX, oldPosY);
-					
+
 				} else {
 					if(!(colliding && p.equals(player))) {
 						colliding = true;
@@ -128,30 +125,30 @@ public class Ball {
 						player.setSpeed((float) 0.3);
 						vitx = player.getSpeedX();
 						vity = player.getSpeedY();
-						
+
 						posx+=vitx*delta;
 						posy+=vity*delta;
 					}
-					
+
 					collideWithPlayer(player);
 					bordersCollision(oldPosX, oldPosY);
 				}
 			}
-			
+
 			if(p.isShooting() && colliding && player.equals(p)) {
 				updateShape();
 				shoot(player);
 			}
 		}
-		
+
 		updateShape();
 	}
-	
+
 	private void updateShape() {
 		hitbox.setLocation(posx,posy);
 		hitbox.setRadius(rad/2);
 	}
-	
+
 	private void collideWithPlayer(Player p) {
 		//on replace la balle au bord du joueur
 		//si on est en +-pi/2
@@ -159,47 +156,47 @@ public class Ball {
 			int signe = 1;
 			if(hitbox.getCenterY()-p.getShape().getCenterY()<0) signe = -1;
 			posy = (int)(p.getShape().getCenterY() + (hitbox.getRadius() + p.getShape().getRadius())*signe - hitbox.getRadius());
-		
+
 		} else {
 			//signe pour les x
 			int signe = 1;
 			if(hitbox.getCenterX()-p.getShape().getCenterX()<0) signe = -1;
-			
+
 			double angle = (-signe)*Math.atan((hitbox.getCenterY() - p.getShape().getCenterY())/(hitbox.getCenterX() - p.getShape().getCenterX())); //angle en radians
 			double hyp = hitbox.getRadius() + p.getShape().getRadius();
-			
+
 			posx = (int)(p.getShape().getCenterX() + Math.rint(Math.cos(angle)*hyp*signe - hitbox.getRadius()));
 			posy = (int)(p.getShape().getCenterY() - hyp*Math.sin(angle) - hitbox.getRadius());
 		}
 	}
-	
+
 	private void shoot(Player p) {
 		double tmpSpeed = speed;
 		if(p.getID()>1) tmpSpeed = Math.sqrt(Math.pow(vitx, 2)+Math.pow(vity, 2));
-		
+
 		double angle = 0;
 		double hyp = Math.sqrt(2)*tmpSpeed;
-		
+
 		int signeX = 1;
 		if(hitbox.getCenterX()-p.getShape().getCenterX()<0) signeX = -1;
-		
+
 		//si on est en +-pi/2
 		if(hitbox.getCenterX() - p.getShape().getCenterX() == 0) {
 			int signe = 1;
 			if(hitbox.getCenterY()-p.getShape().getCenterY()>0) signe = -1;
 			angle = signe*Math.PI/2;
-				
+
 		} else {
-			
+
 			angle = (-signeX)*Math.atan((hitbox.getCenterY() - p.getShape().getCenterY())/(hitbox.getCenterX() - p.getShape().getCenterX())); //angle en radians
 		}
-		
+
 		vitx = (float)(Math.cos(angle)*hyp*signeX);
 		vity = (float)(-hyp*Math.sin(angle));
-		
+
 		if(p.getID()<=1) colliding = false;
 	}
-	
+
 	private void bordersCollision(int oldX, int oldY) {
 		//s'il y a collision sur le bord de droite
 		if (posx+rad> r_origx+r_larg){
@@ -214,18 +211,18 @@ public class Ball {
 				vity=0;
 //				System.out.println(pointsJ1);
 //				System.out.println(pointsJ2);
-				
+
 				for(Player p : field.getPlayers()) {
 					p.resetPos();
 				}
-				
+
 			} else {
 				if(!colliding) vitx=-vitx;
 				else vitx=0;
-				
+
 				posx = oldX;
 			}
-			
+
 		} else if (posx<r_origx) { //s'il y a collision sur le bord de gauche
 			//s'il y a un but
 			if ((posy>r_origy+r_haut*1/3)&&(posy<r_origy+2*r_haut/3)) {
@@ -238,57 +235,57 @@ public class Ball {
 				vity=0;
 //				System.out.println(pointsJ1);
 //				System.out.println(pointsJ2);
-				
+
 				for(Player p : field.getPlayers()) {
 					p.resetPos();
 				}
-				
+
 			} else {
 				if(!colliding) vitx=-vitx;
 				else vitx=0;
-				
+
 				posx=oldX;
 			}
 		}
-		
+
 		//s'il y a collision avec le bord du bas ou celui du haut
 		if (posy+rad>r_origy+r_haut || posy<r_origy){
 			if(!colliding) vity=-vity;
 			else vity=0;
-			
-			posy=oldY;	
+
+			posy=oldY;
 		}
 	}
-	
+
 	public void render(GameContainer container, StateBasedGame game, Graphics context){
 		context.setColor(color);
 //		if(colliding) context.setColor(new Color(255,0,0));
 		context.fillOval(posx,posy,rad,rad);
-		
+
 //		context.setColor(new Color(0,0,255));
 //		context.draw(hitbox);
-		
+
 	}
 
 	public void setPosX(int posx) {
 		this.posx = posx;
 	}
-	
+
 	public void setPosY(int posy) {
 		this.posy = posy;
 	}
-	
+
 	public void setRad(int r) {
 		rad = r;
 		posx = (int)hitbox.getCenterX() - rad/2;
 		posy = (int)hitbox.getCenterY() - rad/2;
 		updateShape();
 	}
-	
+
 	public int getRad() {
 		return rad;
 	}
-	
+
 	public int getPointsJ1() {
 		return pointsJ1;
 	}
@@ -298,4 +295,3 @@ public class Ball {
 		return pointsJ2;
 	}
 }
-

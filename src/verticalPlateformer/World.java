@@ -42,12 +42,12 @@ public class World extends BasicGameState {
 	static {
 		try {
 			defouloir = new Music("musics/verticalPlateformer/Defouloir.ogg");
-			trash = new Sound("sound/verticalPlateformer/trash.ogg");
+			trash = new Sound("sounds/verticalPlateformer/trash.ogg");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public World (int ID) {
 		this.ID = ID;
 		this.state = -1;
@@ -157,7 +157,7 @@ public class World extends BasicGameState {
 	@Override
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
-		
+
 		context.setColor(color);
 		context.fillRect(0, 0, container.getWidth(), container.getHeight());
 		context.setColor(Color.white);
@@ -177,7 +177,7 @@ public class World extends BasicGameState {
 		for(Player player : players) {
 			player.render(container, game, context);
 		}
-		
+
 		I.render(container,game,context);
 		line.render (container, game, context, players.get(0).getPosY ());
 	}

@@ -8,21 +8,21 @@ import verticalPlateformer.Player;
 
 @SuppressWarnings("serial")
 public class Portalforme extends Plateforme {
-	
+
 	private Portalforme couple;
-	
+
 	public Portalforme(float posx,float posy, Player p, Image image) {
 		super(posx,posy,200,140,false,p,image);
 		this.setCouple(this);
 	}
-	
+
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 	}
-	
+
 	public float getSpeedX() {
 		return 0;
 	}
-	
+
 	public float getSpeedY() {
 		return 0;
 	}

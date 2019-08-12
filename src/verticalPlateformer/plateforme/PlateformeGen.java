@@ -23,7 +23,7 @@ public class PlateformeGen {
 	private int compt;
 	private int totalCompt;
 	private Player p;
-	
+
 	static {
 		try {
 			plateformeH1 = new Image("images/verticalPlateformer/plateformeH1.png");
@@ -36,7 +36,7 @@ public class PlateformeGen {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public PlateformeGen(World w, Player p) {
 		world = w;
 		r = new Random();
@@ -45,7 +45,7 @@ public class PlateformeGen {
 		this.p=p;
 		w.addPlateforme(new PlateformeClassique(w.getWidth()/2-65, 90, 200, 30, true, p, plateformeH1));
 	}
-	
+
 	public void createPlateforme(GameContainer container, boolean classique, boolean horizontale) {
 		if (horizontale) {
 			Image image = r.nextBoolean() ? plateformeH1 : plateformeH2 ;
@@ -61,7 +61,7 @@ public class PlateformeGen {
 				if (i==1 | i==2) {
 					Image image1 = (i==1)?portalB:portalO;
 					Image image2 = (i==2)?portalB:portalO;
-					
+
 					Portalforme p1 = new Portalforme(50,container.getHeight()/2-500*totalCompt-(r.nextInt(container.getHeight()/2)-container.getHeight()/4),p,image1);
 					Portalforme p2 = new Portalforme(container.getWidth()-190,container.getHeight()/2-500*totalCompt-(r.nextInt(container.getHeight()/2)-container.getHeight()/4),p,image2);
 					p1.setCouple(p2);
@@ -82,7 +82,7 @@ public class PlateformeGen {
 		if (500*totalCompt<p.getScore()+1200) {
 			totalCompt+=1;
 			if (compt==0) {
-				createPlateforme(container, r.nextInt(4)>0, true);	
+				createPlateforme(container, r.nextInt(4)>0, true);
 				compt = r.nextInt(6);
 			} else {
 				createPlateforme(container, r.nextInt(4)>0, false);
@@ -90,5 +90,5 @@ public class PlateformeGen {
 			}
 		}
 	}
-	
+
 }

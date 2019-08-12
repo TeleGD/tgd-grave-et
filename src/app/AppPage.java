@@ -1,16 +1,11 @@
 package app;
 
-import java.awt.FontFormatException;
-import java.io.IOException;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
 
 public abstract class AppPage extends BasicGameState {
 
@@ -32,18 +27,10 @@ public abstract class AppPage extends BasicGameState {
 		AppPage.foregroundColor = Color.white;
 		AppPage.backgroundColor = Color.black;
 		AppPage.highlightColor = Color.red;
-		
-		try {
-			AppPage.titleFont = new TrueTypeFont (java.awt.Font.createFont (java.awt.Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("fonts/press-start-2p.ttf")).deriveFont (java.awt.Font.BOLD, 40), true);
-			AppPage.subtitleFont = new TrueTypeFont (java.awt.Font.createFont (java.awt.Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("fonts/vt323.ttf")).deriveFont (java.awt.Font.BOLD, 24), true);
-			AppPage.hintFont = new TrueTypeFont (java.awt.Font.createFont (java.awt.Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("fonts/press-start-2p.ttf")).deriveFont (java.awt.Font.PLAIN, 20), true);
-		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		AppPage.titleFont = AppLoader.loadFont ("/fonts/press-start-2p.ttf", AppFont.BOLD, 40);
+		AppPage.subtitleFont = AppLoader.loadFont ("/fonts/vt323.ttf", AppFont.BOLD, 24);
+		AppPage.hintFont = AppLoader.loadFont ("/fonts/press-start-2p.ttf", AppFont.PLAIN, 20);
 
 		AppPage.titleLineHeight = 50;
 		AppPage.subtitleLineHeight = 30;

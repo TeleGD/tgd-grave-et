@@ -48,7 +48,7 @@ public abstract class Plateforme extends Rectangle {
 			}
 		}
 	}
-	
+
 	public Plateforme(float posx,float posy,float longueur,float epaisseur,boolean sens, Player p, Image image) {
 		super(posx, posy, sens ? longueur : epaisseur, sens ? epaisseur : longueur );
 		this.sens=sens;

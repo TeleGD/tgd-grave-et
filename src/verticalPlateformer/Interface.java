@@ -9,11 +9,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Interface {
 	private ArrayList<Player> players;
-	
+
 	public Interface(ArrayList<Player> p) {
 		this.players = p;
 	}
-	
+
 	public void render(GameContainer container, StateBasedGame game, Graphics g) {
 		// Affichage du score
 		g.setColor(Color.white);

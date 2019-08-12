@@ -20,12 +20,12 @@ public class ScoreInterface {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ScoreInterface(Ball b) {
 		this.ball = b;
 		this.win = false;
 	}
-	
+
 		public void render(GameContainer container, StateBasedGame game, Graphics context){
 			switch(ball.getPointsJ1()) {
 				case 1:

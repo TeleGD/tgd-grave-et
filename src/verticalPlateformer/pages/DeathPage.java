@@ -12,11 +12,11 @@ import app.elements.MenuItem;
 import verticalPlateformer.World;
 
 public class DeathPage extends AppMenu {
-	
+
 	public DeathPage(int ID) {
 		super(ID);
 	}
-	
+
 	public void init (GameContainer container, StateBasedGame game) {
 		super.initSize (container, game, 600, 400);
 		super.init (container, game);
@@ -36,7 +36,7 @@ public class DeathPage extends AppMenu {
 			}
 		}));
 	}
-	
+
 	public void setScore(int score) {
 		this.setSubtitle ("Seulement "+score+" points...");
 	}

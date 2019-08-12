@@ -11,11 +11,11 @@ import app.AppMenu;
 import app.elements.MenuItem;
 
 public class WinPage extends AppMenu{
-	
+
 	public WinPage(int ID) {
 		super(ID);
 	}
-	
+
 	public void init (GameContainer container, StateBasedGame game) {
 		super.initSize (container, game, 600, 400);
 		super.init (container, game);
@@ -35,4 +35,3 @@ public class WinPage extends AppMenu{
 	}*/
 
 }
-

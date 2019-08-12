@@ -11,7 +11,7 @@ public class DeathLine {
 	private float posY;
 	private float speed;
 	private static Image souls;
-	
+
 	static {
 		try {
 			souls = new Image("images/verticalPlateformer/souls.png");

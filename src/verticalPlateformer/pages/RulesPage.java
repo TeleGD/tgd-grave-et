@@ -12,11 +12,11 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import app.AppPage;
 
 public class RulesPage extends AppPage {
-	
+
 	private int nextPageID;
 	private int prevPageID;
 	private static Image image;
-	
+
 	static {
 		try {
 			image = new Image("images/verticalPlateformer/rules.png");
@@ -28,7 +28,7 @@ public class RulesPage extends AppPage {
 	public RulesPage(int ID) {
 		super(ID);
 	}
-	
+
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		Input input = container.getInput ();
@@ -39,7 +39,7 @@ public class RulesPage extends AppPage {
 			game.enterState (nextPageID, new FadeOutTransition (), new FadeInTransition ());
 		}
 	}
-	
+
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) {
 		g.drawImage(image, 0, 0, container.getWidth(), container.getHeight(), 0, 0, image.getWidth(), image.getHeight());

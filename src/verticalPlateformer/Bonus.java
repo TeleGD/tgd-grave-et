@@ -44,7 +44,7 @@ public abstract class Bonus extends Entity {
 		} else if (super.getPosX()<-2*radius) {
 			this.teleport(container.getWidth(), super.getPosY());
 		}
-		
+
 		this.shape.setX (super.getPosX ());
 		this.shape.setY (super.getPosY ());
 		if (player.getGravity()!=-gravity) {
