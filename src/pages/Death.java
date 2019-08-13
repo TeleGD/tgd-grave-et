@@ -10,42 +10,35 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import app.AppMenu;
 import app.elements.MenuItem;
 import graveEt.World;
-import pages.Rules;
 
-public class Pause extends AppMenu {
+public class Death extends AppMenu {
 
-	public Pause (int ID) {
-		super (ID);
+	public Death(int ID) {
+		super(ID);
 	}
 
-	@Override
 	public void init (GameContainer container, StateBasedGame game) {
 		super.initSize (container, game, 600, 400);
 		super.init (container, game);
-		this.setTitle ("Pause");
-		this.setSubtitle ("Le temps de prendre un goûter");
+		this.setTitle ("C'est tres la mort");
 		this.setMenu (Arrays.asList (new MenuItem [] {
-			new MenuItem("Retour") {
+			new MenuItem ("Rejouer") {
 				public void itemSelected () {
-					((World) game.getState (3)).setState (2);
+					((World) game.getState (3)).setState (0);
 					game.enterState (3, new FadeOutTransition (), new FadeInTransition ());
 				}
 			},
-			new MenuItem ("Règles") {
-				public void itemSelected () {
-					((Rules) game.getState(5)).setNextPageID(Pause.this.getID());
-					((Rules) game.getState(5)).setPrevPageID(Pause.this.getID());
-					game.enterState (5, new FadeOutTransition (), new FadeInTransition ());
-				}
-			},
-			new MenuItem ("Abandon") {
+			new MenuItem ("Quitter") {
 				public void itemSelected () {
 					((World) game.getState (3)).setState (0);
 					game.enterState (1, new FadeOutTransition (), new FadeInTransition ());
 				}
 			}
 		}));
-		this.setHint ("HAVE A SNACK");
+	}
+
+	public void setScore(int score) {
+		this.setSubtitle ("Seulement "+score+" points...");
 	}
 
 }

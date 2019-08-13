@@ -9,7 +9,8 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import app.AppMenu;
 import app.elements.MenuItem;
-import verticalPlateformer.pages.RulesPage;
+import graveEt.World;
+import pages.Rules;
 
 public class Choice extends AppMenu {
 
@@ -27,24 +28,17 @@ public class Choice extends AppMenu {
 		this.setSubtitle ("CN du 20 octobre 2018");
 		this.firstStart=true;
 		this.setMenu (Arrays.asList (new MenuItem [] {
-			new MenuItem ("HaxBall") {
-				public void itemSelected () {
-					((haxBall.World) game.getState (4)).setState (0);
-					game.enterState (4, new FadeOutTransition (), new FadeInTransition ());
-				}
-			},
 			new MenuItem ("Grave-ET") {
 				public void itemSelected () {
-					((verticalPlateformer.World) game.getState (5)).setState (0);
+					((World) game.getState (3)).setState (0);
 					if (firstStart) {
 						firstStart=false;
-						((RulesPage) game.getState(8)).setNextPageID(((verticalPlateformer.World) game.getState (5)).getID());
-						((RulesPage) game.getState(8)).setPrevPageID(Choice.this.getID());
-						game.enterState (8, new FadeOutTransition (), new FadeInTransition ());
-					} else {
+						((Rules) game.getState(5)).setNextPageID(((World) game.getState (3)).getID());
+						((Rules) game.getState(5)).setPrevPageID(Choice.this.getID());
 						game.enterState (5, new FadeOutTransition (), new FadeInTransition ());
+					} else {
+						game.enterState (3, new FadeOutTransition (), new FadeInTransition ());
 					}
-
 				}
 			},
 			new MenuItem ("Retour") {
@@ -60,7 +54,7 @@ public class Choice extends AppMenu {
 	public void enter (GameContainer container, StateBasedGame game) {
 		super.enter(container, game);
 		if (!Welcome.music.playing()) {
-			Welcome.music.loop(1, (float) 0.4);
+			Welcome.music.loop(1, .4f);
 		}
 	}
 

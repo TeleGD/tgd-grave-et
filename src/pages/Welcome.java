@@ -86,7 +86,7 @@ public class Welcome extends AppPage {
 	@Override
 	public void enter (GameContainer container, StateBasedGame game) {
 		if (!music.playing()) {
-			music.loop(1, (float) 0.4);
+			music.loop(1, .4f);
 		}
 	}
 
