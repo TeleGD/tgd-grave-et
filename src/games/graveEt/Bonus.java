@@ -1,4 +1,4 @@
-package graveEt;
+package games.graveEt;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

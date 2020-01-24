@@ -1,4 +1,4 @@
-package graveEt;
+package games.graveEt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,17 +7,18 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.Music;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
+import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import graveEt.plateforme.Plateforme;
-import graveEt.plateforme.PlateformeGen;
-import graveEt.plateforme.Portalforme;
+import app.AppLoader;
+
+import games.graveEt.plateforme.Plateforme;
+import games.graveEt.plateforme.PlateformeGen;
+import games.graveEt.plateforme.Portalforme;
+
 import pages.Death;
 
 public class World extends BasicGameState {
@@ -31,26 +32,19 @@ public class World extends BasicGameState {
 	private BonusGen bonusGen;
 	private ArrayList<Decoration> decorations;
 	private DecorationGen decorationGen;
-	private Color color = new Color(0x001e3514);
+	private Color color;
 	private int height;
 	private int width;
 	private int ID;
 	private int state;
 
-	private static Sound trash;
-	private static Music defouloir;
-	static {
-		try {
-			defouloir = new Music("musics/Defouloir.ogg");
-			trash = new Sound("sounds/trash.ogg");
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-	}
+	private Audio trash;
+	private Audio defouloir;
+	private float defouloirPos;
 
 	public World (int ID) {
 		this.ID = ID;
-		this.state = -1;
+		this.state = 0;
 	}
 
 	@Override
@@ -60,38 +54,43 @@ public class World extends BasicGameState {
 
 	@Override
 	public void init (GameContainer container, StateBasedGame game) {
-		height = container.getHeight ();
+		/* Méthode exécutée une unique fois au chargement du programme */
+		color = new Color(0x001e3514);
+		height = container.getHeight();
 		width = container.getWidth();
+		trash = AppLoader.loadAudio("/sounds/graveEt/trash.ogg");
+		defouloir = AppLoader.loadAudio("/musics/graveEt/Defouloir.ogg");
+		defouloirPos = 0f;
 	}
 
 	@Override
-	public void enter (GameContainer container, StateBasedGame game) {
+	public void enter(GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée à l'apparition de la page */
 		if (this.state == 0) {
-			this.play (container, game);
+			this.play(container, game);
 		} else if (this.state == 2) {
-			this.resume (container, game);
+			this.resume(container, game);
 		}
 	}
 
 	@Override
-	public void leave (GameContainer container, StateBasedGame game) {
+	public void leave(GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée à la disparition de la page */
 		if (this.state == 1) {
-			this.pause (container, game);
+			this.pause(container, game);
 		} else if (this.state == 3) {
-			this.stop (container, game);
+			this.stop(container, game);
+			this.state = 0; // TODO: remove
 		}
 	}
 
 	@Override
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
-		Input input = container.getInput ();
-		if (input.isKeyDown (Input.KEY_ESCAPE)) {
-			this.setState (1);
-			game.enterState (2, new FadeOutTransition (), new FadeInTransition ());
-			return;
+		Input input = container.getInput();
+		if (input.isKeyDown(Input.KEY_ESCAPE)) {
+			this.setState(1);
+			game.enterState(2, new FadeOutTransition(), new FadeInTransition());
 		}
 
 		line.update(container, game, delta);
@@ -104,14 +103,14 @@ public class World extends BasicGameState {
 		for(int i=plateformes.size()-1;i>=0;i--) {
 			if(plateformes.get(i).getPosY()>=this.line.getPosY() || plateformes.get(i).isDestroyed()) {
 				plateformes.remove(i);
-				trash.play(1, .4f);
+				trash.playAsSoundEffect(1, .4f, false);
 			}
 		}
 		for (int i = this.bonuses.size () - 1; i >= 0; i--) {
 			Bonus bonus = bonuses.get (i);
 			if (bonus.isApplied () || bonus.getPosY () >= this.line.getPosY ()) {
 				this.bonuses.remove (i);
-				trash.play (1, .4f);
+				trash.playAsSoundEffect(1, .4f, false);
 			}
 		}
 
@@ -129,7 +128,7 @@ public class World extends BasicGameState {
 						// Le joueur s'arrête
 					} else {
 						this.setState (3);
-						((Death) game.getState(4)).setScore(player.getScore());
+						((Death) game.getState(4)).setSubtitle("Seulement " + player.getScore() + " points...");
 						game.enterState (4, new FadeOutTransition (), new FadeInTransition ());
 						// Le joueur meurt
 					}
@@ -149,16 +148,15 @@ public class World extends BasicGameState {
 			if (player.getPosY() > line.getPosY() || player.getPosX()+player.getWidth()<0 || player.getPosX()>container.getWidth()) {
 				// TODO : à changer si on met plusieurs joueurs
 				this.setState (3);
-				((Death) game.getState(4)).setScore(player.getScore());
+				((Death) game.getState(4)).setSubtitle("Seulement " + player.getScore() + " points...");
 				game.enterState (4, new FadeOutTransition (), new FadeInTransition ());
 			}
 		}
 	}
 
 	@Override
-	public void render (GameContainer container, StateBasedGame game, Graphics context) {
+	public void render(GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
-
 		context.setColor(color);
 		context.fillRect(0, 0, container.getWidth(), container.getHeight());
 		context.setColor(Color.white);
@@ -183,9 +181,9 @@ public class World extends BasicGameState {
 		line.render (container, game, context, players.get(0).getPosY ());
 	}
 
-	public void play (GameContainer container, StateBasedGame game) {
+	public void play(GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au début du jeu */
-		defouloir.loop(1, .4f);
+		defouloir.playAsMusic(1, .4f, true);
 		this.players = new ArrayList<Player>();
 		this.players.add(new Player("Amos",container.getWidth()/2,0));
 		this.I = new Interface(players);
@@ -201,26 +199,28 @@ public class World extends BasicGameState {
 		decorationGen = new DecorationGen(this,players);
 	}
 
-	public void pause (GameContainer container, StateBasedGame game) {
+	public void pause(GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée lors de la mise en pause du jeu */
-		defouloir.pause();
+		defouloirPos = defouloir.getPosition();
+		defouloir.stop();
 	}
 
-	public void resume (GameContainer container, StateBasedGame game) {
+	public void resume(GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée lors de la reprise du jeu */
-		defouloir.resume();
+		defouloir.playAsMusic(1, .4f, true);
+		defouloir.setPosition(defouloirPos);
 	}
 
-	public void stop (GameContainer container, StateBasedGame game) {
+	public void stop(GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois à la fin du jeu */
 		defouloir.stop();
 	}
 
-	public void setState (int state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 
-	public int getState () {
+	public int getState() {
 		return this.state;
 	}
 
@@ -246,9 +246,6 @@ public class World extends BasicGameState {
 
 	public List <Player> getPlayers () {
 		return this.players;
-	}
-
-	public void showRules() {
 	}
 
 }

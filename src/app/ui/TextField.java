@@ -7,7 +7,6 @@ import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppFont;
@@ -56,6 +55,7 @@ public class TextField extends TGDComponent{
 
 	private EnterActionListener listener;
 	private boolean onlyFigures;
+	private boolean overflowMode;
 
 	public TextField(GameContainer container,float x,float y,float width,float height){
 		super(container,x,y,width,height);
@@ -71,6 +71,7 @@ public class TextField extends TGDComponent{
 
 	@Override
 	protected void initDefaultUI() {
+		super.initDefaultUI();
 
 		setPlaceHolder("Entrez votre texte...");
 		setPlaceHolderTextSize(15);
@@ -96,16 +97,16 @@ public class TextField extends TGDComponent{
 
 		setCornerRadius(0);
 		setBackgroundColor(new Color(255, 255, 255, 0));
+		setBackgroundColorFocused(null);
 
-		setHasFocus(false);
 		setMaxNumberOfLetter(-1);
-		setOnlyFigures(true);
+		setOnlyFigures(false);
 		setUpperCaseLock(false);
 	}
 
 	//SLICK METHOD
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+	public void render(GameContainer container, StateBasedGame game, Graphics g) {
 		super.render(container, game, g);
 		if(text.length()>0){
 
@@ -234,7 +235,7 @@ public class TextField extends TGDComponent{
 			}
 			hasFocus=false;
 		}
-		else if(!unauthorizedKeys.contains(key) && ((int)c)!=0 && (text.length()<maxNumberOfLetter || maxNumberOfLetter==-1) &&  (c+"").length()>0){
+		else if(!unauthorizedKeys.contains(key) && ((int)c)!=0 && (overflowMode || text.length()<maxNumberOfLetter || maxNumberOfLetter==-1) &&  (c+"").length()>0){
 
 			if(key == Input.KEY_0) text += "0";
 			else if(key == Input.KEY_1 || key == Input.KEY_NUMPAD1) text += "1";
@@ -258,6 +259,10 @@ public class TextField extends TGDComponent{
 			else if(c ==(char)9) text += "9";
 			else{
 				if(!onlyFigures)text+=c;
+			}
+			if(overflowMode && text.length()>maxNumberOfLetter && maxNumberOfLetter!=-1)
+			{
+				text = text.substring(text.length()-maxNumberOfLetter);
 			}
 
 			if(upperCaseLock)text=text.toUpperCase();
@@ -318,6 +323,10 @@ public class TextField extends TGDComponent{
 
 	public void setOnlyFigures(boolean onlyFigures) {
 		this.onlyFigures = onlyFigures;
+	}
+
+	public void setOverflowMode(boolean overflowMode) {
+		this.overflowMode = overflowMode;
 	}
 
 	public interface EnterActionListener{

@@ -1,13 +1,14 @@
-package graveEt.plateforme;
+package games.graveEt.plateforme;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
-import graveEt.Player;
+import app.AppLoader;
+
+import games.graveEt.Player;
 
 @SuppressWarnings("serial")
 public abstract class Plateforme extends Rectangle {
@@ -19,12 +20,8 @@ public abstract class Plateforme extends Rectangle {
 	private Player p;
 
 	static {
-		try {
-			piqueH = new Image("images/spikesH.png");
-			piqueV = new Image("images/spikesV.png");
-		} catch(SlickException e) {
-			e.printStackTrace();
-		}
+		piqueH = AppLoader.loadPicture("/images/graveEt/spikesH.png");
+		piqueV = AppLoader.loadPicture("/images/graveEt/spikesV.png");
 	}
 
 	public void render(GameContainer container, StateBasedGame game, Graphics context, float dy) {

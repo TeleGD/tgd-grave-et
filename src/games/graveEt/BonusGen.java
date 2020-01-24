@@ -1,11 +1,11 @@
-package graveEt;
+package games.graveEt;
 
 import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
 
-import graveEt.bonuses.Weightlessness;
+import games.graveEt.bonuses.Weightlessness;
 
 public class BonusGen {
 

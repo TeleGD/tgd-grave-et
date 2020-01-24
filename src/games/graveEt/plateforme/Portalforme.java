@@ -1,10 +1,10 @@
-package graveEt.plateforme;
+package games.graveEt.plateforme;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
-import graveEt.Player;
+import games.graveEt.Player;
 
 @SuppressWarnings("serial")
 public class Portalforme extends Plateforme {

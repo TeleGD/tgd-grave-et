@@ -1,4 +1,4 @@
-package graveEt;
+package games.graveEt;
 
 import java.util.ArrayList;
 

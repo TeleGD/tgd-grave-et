@@ -1,24 +1,21 @@
-package graveEt.bonuses;
+package games.graveEt.bonuses;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import graveEt.Bonus;
-import graveEt.Player;
+import games.graveEt.Bonus;
+import games.graveEt.Player;
+
+import app.AppLoader;
 
 public class Weightlessness extends Bonus {
 
 	private static Image image;
 
 	static {
-		try {
-			Weightlessness.image = new Image("images/weightlessness.png");
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
+		Weightlessness.image = AppLoader.loadPicture("/images/graveEt/weightlessness.png");
 	}
 
 	private boolean applied;

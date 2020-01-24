@@ -13,21 +13,21 @@ public class AppFont extends TrueTypeFont {
 
 	private String filename;
 
-	public AppFont (String filename, InputStream stream, int type, int size) throws Exception {
-		super (Font.createFont (Font.TRUETYPE_FONT, stream).deriveFont (type, size), true);
-		this.setFilename (filename);
+	public AppFont(String filename, InputStream stream, int type, int size) throws Exception {
+		super(Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(type, size), true);
+		this.setFilename(filename);
 	}
 
-	public AppFont (String filename, int type, int size) {
-		super (new Font (null, type, size), true);
-		this.setFilename (filename);
+	public AppFont(String filename, int type, int size) {
+		super(new Font(null, type, size), true);
+		this.setFilename(filename);
 	}
 
-	private void setFilename (String filename) {
+	private void setFilename(String filename) {
 		this.filename = filename;
 	}
 
-	public String getFilename () {
+	public String getFilename() {
 		return this.filename;
 	}
 

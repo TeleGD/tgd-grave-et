@@ -1,12 +1,13 @@
-package graveEt;
+package games.graveEt;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
+import app.AppLoader;
 
 public class DecorationGen {
 	private World world;
@@ -16,15 +17,11 @@ public class DecorationGen {
 	private int genCount;
 
 	static {
-		try {
-			decorations.add(new Image("images/Tree.png"));
-			decorations.add(new Image("images/Skeleton.png"));
-			decorations.add(new Image("images/DeadBush.png"));
-			for (int i=1; i<=24; i++) {
-				decorations.add(new Image("images/TombStone"+i+".png"));
-			}
-		} catch(SlickException e) {
-			e.printStackTrace();
+		decorations.add(AppLoader.loadPicture("/images/graveEt/Tree.png"));
+		decorations.add(AppLoader.loadPicture("/images/graveEt/Skeleton.png"));
+		decorations.add(AppLoader.loadPicture("/images/graveEt/DeadBush.png"));
+		for (int i=1; i<=24; i++) {
+			decorations.add(AppLoader.loadPicture("/images/graveEt/TombStone"+i+".png"));
 		}
 	}
 

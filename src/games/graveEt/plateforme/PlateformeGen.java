@@ -1,4 +1,4 @@
-package graveEt.plateforme;
+package games.graveEt.plateforme;
 
 import java.util.Random;
 
@@ -7,8 +7,10 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import graveEt.Player;
-import graveEt.World;
+import app.AppLoader;
+
+import games.graveEt.Player;
+import games.graveEt.World;
 
 
 public class PlateformeGen {
@@ -25,16 +27,12 @@ public class PlateformeGen {
 	private Player p;
 
 	static {
-		try {
-			plateformeH1 = new Image("images/plateformeH1.png");
-			plateformeH2 = new Image("images/plateformeH2.png");
-			plateformeV1 = new Image("images/plateformeV1.png");
-			plateformeV2 = new Image("images/plateformeV2.png");
-			portalO = new Image("images/orangePortal.png");
-			portalB = new Image("images/bluePortal.png");
-		} catch(SlickException e) {
-			e.printStackTrace();
-		}
+		plateformeH1 = AppLoader.loadPicture("/images/graveEt/plateformeH1.png");
+		plateformeH2 = AppLoader.loadPicture("/images/graveEt/plateformeH2.png");
+		plateformeV1 = AppLoader.loadPicture("/images/graveEt/plateformeV1.png");
+		plateformeV2 = AppLoader.loadPicture("/images/graveEt/plateformeV2.png");
+		portalO = AppLoader.loadPicture("/images/graveEt/orangePortal.png");
+		portalB = AppLoader.loadPicture("/images/graveEt/bluePortal.png");
 	}
 
 	public PlateformeGen(World w, Player p) {

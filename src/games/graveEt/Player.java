@@ -1,4 +1,4 @@
-package graveEt;
+package games.graveEt;
 
 
 import org.newdawn.slick.Input;
@@ -6,12 +6,13 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.state.StateBasedGame;
 
-import graveEt.plateforme.Plateforme;
+import app.AppLoader;
+
+import games.graveEt.plateforme.Plateforme;
 
 public class Player extends Entity {
 
@@ -42,14 +43,10 @@ public class Player extends Entity {
 	private static Image downArrow;
 
 	static {
-		try {
-			leftArrow = new Image("images/leftArrow.png");
-			rightArrow = new Image("images/rightArrow.png");
-			downArrow = new Image("images/downArrow.png");
-			imageB = new Image("images/monstre.png");
-		} catch(SlickException e) {
-			e.printStackTrace();
-		}
+		leftArrow = AppLoader.loadPicture("/images/graveEt/leftArrow.png");
+		rightArrow = AppLoader.loadPicture("/images/graveEt/rightArrow.png");
+		downArrow = AppLoader.loadPicture("/images/graveEt/downArrow.png");
+		imageB = AppLoader.loadPicture("/images/graveEt/monstre.png");
 	}
 
 

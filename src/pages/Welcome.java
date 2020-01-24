@@ -5,11 +5,13 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.Music;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
+
+import app.AppLoader;
 import app.AppPage;
+
 import transitions.VerticalTransition;
 
 public class Welcome extends AppPage {
@@ -17,7 +19,7 @@ public class Welcome extends AppPage {
 	private Image logo;
 	private Image background;
 	private Image transition;
-	public static Music music;
+	private Audio music;
 
 	private boolean logoVisibility;
 
@@ -34,22 +36,14 @@ public class Welcome extends AppPage {
 	private int logoNaturalWidth;
 	private int logoNaturalHeight;
 
-	static {
-		try {
-			music = new Music("res/musics/HalloweenTheme.ogg");
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public Welcome (int ID) {
-		super (ID);
+	public Welcome(int ID) {
+		super(ID);
 	}
 
 	@Override
-	public void init (GameContainer container, StateBasedGame game) {
-		super.initSize (container, game, container.getWidth()/3, container.getHeight()*7/8);
-		super.init (container, game);
+	public void init(GameContainer container, StateBasedGame game) {
+		super.initSize (container, game, container.getWidth() / 3, container.getHeight() * 7 / 8);
+		super.init(container, game);
 
 		this.logoBoxX = this.contentX;
 		this.logoBoxY = this.hintBoxY + this.hintBoxHeight + AppPage.gap;
@@ -62,48 +56,44 @@ public class Welcome extends AppPage {
 		this.subtitleVisibility = false;
 		this.hintBlink = true;
 
-		this.setHint ("PRESS [START]");
-		try {
-			this.background = new Image("images/welcome.png");
-			this.transition = new Image("images/soulsTransition.png");
-			this.setLogo (new Image ("images/logo.png"));
-		} catch (SlickException e) {
-			e.printStackTrace();
+		this.setHint("PRESS [START]");
+		this.setLogo(AppLoader.loadPicture("/images/logo.png"));
+		this.background = AppLoader.loadPicture("/images/graveEt/welcome.png");
+		this.transition = AppLoader.loadPicture("/images/graveEt/soulsTransition.png");
+		this.music = AppLoader.loadAudio("/musics/graveEt/HalloweenTheme.ogg");
+	}
+
+	@Override
+	public void enter(GameContainer container, StateBasedGame game) {
+		this.music.playAsMusic(1, .4f, true);
+	}
+
+	@Override
+	public void leave(GameContainer container, StateBasedGame game) {
+		this.music.stop();
+	}
+
+	@Override
+	public void update(GameContainer container, StateBasedGame game, int  delta) {
+		super.update(container, game, delta);
+		Input input = container.getInput();
+		if (input.isKeyDown(Input.KEY_ESCAPE)) {
+			container.exit();
+		} else if (input.isKeyDown(Input.KEY_ENTER)) {
+			game.enterState(1, new VerticalTransition(Color.black, transition), new EmptyTransition());
 		}
 	}
 
 	@Override
-	public void update (GameContainer container, StateBasedGame game, int  delta) {
-		super.update (container, game, delta);
-		Input input = container.getInput ();
-		if (input.isKeyDown (Input.KEY_ESCAPE)) {
-			container.exit ();
-		} else if (input.isKeyDown (Input.KEY_ENTER)) {
-			game.enterState (1, new VerticalTransition (Color.black, transition), new EmptyTransition ());
-		}
+	public void render(GameContainer container, StateBasedGame game, Graphics context) {
+		context.drawImage(this.background, 0, 0, container.getWidth(), container.getHeight(), 0, 0, this.background.getWidth(), this.background.getHeight());
+		super.render(container, game, context);
+		this.renderLogo(container, game, context);
 	}
 
-	@Override
-	public void enter (GameContainer container, StateBasedGame game) {
-		if (!music.playing()) {
-			music.loop(1, .4f);
-		}
-	}
-
-	@Override
-	public void leave (GameContainer container, StateBasedGame game) {
-	}
-
-	@Override
-	public void render (GameContainer container, StateBasedGame game, Graphics context) {
-		context.drawImage(background, 0, 0, container.getWidth(), container.getHeight(), 0, 0, background.getWidth(), background.getHeight());
-		super.render (container, game, context);
-		this.renderLogo (container, game, context);
-	}
-
-	private void renderLogo (GameContainer container, StateBasedGame game, Graphics context) {
+	private void renderLogo(GameContainer container, StateBasedGame game, Graphics context) {
 		if (this.logoVisibility) {
-			context.drawImage (
+			context.drawImage(
 				this.logo,
 				this.logoX,
 				this.logoY,
@@ -117,12 +107,12 @@ public class Welcome extends AppPage {
 		}
 	}
 
-	public void setLogo (Image logo) {
-		this.logo = logo.copy ();
-		this.logoNaturalWidth = logo.getWidth ();
-		this.logoNaturalHeight = logo.getHeight ();
-		this.logoWidth = Math.min (Math.max (this.logoBoxWidth, 0), this.logoNaturalWidth);
-		this.logoHeight = Math.min (Math.max (this.logoBoxHeight, 0), this.logoNaturalHeight);
+	public void setLogo(Image logo) {
+		this.logo = logo.copy();
+		this.logoNaturalWidth = logo.getWidth();
+		this.logoNaturalHeight = logo.getHeight();
+		this.logoWidth = Math.min(Math.max(this.logoBoxWidth, 0), this.logoNaturalWidth);
+		this.logoHeight = Math.min(Math.max(this.logoBoxHeight, 0), this.logoNaturalHeight);
 		int a = this.logoWidth * this.logoNaturalHeight;
 		int b = this.logoNaturalWidth * this.logoHeight;
 		if (a < b) {
@@ -134,8 +124,8 @@ public class Welcome extends AppPage {
 		this.logoY = this.logoBoxY + (this.logoBoxHeight - this.logoHeight) / 2;
 	}
 
-	public Image getLogo () {
-		return logo.copy ();
+	public Image getLogo() {
+		return logo.copy();
 	}
 
 }
