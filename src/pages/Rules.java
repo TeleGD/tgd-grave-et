@@ -28,12 +28,9 @@ public class Rules extends AppPage {
 
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
-		this.music.playAsMusic(1, .4f, true);
-	}
-
-	@Override
-	public void leave(GameContainer container, StateBasedGame game) {
-		this.music.stop();
+		if (!this.music.isPlaying()) {
+			this.music.playAsMusic(1, .4f, true);
+		}
 	}
 
 	@Override

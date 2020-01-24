@@ -45,12 +45,9 @@ public class Choice extends AppMenu {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
 		super.enter(container, game);
-		this.music.playAsMusic(1, .4f, true);
-	}
-
-	@Override
-	public void leave(GameContainer container, StateBasedGame game) {
-		this.music.stop();
+		if (!this.music.isPlaying()) {
+			this.music.playAsMusic(1, .4f, true);
+		}
 	}
 
 }
