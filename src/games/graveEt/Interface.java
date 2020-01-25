@@ -7,19 +7,19 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.awt.Font;
-import org.newdawn.slick.TrueTypeFont;
+import app.AppFont;
+import app.AppLoader;
 
 public class Interface {
 	private ArrayList<Player> players;
-	private TrueTypeFont fontSmall;
-	private TrueTypeFont fontBig;
+	private AppFont fontSmall;
+	private AppFont fontBig;
 
 	public Interface(ArrayList<Player> p) {
 		this.players = p;
 
-		fontSmall = new TrueTypeFont(new Font("Verdana", Font.PLAIN, 24), true);
-		fontBig = new TrueTypeFont(new Font("Verdana", Font.BOLD, 42), true);
+		fontSmall = AppLoader.loadFont("/fonts/vt323.ttf", AppFont.PLAIN, 24);
+		fontBig = AppLoader.loadFont("/fonts/vt323.ttf", AppFont.BOLD, 42);
 	}
 
 	public void render(GameContainer container, StateBasedGame game, Graphics g) {

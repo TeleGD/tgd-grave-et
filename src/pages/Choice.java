@@ -25,7 +25,7 @@ public class Choice extends AppMenu {
 		super.initSize(container, game, 600, 400);
 		super.init(container, game);
 		this.setTitle("Choix");
-		this.setSubtitle("Sans sous-titre");
+		this.setSubtitle("Etes-vous surs de tenter l'experience ?");
 		this.setMenu(Arrays.asList(new MenuItem[] {
 			new MenuItem("Grave-ET") {
 				public void itemSelected() {
