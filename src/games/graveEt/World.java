@@ -10,6 +10,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
@@ -32,7 +33,8 @@ public class World extends BasicGameState {
 	private BonusGen bonusGen;
 	private ArrayList<Decoration> decorations;
 	private DecorationGen decorationGen;
-	private Color color;
+	private Color backgroundColor;
+	private Image grass;
 	private int height;
 	private int width;
 	private int ID;
@@ -55,7 +57,8 @@ public class World extends BasicGameState {
 	@Override
 	public void init (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au chargement du programme */
-		color = new Color(0x001e3514);
+		backgroundColor = new Color(30, 53, 20, 160);
+		grass = AppLoader.loadPicture("/images/graveEt/grass.png");
 		height = container.getHeight();
 		width = container.getWidth();
 		trash = AppLoader.loadAudio("/sounds/graveEt/trash.ogg");
@@ -157,13 +160,15 @@ public class World extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
-		context.setColor(color);
-		context.fillRect(0, 0, container.getWidth(), container.getHeight());
-		context.setColor(Color.white);
-
+		context.fillRect(0, -grass.getHeight(), container.getWidth(), container.getHeight() + grass.getHeight(), grass, 0, players.get(0).getPosY () % grass.getHeight());
+		
 		for(Decoration d: decorations) {
 			d.render(container, game, context, players.get(0).getPosY ());
 		}
+
+		context.setColor(backgroundColor);
+		context.fillRect(0, 0, container.getWidth(), container.getHeight());
+		context.setColor(Color.white);
 
 		for (Bonus bonus: this.bonuses) {
 			bonus.render (container, game, context);
@@ -177,8 +182,12 @@ public class World extends BasicGameState {
 			player.render(container, game, context);
 		}
 
+
+
 		I.render(container,game,context);
 		line.render (container, game, context, players.get(0).getPosY ());
+
+		
 	}
 
 	public void play(GameContainer container, StateBasedGame game) {
