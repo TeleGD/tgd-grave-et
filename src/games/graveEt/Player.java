@@ -51,7 +51,7 @@ public class Player extends Entity {
 
 
 
-	public Player(String n,float posX, float posY) {
+	public Player(String n,float posX, float posY, GameContainer container) {
 		super(posX, posY);
 		gravityPoint = 8;
 		widthRelation = width/imageB.getWidth();
@@ -66,7 +66,7 @@ public class Player extends Entity {
 		this.shapeD = new Ellipse(getPosX()+width/2, getPosY()+shapeStartHeight+(height-shapeStartHeight)/2, shapeWidth/2, shapeHeight/2);
 		this.shapeR = new Ellipse(getPosX()+shapeStartHeight+(height-shapeStartHeight)/2, getPosY()+height/2, shapeHeight/2, shapeWidth/2);
 		this.currentShape = shapeD;
-		this.background = new Circle(posX+width/2, posY+width/2, (float) (1.5*width));
+		this.background = new Circle(posX+width/2, container.getHeight()/2+height/2, (float) (1.5*width));
 		this.image=imageB.getScaledCopy((int)width, (int)height);
 		this.portalCooldown = 0;
 	}

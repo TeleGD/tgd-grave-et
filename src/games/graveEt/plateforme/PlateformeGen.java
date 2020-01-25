@@ -41,7 +41,7 @@ public class PlateformeGen {
 		compt = r.nextInt(6);
 		totalCompt=1;
 		this.p=p;
-		w.addPlateforme(new PlateformeClassique(w.getWidth()/2-65, 90, 200, 30, true, p, plateformeH1));
+		w.addPlateforme(new PlateformeClassique(w.getWidth()/2-80, 90, 200, 30, true, p, plateformeH1));
 	}
 
 	public void createPlateforme(GameContainer container, boolean classique, boolean horizontale) {

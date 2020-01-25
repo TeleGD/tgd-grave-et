@@ -3,6 +3,7 @@ package games.graveEt;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
@@ -12,8 +13,8 @@ import app.AppLoader;
 
 public class Interface {
 	private ArrayList<Player> players;
-	private AppFont fontSmall;
-	private AppFont fontBig;
+	private Font fontSmall;
+	private Font fontBig;
 
 	public Interface(ArrayList<Player> p) {
 		this.players = p;

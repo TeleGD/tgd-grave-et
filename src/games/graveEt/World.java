@@ -194,7 +194,7 @@ public class World extends BasicGameState {
 		/* Méthode exécutée une unique fois au début du jeu */
 		defouloir.playAsMusic(1, .4f, true);
 		this.players = new ArrayList<Player>();
-		this.players.add(new Player("Amos",container.getWidth()/2,0));
+		this.players.add(new Player("Amos",container.getWidth()/2,0,container));
 		this.I = new Interface(players);
 
 		this.line = new DeathLine(container);
