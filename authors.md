@@ -8,6 +8,6 @@
 - Océane Chazé (@OceaneC)
 - Quentin Charrier (@QuentinCharrierTncy)
 - Théotime Frognet (@Terestios)
-- Tristan Le Godais (@TrisTOON)
+- Tristan Le Godais (@PolariTOON)
 - Victor Thevenon (@victorthevenon)
 - Xavier Indice (@XavierIndice)
